@@ -24,4 +24,6 @@ interface FishingDataRepositoryInterface
      * @return array<int, array{id: string, name: string, icon: string}>
      */
     public function getSeasons(): array;
+
+    public function getZones(): array;
 }
