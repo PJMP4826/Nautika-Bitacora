@@ -1,8 +1,8 @@
-import type { SearchBarProps } from '@/types';
 import { Calendar, Compass, FishSymbol, Search } from 'lucide-react';
 import React, { useState } from 'react';
 
 import { FishingTypeSelect } from '@/components/ui/FishingTypeSelect';
+import type { SearchBarProps } from '@/types';
 
 export const SearchBar = ({ onSearch, className = '', fishingTypes, experienceLevels, seasons }: SearchBarProps) => {
     const [formData, setFormData] = useState({

@@ -1,4 +1,4 @@
-import { Anchor, Menu, X} from 'lucide-react';
+import { Menu, X} from 'lucide-react';
 import {useState, useEffect} from 'react';
 import type { NavigationBarProps, ViewType} from '@/types';
 
@@ -29,7 +29,7 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
                         onClick={() => setCurrentView('home')}
                     >
                         <div className="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-colors">
-                            <Anchor className="h-6 w-6 text-white" />
+                            <img src={"./anchor.png"} className="max-w-9"/>
                         </div>
                         <div>
                             <h1 className="text-xl font-bold tracking-wider text-white">NAUTIKA</h1>
