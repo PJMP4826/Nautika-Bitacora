@@ -16,8 +16,6 @@ class FishingDataService
 
     /**
      * Obtiene los tipos de pesca disponibles
-     *
-     * @return array
      */
     public function getFishingTypes(): array
     {
@@ -26,8 +24,6 @@ class FishingDataService
 
     /**
      * Obtiene los niveles de experiencia
-     *
-     * @return array
      */
     public function getExperienceLevels(): array
     {
@@ -36,11 +32,17 @@ class FishingDataService
 
     /**
      * Obtiene las temporadas disponibles
-     *
-     * @return array
      */
     public function getSeasons(): array
     {
         return $this->repository->getSeasons();
+    }
+
+    /**
+     * Obtiene las Zonas disponibles
+     */
+    public function getZones(): array
+    {
+        return $this->repository->getZones();
     }
 }
