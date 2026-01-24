@@ -1,10 +1,10 @@
-import { ArrowRight } from 'lucide-react';
-import { useState } from 'react';
 import { SearchBar } from '@/components/features/SearchBar';
 import { ZoneCard } from '@/components/features/ZoneCard';
 import { NavigationBar } from '@/components/layout/Navbar';
-import type { HomePageProps, SearchCriteria, ViewType } from '@/types';
 import { AnimatedWave } from '@/components/ui/AnimatedWave';
+import type { HomePageProps, SearchCriteria, ViewType } from '@/types';
+import { ArrowRight } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Home({ fishingTypes, experienceLevels, seasons, zones, onSearch, onViewMore, onDetail }: HomePageProps) {
     const [currentView, setCurrentView] = useState<ViewType>('home');
@@ -24,7 +24,7 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, o
                 {/* Hero Section */}
                 <div className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
                     <img src="./img/hero-img.jpg" alt="Ocean Background" className="absolute inset-0 h-full w-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/90" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/30 to-blue-950" />
 
                     <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
                         <div className="mx-auto mb-12 max-w-4xl text-center">
@@ -52,12 +52,12 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, o
                 </div>
 
                 <div className="absolute top-145 bottom-0 left-0 w-full">
-                    <AnimatedWave />
+                    <AnimatedWave color={'#162456'} />
                 </div>
 
                 <main>
                     {/* Featured Zones */}
-                    <div className="bg-slate-50 py-20">
+                    <div className="bg-slate-50 py-20 pt-40">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <div className="mb-12 flex items-end justify-between">
                                 <div>
@@ -74,7 +74,12 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, o
 
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                                 {zones.slice(0, 4).map((zone) => (
-                                    <ZoneCard zone={zone} onClick={() => onDetail(zone)} experienceLevels={experienceLevels} fishingTypes={fishingTypes} />
+                                    <ZoneCard
+                                        zone={zone}
+                                        onClick={() => onDetail(zone)}
+                                        experienceLevels={experienceLevels}
+                                        fishingTypes={fishingTypes}
+                                    />
                                 ))}
                             </div>
 
