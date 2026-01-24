@@ -21,6 +21,7 @@ class HomeController extends Controller
             'fishingTypes' => $this->fishingDataService->getFishingTypes(),
             'experienceLevels' => $this->fishingDataService->getExperienceLevels(),
             'seasons' => $this->fishingDataService->getSeasons(),
+            'zones' => $this->fishingDataService->getZones()
         ]);
     }
 }
