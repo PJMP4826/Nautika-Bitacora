@@ -4,6 +4,7 @@ import { SearchBar } from '@/components/features/SearchBar';
 import { ZoneCard } from '@/components/features/ZoneCard';
 import { NavigationBar } from '@/components/layout/Navbar';
 import type { HomePageProps, SearchCriteria, ViewType } from '@/types';
+import { AnimatedWave } from '@/components/ui/AnimatedWave';
 
 export default function Home({ fishingTypes, experienceLevels, seasons, zones, onSearch, onViewMore, onDetail }: HomePageProps) {
     const [currentView, setCurrentView] = useState<ViewType>('home');
@@ -21,7 +22,7 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, o
 
             <div className="animate-fade-in">
                 {/* Hero Section */}
-                <div className="relative flex min-h-[85vh] items-center justify-center overflow-hidden">
+                <div className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
                     <img src="./img/hero-img.jpg" alt="Ocean Background" className="absolute inset-0 h-full w-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/90" />
 
@@ -48,6 +49,10 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, o
                             />
                         </div>
                     </div>
+                </div>
+
+                <div className="absolute top-145 bottom-0 left-0 w-full">
+                    <AnimatedWave />
                 </div>
 
                 <main>
