@@ -21,7 +21,7 @@ export default function Home({ fishingTypes, experienceLevels, seasons }: HomePa
                 {/* Hero Section */}
                 <div className="relative flex min-h-[85vh] items-center justify-center overflow-hidden">
                     <img
-                        src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop"
+                        src="./img/hero-img.jpg"
                         alt="Ocean Background"
                         className="absolute inset-0 h-full w-full object-cover"
                     />
@@ -30,7 +30,7 @@ export default function Home({ fishingTypes, experienceLevels, seasons }: HomePa
                     <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
                         <div className="mx-auto mb-12 max-w-4xl text-center">
                             <span className="mb-6 inline-block rounded-full border border-blue-400/30 bg-blue-500/20 px-3 py-1 text-sm font-bold tracking-wide text-blue-300 backdrop-blur-sm">
-                                NUEVA TEMPORADA 2024
+                                NUEVA TEMPORADA 2026
                             </span>
                             <h1 className="mb-6 text-5xl leading-tight font-bold tracking-tight text-white md:text-7xl">
                                 Descubre tu próxima <br />
