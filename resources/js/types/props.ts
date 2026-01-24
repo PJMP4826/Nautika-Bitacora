@@ -1,4 +1,4 @@
-import type { ExperienceLevel, FishingType, Season } from '@/types/models';
+import type { ExperienceLevel, FishingType, Season, Zone } from '@/types/models';
 
 export type ViewType = 'home' | 'zones' | 'types' | 'guides' | 'contact' | 'results' | 'zone-detail';
 
@@ -25,4 +25,15 @@ export interface HomePageProps {
     fishingTypes: FishingType[];
     experienceLevels: ExperienceLevel[];
     seasons: Season[];
+    zones: Zone[];
+    onSearch: (criteria: SearchCriteria) => void;
+    onViewMore: (view: ViewType) => void;
+    onDetail: (zone: Zone) => void;
+}
+
+export interface ZoneCardProps {
+    zone: Zone,
+    fishingTypes: FishingType[];
+    experienceLevels: ExperienceLevel[];
+    onClick: () => void;
 }
