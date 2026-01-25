@@ -26,10 +26,8 @@ export function Testimonials({testimonials}: TestimonialsProps) {
                 <p className="text-slate-500 max-w-2xl mx-auto mb-6 text-lg">
                     Únase a una red global de líderes de opinión, desarrolladores de productos y creadores.
                 </p>
-
             </div>
 
-            {/* Contenedor del Carrusel con degradados laterales para suavizar la entrada/salida */}
             <div className="relative">
                 <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10" />
                 <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10" />

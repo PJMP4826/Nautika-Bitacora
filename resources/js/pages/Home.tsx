@@ -5,8 +5,9 @@ import { AnimatedWave } from '@/components/ui/AnimatedWave';
 import type { HomePageProps, SearchCriteria, ViewType } from '@/types';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import { Testimonials } from '@/components/ui/Testimonials';
 
-export default function Home({ fishingTypes, experienceLevels, seasons, zones, onSearch, onViewMore, onDetail }: HomePageProps) {
+export default function Home({ fishingTypes, experienceLevels, seasons, zones, testimonials, onSearch, onViewMore, onDetail }: HomePageProps) {
     const [currentView, setCurrentView] = useState<ViewType>('home');
     const [searchCriteria, setSearchCriteria] = useState<SearchCriteria | null>(null);
 
@@ -61,7 +62,7 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, o
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <div className="mb-12 flex items-end justify-between">
                                 <div>
-                                    <h2 className="mb-2 text-3xl font-bold text-slate-900">Zonas Destacadas</h2>
+                                    <h2 className="text-4xl md:text-4xl font-extrabold mb-4 tracking-tight">Zonas Destacadas</h2>
                                     <p className="text-slate-500">Lugares recomendados por nuestra comunidad este mes.</p>
                                 </div>
                                 <button
@@ -89,6 +90,10 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, o
                                 </button>
                             </div>
                         </div>
+                    </div>
+
+                    <div className="bg-slate-50">
+                        <Testimonials testimonials={testimonials}/>
                     </div>
                 </main>
             </div>
