@@ -46,5 +46,4 @@ export interface TestimonialsProps {
 
 export interface FishCardProps {
     fish: FishType;
-    zone: Zone
 }

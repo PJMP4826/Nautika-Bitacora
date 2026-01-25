@@ -44,4 +44,5 @@ export interface FishType {
     name: string;
     image: string;
     sciencetic_name: string;
+    zone: Zone;
 }
