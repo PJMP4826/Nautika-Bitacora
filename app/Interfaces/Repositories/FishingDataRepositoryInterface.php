@@ -26,4 +26,5 @@ interface FishingDataRepositoryInterface
     public function getSeasons(): array;
 
     public function getZones(): array;
+    public function getTestimonials(): array;
 }

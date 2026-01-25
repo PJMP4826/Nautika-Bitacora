@@ -45,4 +45,9 @@ class FishingDataService
     {
         return $this->repository->getZones();
     }
+
+    public function getTestimonials(): array
+    {
+        return $this->repository->getTestimonials();
+    }
 }

@@ -162,28 +162,28 @@ class MockFishingDataRepository implements FishingDataRepositoryInterface
     {
         return [
             [
-                'id' => 1,
-                'name' => 'Carlos M.',
-                'role' => 'Pescador Deportivo',
-                'comment' => 'Gracias a Nautika encontré el Arrecife del Silencio. La información sobre las corrientes fue vital para mi salida.',
-                'rating' => 5,
-                'date' => 'Hace 2 días',
-            ],
-            [
-                'id' => 2,
-                'name' => 'Elena R.',
-                'role' => 'Principiante',
-                'comment' => 'La guía para surfcasting me ayudó muchísimo. El Cabo Esperanza es exactamente como lo describieron.',
-                'rating' => 5,
-                'date' => 'Hace 1 semana',
-            ],
-            [
-                'id' => 3,
-                'name' => 'Javier T.',
-                'role' => 'Guía Local',
-                'comment' => 'Una herramienta excelente para planificar. Los datos de temporada son muy precisos.',
+                'name' => 'Fausto J.',
+                'role' => 'Pescador',
+                'content' => 'Gracias a Nautika encontré el Arrecife del Silencio. La información sobre las corrientes fue vital para mi salida.',
                 'rating' => 4,
-                'date' => 'Hace 3 semanas',
+            ],
+            [
+                'name' => 'René  E.',
+                'role' => 'Principiante',
+                'content' => 'La guía para surfcasting me ayudó muchísimo. El Cabo Esperanza es exactamente como lo describieron.',
+                'rating' => 5,
+            ],
+            [
+                'name' => 'Edna F.',
+                'role' => 'Guía Local',
+                'content' => 'Una herramienta excelente para planificar. Los datos de temporada son muy precisos.',
+                'rating' => 4,
+            ],
+            [
+                'name' => 'Luisa F.',
+                'role' => 'Turista',
+                'content' => 'Un sitio web excelente para encontrar experiencias sobre pesca. Los tours son muy entretenidos.',
+                'rating' => 5,
             ],
         ];
     }
