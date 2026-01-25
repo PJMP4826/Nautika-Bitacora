@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { Testimonials } from '@/components/ui/Testimonials';
 import { Footer } from '@/components/layout/Footer';
+import { FishCard } from '@/components/features/FishCard';
 
 export default function Home({ fishingTypes, experienceLevels, seasons, zones, testimonials, fish, onSearch, onViewMore, onDetail }: HomePageProps) {
     const [currentView, setCurrentView] = useState<ViewType>('home');
@@ -88,11 +89,21 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, t
                     </div>
 
 
-
-                    <div className="bg-slate-50 py-20 pt-40">
+                    <div className="bg-slate-50 py-20 pt-5">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                            <div className="mb-12 flex items-end justify-between">
+                                <div>
+                                    <h2 className="text-4xl md:text-4xl font-extrabold mb-4 tracking-tight">Peces Destacados</h2>
+                                    <p className="text-slate-500">Explora variadad de peces en diferentes zonas.</p>
+                                </div>
+                            </div>
 
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                                {fish.slice(0, 4).map((fish) => (
+                                    <FishCard
+                                        fish={fish}
+                                    />
+                                ))}
                             </div>
                         </div>
                     </div>
