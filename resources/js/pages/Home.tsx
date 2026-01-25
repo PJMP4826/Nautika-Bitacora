@@ -6,6 +6,7 @@ import type { HomePageProps, SearchCriteria, ViewType } from '@/types';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { Testimonials } from '@/components/ui/Testimonials';
+import { Footer } from '@/components/layout/Footer';
 
 export default function Home({ fishingTypes, experienceLevels, seasons, zones, testimonials, onSearch, onViewMore, onDetail }: HomePageProps) {
     const [currentView, setCurrentView] = useState<ViewType>('home');
@@ -92,11 +93,13 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, t
                         </div>
                     </div>
 
-                    <div className="bg-slate-50">
+                    <div className="bg-slate-50 pb-16">
                         <Testimonials testimonials={testimonials}/>
                     </div>
                 </main>
             </div>
+
+            <Footer/>
         </div>
     );
 }
