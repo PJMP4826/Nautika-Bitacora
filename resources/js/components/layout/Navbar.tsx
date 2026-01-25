@@ -46,7 +46,7 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
                                 className={`text-sm font-medium transition-all ${
                                     currentView === item.id
                                         ? 'text-white border-b-2 border-blue-400 pb-1'
-                                        : 'text-slate-300 hover:text-white hover:-translate-y-0.5'
+                                        : 'text-white hover:text-white hover:-translate-y-0.5'
                                 }`}
                             >
                                 {item.label}
