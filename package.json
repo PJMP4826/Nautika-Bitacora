@@ -30,7 +30,9 @@
     },
     "dependencies": {
         "@inertiajs/react": "^2.3.7",
+        "@radix-ui/react-avatar": "^1.1.11",
         "@radix-ui/react-select": "^2.2.6",
+        "@radix-ui/react-slot": "^1.2.4",
         "@tailwindcss/vite": "^4.1.11",
         "@types/react": "^19.2.0",
         "@types/react-dom": "^19.2.0",
@@ -38,6 +40,8 @@
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "concurrently": "^9.0.1",
+        "embla-carousel-auto-scroll": "^8.6.0",
+        "embla-carousel-react": "^8.6.0",
         "globals": "^15.14.0",
         "laravel-vite-plugin": "^2.0",
         "lucide-react": "^0.562.0",
