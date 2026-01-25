@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Testimonials } from '@/components/ui/Testimonials';
 import { Footer } from '@/components/layout/Footer';
 
-export default function Home({ fishingTypes, experienceLevels, seasons, zones, testimonials, onSearch, onViewMore, onDetail }: HomePageProps) {
+export default function Home({ fishingTypes, experienceLevels, seasons, zones, testimonials, fish, onSearch, onViewMore, onDetail }: HomePageProps) {
     const [currentView, setCurrentView] = useState<ViewType>('home');
     const [searchCriteria, setSearchCriteria] = useState<SearchCriteria | null>(null);
 
@@ -84,11 +84,15 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, t
                                     />
                                 ))}
                             </div>
+                        </div>
+                    </div>
 
-                            <div className="mt-8 text-center md:hidden">
-                                <button onClick={() => onViewMore('zones')} className="font-bold text-blue-600 hover:text-blue-800">
-                                    Ver todas las zonas →
-                                </button>
+
+
+                    <div className="bg-slate-50 py-20 pt-40">
+                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+
                             </div>
                         </div>
                     </div>

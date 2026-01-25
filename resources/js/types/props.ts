@@ -1,4 +1,4 @@
-import type { ExperienceLevel, FishingType, Season, Testimonial, Zone } from '@/types/models';
+import type { ExperienceLevel, FishingType, FishType, Season, Testimonial, Zone } from '@/types/models';
 
 export type ViewType = 'home' | 'zones' | 'types' | 'guides' | 'contact' | 'results' | 'zone-detail';
 
@@ -27,6 +27,7 @@ export interface HomePageProps {
     seasons: Season[];
     zones: Zone[];
     testimonials: Testimonial[];
+    fish: FishType[];
     onSearch: (criteria: SearchCriteria) => void;
     onViewMore: (view: ViewType) => void;
     onDetail: (zone: Zone) => void;
@@ -41,4 +42,9 @@ export interface ZoneCardProps {
 
 export interface TestimonialsProps {
     testimonials: Testimonial[];
+}
+
+export interface FishCardProps {
+    fish: FishType;
+    zone: Zone
 }

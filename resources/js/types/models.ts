@@ -39,3 +39,9 @@ export interface Testimonial {
     rating: number;
     avatar: string;
 }
+
+export interface FishType {
+    name: string;
+    image: string;
+    sciencetic_name: string;
+}
