@@ -23,6 +23,7 @@ class HomeController extends Controller
             'seasons' => $this->fishingDataService->getSeasons(),
             'zones' => $this->fishingDataService->getZones(),
             'testimonials' => $this->fishingDataService->getTestimonials(),
+            'fish' => $this->fishingDataService->getFishTypes(),
         ]);
     }
 }

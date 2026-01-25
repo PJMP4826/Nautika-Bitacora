@@ -27,4 +27,6 @@ interface FishingDataRepositoryInterface
 
     public function getZones(): array;
     public function getTestimonials(): array;
+
+    public function getFishTypes(): array;
 }

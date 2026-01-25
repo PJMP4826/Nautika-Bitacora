@@ -50,4 +50,9 @@ class FishingDataService
     {
         return $this->repository->getTestimonials();
     }
+
+    public function getFishTypes(): array
+    {
+        return $this->repository->getFishTypes();
+    }
 }
