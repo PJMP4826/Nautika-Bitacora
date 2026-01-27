@@ -1,5 +1,6 @@
 import { Menu, X} from 'lucide-react';
 import {useState, useEffect} from 'react';
+import { SearchAutocomplete } from '@/components/layout/SearchAutocomplete';
 import type { NavigationBarProps, ViewType} from '@/types';
 
 export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProps) => {
@@ -18,6 +19,13 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
         { id: 'types' as ViewType, label: 'Tipos de Pesca' },
         { id: 'guides' as ViewType, label: 'Bitácora' },
     ];
+
+    const searchItems = [
+        { id: '1', label: 'Zonas de Pesca', view: 'zones' as ViewType },
+        { id: '2', label: 'Tipos de Pesca', view: 'types' as ViewType },
+        { id: '3', label: 'Bitácora', view: 'guides' as ViewType },
+    ];
+
 
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 backdrop-blur-sm shadow-lg py-2' : 'bg-transparent py-4'}`}>
@@ -39,6 +47,9 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center space-x-8">
+
+                        <SearchAutocomplete items={searchItems} onSelect={(view) => setCurrentView(view)} isScrolled={scrolled} />
+
                         {navItems.map((item) => (
                             <button
                                 key={item.id}
@@ -52,6 +63,8 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
                                 {item.label}
                             </button>
                         ))}
+
+
                         <button
                             onClick={() => setCurrentView('contact')}
                             className="bg-white text-slate-900 px-5 py-2.5 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"

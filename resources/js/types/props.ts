@@ -47,3 +47,14 @@ export interface TestimonialsProps {
 export interface FishCardProps {
     fish: FishType;
 }
+
+type SearchItem = {
+    id: string;
+    label: string;
+    view: ViewType;
+};
+export interface SearchAutocompleteProps {
+    items: SearchItem[];
+    onSelect: (view: ViewType) => void;
+    isScrolled: boolean;
+}
