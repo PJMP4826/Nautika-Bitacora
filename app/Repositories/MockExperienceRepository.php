@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-class MockExperienceRepository
+use App\Interfaces\Repositories\ExperienceRepositoryInterface;
+
+class MockExperienceRepository implements ExperienceRepositoryInterface
 {
     public function getExperienceLevels(): array
     {
