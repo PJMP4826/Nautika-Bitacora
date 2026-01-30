@@ -5,12 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ZoneRequest;
 use App\Http\Resources\ZoneResource;
 use App\Models\Zone;
+use App\Services\FishingDataService;
+use Inertia\Inertia;
 
 class ZoneController extends Controller
 {
+    private FishingDataService $fishingDataService;
+    public function __construct(FishingDataService $fishingDataService)
+    {
+        $this->fishingDataService = $fishingDataService;
+    }
+
     public function index()
     {
-        return ZoneResource::collection(Zone::all());
+        return Inertia::render('ZonesView', [
+            'zones' => $this->fishingDataService->getZones(),
+            'fishingTypes' => $this->fishingDataService->getFishingTypes(),
+            'experienceLevels' => $this->fishingDataService->getExperienceLevels(),
+        ]);
     }
 
     public function store(ZoneRequest $request)
