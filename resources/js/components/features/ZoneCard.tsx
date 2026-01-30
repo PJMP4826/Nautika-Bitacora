@@ -1,9 +1,8 @@
 import { MapPin, Star } from 'lucide-react';
 import type { ZoneCardProps } from '@/types';
 
-export const ZoneCard = ({ zone, onClick , experienceLevels, fishingTypes}: ZoneCardProps) => (
+export const ZoneCard = ({ zone, experienceLevels, fishingTypes}: ZoneCardProps) => (
     <div
-        onClick={onClick}
         className="group bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden border border-slate-100 flex flex-col h-full"
     >
         {/* Image Container */}

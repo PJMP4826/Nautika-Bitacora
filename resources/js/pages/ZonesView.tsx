@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { ZoneCard } from '@/components/features/ZoneCard';
+import { Link } from '@inertiajs/react';
 import { NavigationBar } from '@/components/layout/Navbar';
 import type { ViewType, ZoneViewProps } from '@/types';
 
@@ -29,8 +30,15 @@ const ZonesView = ({ zones, experienceLevels, fishingTypes, onDetail, onBack,  }
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+
                         {zones.map(zone => (
-                            <ZoneCard key={zone.id} zone={zone} experienceLevels={experienceLevels} fishingTypes={fishingTypes} onClick={() => onDetail(zone)} />
+                            <Link
+                                key={zone.id}
+                                href={`zones/${zone.slug}`}
+                            >
+                                <ZoneCard key={zone.id} zone={zone} experienceLevels={experienceLevels} fishingTypes={fishingTypes} />
+                            </Link>
                         ))}
                     </div>
                 </div>

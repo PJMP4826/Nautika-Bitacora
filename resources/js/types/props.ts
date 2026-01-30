@@ -51,7 +51,6 @@ export interface ZoneCardProps {
     zone: Zone,
     fishingTypes: FishingType[];
     experienceLevels: ExperienceLevel[];
-    onClick: () => void;
 }
 
 export interface TestimonialsProps {
