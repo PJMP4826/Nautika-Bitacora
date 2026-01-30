@@ -2,6 +2,16 @@
 
 namespace App\Providers;
 
+use App\Interfaces\Repositories\ExperienceRepositoryInterface;
+use App\Interfaces\Repositories\FishRepositoryInterface;
+use App\Interfaces\Repositories\SeasonRepositoryInterface;
+use App\Interfaces\Repositories\TestimonialsRepositoryInterface;
+use App\Interfaces\Repositories\ZoneRepositoryInterface;
+use App\Repositories\MockExperienceRepository;
+use App\Repositories\MockFishRepository;
+use App\Repositories\MockSeasonsRepository;
+use App\Repositories\MockTestimonialsRepository;
+use App\Repositories\MockZoneRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(ZoneRepositoryInterface::class, MockZoneRepository::class);
+        $this->app->bind(SeasonRepositoryInterface::class, MockSeasonsRepository::class);
+        $this->app->bind(ExperienceRepositoryInterface::class, MockExperienceRepository::class);
+        $this->app->bind(FishRepositoryInterface::class, MockFishRepository::class);
+        $this->app->bind(TestimonialsRepositoryInterface::class, MockTestimonialsRepository::class);
     }
 
     /**
