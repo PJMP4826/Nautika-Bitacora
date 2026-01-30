@@ -1,3 +1,4 @@
+import { router } from '@inertiajs/react';
 import { Menu, X} from 'lucide-react';
 import {useState, useEffect} from 'react';
 import { SearchAutocomplete } from '@/components/layout/SearchAutocomplete';
@@ -13,6 +14,17 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const handleManualVisit = (id: ViewType) => {
+        if (id === 'home') {
+            router.visit('/');
+            setCurrentView(id);
+            return;
+        }
+
+        router.visit(`/${id}`);
+        setCurrentView(id);
+    };
+
     const navItems = [
         { id: 'home' as ViewType, label: 'Inicio' },
         { id: 'zones' as ViewType, label: 'Explorar Zonas' },
@@ -26,15 +38,16 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
         { id: '3', label: 'Bitácora', view: 'guides' as ViewType },
     ];
 
+    {console.log('Current View: ', currentView)}
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 backdrop-blur-sm shadow-lg py-2' : 'bg-transparent py-4'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled || currentView != 'home' ? 'bg-slate-900/95 backdrop-blur-sm shadow-lg py-2' : 'bg-transparent py-4'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <div
                         className="flex items-center gap-2 cursor-pointer group"
-                        onClick={() => setCurrentView('home')}
+                        onClick={() => handleManualVisit('home')}
                     >
                         <div className="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-colors">
                             <img src={"./anchor.png"} className="max-w-9"/>
@@ -53,11 +66,11 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
                         {navItems.map((item) => (
                             <button
                                 key={item.id}
-                                onClick={() => setCurrentView(item.id)}
+                                onClick={() => handleManualVisit(item.id)}
                                 className={`text-sm font-medium transition-all ${
                                     currentView === item.id
-                                        ? 'text-white border-b-2 border-blue-400 pb-1'
-                                        : 'text-white hover:text-white hover:-translate-y-0.5'
+                                        ? 'text-white border-b-2 border-blue-400 pb-1 cursor-pointer'
+                                        : 'text-white hover:text-white hover:-translate-y-0.5 cursor-pointer'
                                 }`}
                             >
                                 {item.label}
@@ -66,7 +79,7 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
 
 
                         <button
-                            onClick={() => setCurrentView('contact')}
+                            onClick={() => handleManualVisit('contact')}
                             className="bg-white text-slate-900 px-5 py-2.5 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                         >
                             Contacto
@@ -76,7 +89,9 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
                     {/* Mobile Menu Button */}
                     <div className="md:hidden">
                         <button
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            onClick={() => {
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                            }}
                             className="p-2 text-white hover:bg-white/10 rounded-lg"
                         >
                             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -93,7 +108,7 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
                             <button
                                 key={item.id}
                                 onClick={() => {
-                                    setCurrentView(item.id);
+                                    handleManualVisit(item.id);
                                     setIsMobileMenuOpen(false);
                                 }}
                                 className="block w-full text-left px-4 py-3 rounded-xl text-base font-medium text-slate-300 hover:bg-white/5 hover:text-white"
