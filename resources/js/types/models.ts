@@ -21,11 +21,28 @@ export interface ExperienceLevel {
 export interface Zone {
     id: number;
     name: string;
+    slug: string;
     region: string;
     image: string;
     types: string[];
     difficulty: string;
     best_season: string[];
+    rating: number;
+    description: string;
+    species: string[];
+    regulations: string;
+}
+
+/** Zone with types, difficulty and best_season resolved to full objects (from backend). */
+export interface ZoneDetail {
+    id: number;
+    name: string;
+    slug: string;
+    region: string;
+    image: string;
+    types: FishingType[];
+    difficulty: ExperienceLevel;
+    best_season: Season[];
     rating: number;
     description: string;
     species: string[];

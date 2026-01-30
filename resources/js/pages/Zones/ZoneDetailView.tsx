@@ -1,8 +1,17 @@
+import { router } from '@inertiajs/react';
 import { BookOpen, ChevronRight, Fish, LifeBuoy, Map, Star } from 'lucide-react';
 import type { ZoneDetailViewProps } from '@/types';
 
-const ZoneDetailView = ({ zone, fishingTypes, seasons, experienceLevels, onBack }: ZoneDetailViewProps) => {
+const ZoneDetailView = ({ zone, onBack }: ZoneDetailViewProps) => {
     if (!zone) return null;
+
+    const handleBack = () => {
+        if (onBack) {
+            onBack();
+        } else {
+            router.visit('/zones');
+        }
+    };
 
     return (
         <div className="animate-fade-in min-h-screen bg-white">
@@ -11,7 +20,7 @@ const ZoneDetailView = ({ zone, fishingTypes, seasons, experienceLevels, onBack 
                 <img src={zone.image} alt={zone.name} className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
                 <button
-                    onClick={onBack}
+                    onClick={handleBack}
                     className="absolute top-24 left-4 z-20 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all hover:bg-white/20 md:left-8"
                 >
                     <ChevronRight className="h-6 w-6 rotate-180" />
@@ -27,7 +36,7 @@ const ZoneDetailView = ({ zone, fishingTypes, seasons, experienceLevels, onBack 
                                 <Star className="h-4 w-4 fill-current text-yellow-400" /> {zone.rating} Puntuación
                             </span>
                             <span className="flex items-center gap-2">
-                                <LifeBuoy className="h-4 w-4" /> Nivel {experienceLevels.find((l) => l.id === zone.difficulty)?.name}
+                                <LifeBuoy className="h-4 w-4" /> Nivel {zone.difficulty.name}
                             </span>
                         </div>
                     </div>
@@ -70,17 +79,14 @@ const ZoneDetailView = ({ zone, fishingTypes, seasons, experienceLevels, onBack 
                         <div className="mb-6">
                             <span className="mb-2 block text-xs font-bold tracking-wider text-slate-400 uppercase">Mejor Temporada</span>
                             <div className="flex flex-wrap gap-2">
-                                {zone.best_season.map((sId) => {
-                                    const s = seasons.find((sea) => sea.id === sId);
-                                    return (
-                                        <span
-                                            key={sId}
-                                            className="flex items-center gap-1 rounded-lg border border-green-100 bg-green-50 px-3 py-1 text-sm font-bold text-green-700"
-                                        >
-                                            {s?.icon} {s?.name}
-                                        </span>
-                                    );
-                                })}
+                                {zone.best_season.map((s) => (
+                                    <span
+                                        key={s.id}
+                                        className="flex items-center gap-1 rounded-lg border border-green-100 bg-green-50 px-3 py-1 text-sm font-bold text-green-700"
+                                    >
+                                        {s.icon} {s.name}
+                                    </span>
+                                ))}
                             </div>
                         </div>
 
@@ -88,8 +94,8 @@ const ZoneDetailView = ({ zone, fishingTypes, seasons, experienceLevels, onBack 
                             <span className="mb-2 block text-xs font-bold tracking-wider text-slate-400 uppercase">Tipos Permitidos</span>
                             <div className="flex flex-wrap gap-2">
                                 {zone.types.map((t) => (
-                                    <span key={t} className="rounded-lg bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">
-                                        {fishingTypes.find((ft) => ft.id === t)?.name}
+                                    <span key={t.id} className="rounded-lg bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">
+                                        {t.name}
                                     </span>
                                 ))}
                             </div>
