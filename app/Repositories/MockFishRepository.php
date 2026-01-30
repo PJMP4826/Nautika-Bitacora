@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-class MockFishRepository
+use App\Interfaces\Repositories\FishRepositoryInterface;
+
+class MockFishRepository implements FishRepositoryInterface
 {
     public function getFishTypes(): array
     {
