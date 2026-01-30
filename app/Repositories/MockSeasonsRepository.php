@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-class MockSeasonsRepository
+use App\Interfaces\Repositories\SeasonRepositoryInterface;
+
+class MockSeasonsRepository implements SeasonRepositoryInterface
 {
     public function getSeasons(): array
     {
