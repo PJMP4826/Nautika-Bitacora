@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ZoneRequest;
 use App\Http\Resources\ZoneResource;
 use App\Models\Zone;
-use App\Services\FishingDataService;
 use App\Services\HomeDataService;
 use App\Services\ZoneDataService;
 use Inertia\Inertia;
@@ -16,8 +15,7 @@ class ZoneController extends Controller
     public function __construct(
         private HomeDataService $homeDataService,
         private ZoneDataService $zoneDataService
-    ) {
-    }
+    ) {}
 
     public function index()
     {
