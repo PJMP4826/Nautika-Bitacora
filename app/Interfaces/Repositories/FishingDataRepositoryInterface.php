@@ -11,22 +11,4 @@ interface FishingDataRepositoryInterface
      */
     public function getFishingTypes(): array;
 
-    /**
-     * Obtiene todos los niveles de experiencia
-     *
-     * @return array<int, array{id: string, name: string, description: string}>
-     */
-    public function getExperienceLevels(): array;
-
-    /**
-     * Obtiene todas las temporadas disponibles
-     *
-     * @return array<int, array{id: string, name: string, icon: string}>
-     */
-    public function getSeasons(): array;
-
-    public function getZones(): array;
-    public function getTestimonials(): array;
-
-    public function getFishTypes(): array;
 }
