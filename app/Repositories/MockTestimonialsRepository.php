@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-class MockTestimonialsRepository
+use App\Interfaces\Repositories\TestimonialsRepositoryInterface;
+
+class MockTestimonialsRepository implements TestimonialsRepositoryInterface
 {
     public function getTestimonials(): array
     {
