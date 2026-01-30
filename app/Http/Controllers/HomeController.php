@@ -3,27 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Services\FishingDataService;
+use App\Services\HomeDataService;
 use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    private FishingDataService $fishingDataService;
+    private HomeDataService $service;
 
     public function __construct(
-        FishingDataService $fishingDataService
+        HomeDataService $service
     ) {
-        $this->fishingDataService = $fishingDataService;
+        $this->service = $service;
     }
 
     public function index()
     {
         return Inertia::render('Home', [
-            'fishingTypes' => $this->fishingDataService->getFishingTypes(),
-            'experienceLevels' => $this->fishingDataService->getExperienceLevels(),
-            'seasons' => $this->fishingDataService->getSeasons(),
-            'zones' => $this->fishingDataService->getZones(),
-            'testimonials' => $this->fishingDataService->getTestimonials(),
-            'fish' => $this->fishingDataService->getFishTypes(),
+            'fishingTypes' => $this->service->getFishingTypes(),
+            'experienceLevels' => $this->service->getExperienceLevels(),
+            'seasons' => $this->service->getSeasons(),
+            'zones' => $this->service->getZones(),
+            'testimonials' => $this->service->getTestimonials(),
+            'fish' => $this->service->getFishTypes(),
         ]);
     }
 }
