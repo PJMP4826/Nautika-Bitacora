@@ -33,6 +33,14 @@ export interface HomePageProps {
     onDetail: (zone: Zone) => void;
 }
 
+export interface ZoneViewProps {
+    zones: Zone[];
+    fishingTypes: FishingType[];
+    experienceLevels: ExperienceLevel[];
+    onDetail: (zone: Zone) => void;
+    onBack: () => void;
+}
+
 export interface ZoneCardProps {
     zone: Zone,
     fishingTypes: FishingType[];
