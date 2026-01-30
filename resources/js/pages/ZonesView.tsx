@@ -1,7 +1,7 @@
+import { Link } from '@inertiajs/react';
 import { ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { ZoneCard } from '@/components/features/ZoneCard';
-import { Link } from '@inertiajs/react';
 import { NavigationBar } from '@/components/layout/Navbar';
 import type { ViewType, ZoneViewProps } from '@/types';
 
