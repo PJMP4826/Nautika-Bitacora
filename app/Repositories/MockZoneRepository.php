@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-class MockZoneRepository
+use App\Interfaces\Repositories\ZoneRepositoryInterface;
+
+class MockZoneRepository implements ZoneRepositoryInterface
 {
     public function getZones(): array
     {
