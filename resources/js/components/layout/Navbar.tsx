@@ -28,6 +28,7 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
     const navItems = [
         { id: 'home' as ViewType, label: 'Inicio' },
         { id: 'zones' as ViewType, label: 'Explorar Zonas' },
+        { id: 'fish' as ViewType, label: 'Peces' },
         { id: 'types' as ViewType, label: 'Tipos de Pesca' },
         { id: 'guides' as ViewType, label: 'Bitácora' },
     ];
