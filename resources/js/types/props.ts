@@ -1,7 +1,7 @@
 import type { ExperienceLevel, FishingType, FishType, Season, Testimonial, Zone, ZoneDetail } from '@/types/models';
 import ZoneDetailView from '@/pages/Zones/ZoneDetailView';
 
-export type ViewType = 'home' | 'zones' | 'types' | 'guides' | 'contact' | 'results' | 'zone-detail' | 'not-found' | 'server-error' | 'maintenance';
+export type ViewType = 'home' | 'zones' | 'fish' | 'types' | 'guides' | 'contact' | 'results' | 'zone-detail' | 'not-found' | 'server-error' | 'maintenance';
 
 export interface NavigationBarProps {
     setCurrentView: (view: ViewType) => void;
@@ -40,6 +40,16 @@ export interface ZoneViewProps {
     experienceLevels: ExperienceLevel[];
     onDetail: (zone: Zone) => void;
     onBack: () => void;
+}
+
+export interface FishViewProps {
+    fish: FishType[];
+}
+
+export interface FishDetailViewProps {
+    fish: FishType;
+    onBack?: () => void;
+    breadcrumbs?: { label: string; url?: string | null | undefined }[];
 }
 
 export interface ZoneDetailViewProps {
