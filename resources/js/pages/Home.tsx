@@ -1,3 +1,6 @@
+import { Link } from '@inertiajs/react';
+import { ArrowRight } from 'lucide-react';
+import { useState } from 'react';
 import { FishCard } from '@/components/features/FishCard';
 import { SearchBar } from '@/components/features/SearchBar';
 import { ZoneCard } from '@/components/features/ZoneCard';
@@ -6,9 +9,6 @@ import { NavigationBar } from '@/components/layout/Navbar';
 import { AnimatedWave } from '@/components/ui/AnimatedWave';
 import { Testimonials } from '@/components/ui/Testimonials';
 import type { HomePageProps, SearchCriteria, ViewType } from '@/types';
-import { Link } from '@inertiajs/react';
-import { ArrowRight } from 'lucide-react';
-import { useState } from 'react';
 
 export default function Home({ fishingTypes, experienceLevels, seasons, zones, testimonials, fish, onSearch, onViewMore, onDetail }: HomePageProps) {
     const [currentView, setCurrentView] = useState<ViewType>('home');
