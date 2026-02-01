@@ -7,8 +7,8 @@ use App\Http\Resources\ZoneResource;
 use App\Models\Zone;
 use App\Services\HomeDataService;
 use App\Services\ZoneDataService;
+use App\Utils\StringFormater;
 use Inertia\Inertia;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ZoneController extends Controller
 {
@@ -35,7 +35,11 @@ class ZoneController extends Controller
     {
         $zone = $this->zoneDataService->findZoneDetailBySlug($zone_name);
         if (empty($zone)) {
-            throw new NotFoundHttpException('Zona no encontrada.');
+            return Inertia::render('errors/NotFound', [
+                'not_found_param' => 'La zona '.StringFormater::kebabToTitle($zone_name),
+            ])
+                ->toResponse(request())
+                ->setStatusCode(404);
         }
 
         return Inertia::render('Zones/ZoneDetailView', [
