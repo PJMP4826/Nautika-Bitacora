@@ -1,5 +1,3 @@
-import { ArrowRight } from 'lucide-react';
-import { useState } from 'react';
 import { FishCard } from '@/components/features/FishCard';
 import { SearchBar } from '@/components/features/SearchBar';
 import { ZoneCard } from '@/components/features/ZoneCard';
@@ -9,6 +7,8 @@ import { AnimatedWave } from '@/components/ui/AnimatedWave';
 import { Testimonials } from '@/components/ui/Testimonials';
 import type { HomePageProps, SearchCriteria, ViewType } from '@/types';
 import { Link } from '@inertiajs/react';
+import { ArrowRight } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Home({ fishingTypes, experienceLevels, seasons, zones, testimonials, fish, onSearch, onViewMore, onDetail }: HomePageProps) {
     const [currentView, setCurrentView] = useState<ViewType>('home');
@@ -65,7 +65,7 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, t
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <div className="mb-12 flex items-end justify-between">
                                 <div>
-                                    <h2 className="text-4xl md:text-4xl font-extrabold mb-4 tracking-tight">Zonas Destacadas</h2>
+                                    <h2 className="mb-4 text-4xl font-extrabold tracking-tight md:text-4xl">Zonas Destacadas</h2>
                                     <p className="text-slate-500">Lugares recomendados por nuestra comunidad este mes.</p>
                                 </div>
                                 <button
@@ -78,10 +78,7 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, t
 
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                                 {zones.slice(0, 4).map((zone) => (
-                                    <Link
-                                        key={zone.id}
-                                        href={`zones/${zone.slug}`}
-                                    >
+                                    <Link key={zone.id} href={`zones/${zone.slug}`}>
                                         <ZoneCard key={zone.id} zone={zone} experienceLevels={experienceLevels} fishingTypes={fishingTypes} />
                                     </Link>
                                 ))}
@@ -89,33 +86,32 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, t
                         </div>
                     </div>
 
-
                     <div className="bg-slate-50 py-20 pt-5">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <div className="mb-12 flex items-end justify-between">
                                 <div>
-                                    <h2 className="text-4xl md:text-4xl font-extrabold mb-4 tracking-tight">Peces Destacados</h2>
+                                    <h2 className="mb-4 text-4xl font-extrabold tracking-tight md:text-4xl">Peces Destacados</h2>
                                     <p className="text-slate-500">Explora variadad de peces en diferentes zonas.</p>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                                 {fish.slice(0, 4).map((fish) => (
-                                    <FishCard
-                                        fish={fish}
-                                    />
+                                    <Link key={fish.name} href={`fish/${fish.slug}`}>
+                                        <FishCard fish={fish} />
+                                    </Link>
                                 ))}
                             </div>
                         </div>
                     </div>
 
                     <div className="bg-slate-50 pb-16">
-                        <Testimonials testimonials={testimonials}/>
+                        <Testimonials testimonials={testimonials} />
                     </div>
                 </main>
             </div>
 
-            <Footer/>
+            <Footer />
         </div>
     );
 }
