@@ -26,7 +26,7 @@ export const FishCard = ({ fish }: FishCardProps) => (
                 </div>
             </div>
 
-            <p className="text-slate-600 text-xs line-clamp-2 mt-2 mb-4">{fish.sciencetic_name}</p>
+            <p className="text-slate-600 text-xs line-clamp-2 mt-2 mb-4">{fish.scientific_name}</p>
         </div>
     </div>
 );
