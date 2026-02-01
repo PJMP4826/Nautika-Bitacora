@@ -80,4 +80,9 @@ class HomeDataService
     {
         return $this->fishRepository->getFishTypes();
     }
+
+    public function getFishBySlug(string $slug): ?array
+    {
+        return $this->fishRepository->getFishBySlug($slug);
+    }
 }
