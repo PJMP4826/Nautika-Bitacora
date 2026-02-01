@@ -1,7 +1,7 @@
 import type { ExperienceLevel, FishingType, FishType, Season, Testimonial, Zone, ZoneDetail } from '@/types/models';
 import ZoneDetailView from '@/pages/Zones/ZoneDetailView';
 
-export type ViewType = 'home' | 'zones' | 'types' | 'guides' | 'contact' | 'results' | 'zone-detail';
+export type ViewType = 'home' | 'zones' | 'types' | 'guides' | 'contact' | 'results' | 'zone-detail' | 'not-found';
 
 export interface NavigationBarProps {
     setCurrentView: (view: ViewType) => void;
