@@ -8,6 +8,7 @@ import { NavigationBar } from '@/components/layout/Navbar';
 import { AnimatedWave } from '@/components/ui/AnimatedWave';
 import { Testimonials } from '@/components/ui/Testimonials';
 import type { HomePageProps, SearchCriteria, ViewType } from '@/types';
+import { Link } from '@inertiajs/react';
 
 export default function Home({ fishingTypes, experienceLevels, seasons, zones, testimonials, fish, onSearch, onViewMore, onDetail }: HomePageProps) {
     const [currentView, setCurrentView] = useState<ViewType>('home');
@@ -77,12 +78,12 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, t
 
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                                 {zones.slice(0, 4).map((zone) => (
-                                    <ZoneCard
-                                        zone={zone}
-                                        onClick={() => onDetail(zone)}
-                                        experienceLevels={experienceLevels}
-                                        fishingTypes={fishingTypes}
-                                    />
+                                    <Link
+                                        key={zone.id}
+                                        href={`zones/${zone.slug}`}
+                                    >
+                                        <ZoneCard key={zone.id} zone={zone} experienceLevels={experienceLevels} fishingTypes={fishingTypes} />
+                                    </Link>
                                 ))}
                             </div>
                         </div>
