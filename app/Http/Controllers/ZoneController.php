@@ -40,6 +40,11 @@ class ZoneController extends Controller
 
         return Inertia::render('Zones/ZoneDetailView', [
             'zone' => $zone,
+            'breadcrumbs' => [
+                ['label' => 'Inicio', 'url' => route('home')],
+                ['label' => 'Zonas', 'url' => route('zone')],
+                ['label' => $zone['name'], 'url' => null],
+            ],
         ]);
     }
 

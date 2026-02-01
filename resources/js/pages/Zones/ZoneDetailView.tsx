@@ -1,8 +1,9 @@
 import { router } from '@inertiajs/react';
 import { BookOpen, ChevronRight, Fish, LifeBuoy, Map, Star } from 'lucide-react';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import type { ZoneDetailViewProps } from '@/types';
 
-const ZoneDetailView = ({ zone, onBack }: ZoneDetailViewProps) => {
+const ZoneDetailView = ({ zone, onBack, breadcrumbs }: ZoneDetailViewProps) => {
     if (!zone) return null;
 
     const handleBack = () => {
@@ -21,7 +22,7 @@ const ZoneDetailView = ({ zone, onBack }: ZoneDetailViewProps) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
                 <button
                     onClick={handleBack}
-                    className="absolute top-24 left-4 z-20 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all hover:bg-white/20 md:left-8"
+                    className="absolute top-7 left-4 z-20 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all hover:bg-white/20 md:left-8"
                 >
                     <ChevronRight className="h-6 w-6 rotate-180" />
                 </button>
@@ -31,7 +32,8 @@ const ZoneDetailView = ({ zone, onBack }: ZoneDetailViewProps) => {
                             {zone.region}
                         </span>
                         <h1 className="mb-4 text-4xl font-bold shadow-sm md:text-6xl">{zone.name}</h1>
-                        <div className="flex items-center gap-6 text-sm font-medium">
+                        <Breadcrumbs items={breadcrumbs ?? []} />
+                        <div className="flex items-center gap-6 text-sm font-medium pt-3">
                             <span className="flex items-center gap-2">
                                 <Star className="h-4 w-4 fill-current text-yellow-400" /> {zone.rating} Puntuación
                             </span>

@@ -45,6 +45,7 @@ export interface ZoneViewProps {
 export interface ZoneDetailViewProps {
     zone: ZoneDetail;
     onBack?: () => void;
+    breadcrumbs?: { label: string; url?: string | null | undefined }[]
 }
 
 export interface ZoneCardProps {
