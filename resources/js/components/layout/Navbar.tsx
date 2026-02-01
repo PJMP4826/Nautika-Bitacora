@@ -50,7 +50,7 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
                         onClick={() => handleManualVisit('home')}
                     >
                         <div className="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-colors">
-                            <img src={"./anchor.png"} className="max-w-9"/>
+                            <img src={"/anchor.png"} className="max-w-9"/>
                         </div>
                         <div>
                             <h1 className="text-xl font-bold tracking-wider text-white">NAUTIKA</h1>
