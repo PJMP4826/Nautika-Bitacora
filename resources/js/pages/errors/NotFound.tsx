@@ -4,7 +4,10 @@ import { useState } from 'react';
 import { NavigationBar } from '@/components/layout/Navbar';
 import type { ViewType } from '@/types';
 
-export default function NotFound404() {
+interface NotFoundProps {
+    not_found_param?: string;
+}
+export default function NotFound404({not_found_param}: NotFoundProps) {
     const [currentView, setCurrentView] = useState<ViewType>('not-found');
 
     return (
@@ -39,7 +42,10 @@ export default function NotFound404() {
                     </div>
 
                     <p className="mb-2 text-xs font-bold tracking-[0.3em] text-blue-600 uppercase">Página no encontrada</p>
-                    <h1 className="mb-4 text-2xl font-bold text-slate-900 md:text-3xl">Esta zona no está en el mapa</h1>
+                    <h1 className="mb-4 text-2xl font-bold text-slate-900 md:text-3xl">{
+                        not_found_param ? `${not_found_param} ya no está en el mapa`
+                            : 'Este recurso ya no existe'
+                    }</h1>
                     <p className="mx-auto mb-10 max-w-md text-slate-600">
                         Te has salido de la ruta. La página que buscas no existe o cambió de rumbo.
                     </p>
