@@ -11,7 +11,7 @@ class FishSearch implements SearchSourceInterface
     {
         return DB::table('fish')
             ->whereFullText(
-                ['name', 'slug', 'scientific_name'],
+                ['name', 'slug', 'scientific_name', 'description'],
                 $query
             )
             ->limit(5)
@@ -22,6 +22,7 @@ class FishSearch implements SearchSourceInterface
                 'label' => $fish->name,
                 'slug' => $fish->slug,
                 'subtitle' => $fish->scientific_name,
+                'description' => $fish->description,
                 'route' => "/fish/{$fish->slug}",
             ])
             ->toArray();

@@ -22,6 +22,7 @@ class ZoneSearch implements SearchSourceInterface
                 'label' => $zone->name,
                 'slug' => $zone->slug,
                 'subtitle' => $zone->region,
+                'description' => $zone->description,
                 'route' => "/zones/{$zone->slug}",
             ])
             ->toArray();
