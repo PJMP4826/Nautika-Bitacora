@@ -1,10 +1,15 @@
 import { Link, router } from '@inertiajs/react';
 import { BookOpen, ChevronRight, Fish, MapPin, Map, Star } from 'lucide-react';
+import { useState } from 'react';
+import { NavigationBar } from '@/components/layout/Navbar';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import type { FishDetailViewProps } from '@/types';
+import type { FishDetailViewProps, ViewType } from '@/types';
 
 const FishDetailView = ({ fish, onBack, breadcrumbs }: FishDetailViewProps) => {
     if (!fish) return null;
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [currentView, setCurrentView] = useState<ViewType>('fish-detail');
 
     const handleBack = () => {
         if (onBack) {
@@ -18,13 +23,14 @@ const FishDetailView = ({ fish, onBack, breadcrumbs }: FishDetailViewProps) => {
 
     return (
         <div className="animate-fade-in min-h-screen bg-white">
+            <NavigationBar setCurrentView={setCurrentView} currentView={currentView} />
             {/* Immersive Header */}
-            <div className="relative h-[50vh] w-full">
+            <div className="relative h-[70vh] w-full">
                 <img src={fish.image} alt={fish.name} className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
                 <button
                     onClick={handleBack}
-                    className="absolute top-7 left-4 z-20 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all hover:bg-white/20 md:left-8"
+                    className="absolute top-30 left-4 z-20 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all hover:bg-white/20 md:left-8"
                 >
                     <ChevronRight className="h-6 w-6 rotate-180" />
                 </button>

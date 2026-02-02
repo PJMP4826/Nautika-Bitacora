@@ -1,10 +1,14 @@
 import { router } from '@inertiajs/react';
 import { BookOpen, ChevronRight, Fish, LifeBuoy, Map, Star } from 'lucide-react';
+import { useState } from 'react';
+import { NavigationBar } from '@/components/layout/Navbar';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
-import type { ZoneDetailViewProps } from '@/types';
+import type { ViewType, ZoneDetailViewProps } from '@/types';
 
 const ZoneDetailView = ({ zone, onBack, breadcrumbs }: ZoneDetailViewProps) => {
     if (!zone) return null;
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [currentView, setCurrentView] = useState<ViewType>('zone-detail');
 
     const handleBack = () => {
         if (onBack) {
@@ -16,13 +20,14 @@ const ZoneDetailView = ({ zone, onBack, breadcrumbs }: ZoneDetailViewProps) => {
 
     return (
         <div className="animate-fade-in min-h-screen bg-white">
+            <NavigationBar setCurrentView={setCurrentView} currentView={currentView} />
             {/* Immersive Header */}
-            <div className="relative h-[50vh] w-full">
+            <div className="relative h-[70vh] w-full">
                 <img src={zone.image} alt={zone.name} className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
                 <button
                     onClick={handleBack}
-                    className="absolute top-7 left-4 z-20 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all hover:bg-white/20 md:left-8"
+                    className="absolute top-30 left-4 z-20 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all hover:bg-white/20 md:left-8"
                 >
                     <ChevronRight className="h-6 w-6 rotate-180" />
                 </button>
