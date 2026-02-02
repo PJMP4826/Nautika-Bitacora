@@ -7,6 +7,7 @@ use App\Interfaces\Repositories\FishRepositoryInterface;
 use App\Interfaces\Repositories\SeasonRepositoryInterface;
 use App\Interfaces\Repositories\TestimonialsRepositoryInterface;
 use App\Interfaces\Repositories\ZoneRepositoryInterface;
+use App\Repositories\Eloquent\EloquentFishRepository;
 use App\Repositories\MockExperienceRepository;
 use App\Repositories\MockFishRepository;
 use App\Repositories\MockSeasonsRepository;
@@ -28,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ZoneRepositoryInterface::class, MockZoneRepository::class);
         $this->app->bind(SeasonRepositoryInterface::class, MockSeasonsRepository::class);
         $this->app->bind(ExperienceRepositoryInterface::class, MockExperienceRepository::class);
-        $this->app->bind(FishRepositoryInterface::class, MockFishRepository::class);
+        $this->app->bind(FishRepositoryInterface::class, EloquentFishRepository::class);
         $this->app->bind(TestimonialsRepositoryInterface::class, MockTestimonialsRepository::class);
     }
 
