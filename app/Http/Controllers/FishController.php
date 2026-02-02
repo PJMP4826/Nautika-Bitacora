@@ -14,7 +14,7 @@ class FishController extends Controller
 
     public function index()
     {
-        return Inertia::render('FishView', [
+        return Inertia::render('Fish/FishView', [
             'fish' => $this->homeDataService->getFishTypes(),
             'breadcrumbs' => [
                 ['label' => 'Inicio', 'url' => route('home')],

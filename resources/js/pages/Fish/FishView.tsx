@@ -1,10 +1,10 @@
+import { Link, router, usePage } from '@inertiajs/react';
+import { ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 import { FishCard } from '@/components/features/FishCard';
 import { NavigationBar } from '@/components/layout/Navbar';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import type { ViewType, FishViewProps } from '@/types';
-import { Link, router, usePage } from '@inertiajs/react';
-import { ChevronRight } from 'lucide-react';
-import { useState } from 'react';
 
 const FishView = ({ fish }: FishViewProps) => {
     const [currentView, setCurrentView] = useState<ViewType>('fish');
