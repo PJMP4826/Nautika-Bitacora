@@ -62,7 +62,7 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center space-x-8">
 
-                        <SearchAutocomplete items={searchItems} onSelect={(view) => setCurrentView(view)} isScrolled={scrolled} />
+                        <SearchAutocomplete isScrolled={scrolled} />
 
                         {navItems.map((item) => (
                             <button
