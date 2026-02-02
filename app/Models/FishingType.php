@@ -20,7 +20,6 @@ class FishingType extends Model
 
     public function zones(): BelongsToMany
     {
-        return $this->belongsToMany(Zone::class, 'fishing_type_zone')
-            ->withTimestamps(false);
+        return $this->belongsToMany(Zone::class, 'fishing_type_zone');
     }
 }

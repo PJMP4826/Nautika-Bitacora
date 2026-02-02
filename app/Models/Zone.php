@@ -40,14 +40,12 @@ class Zone extends Model
 
     public function seasons(): BelongsToMany
     {
-        return $this->belongsToMany(Season::class, 'zone_season')
-            ->withTimestamps(false);
+        return $this->belongsToMany(Season::class, 'zone_season');
     }
 
     public function fishingTypes(): BelongsToMany
     {
-        return $this->belongsToMany(FishingType::class, 'fishing_type_zone')
-            ->withTimestamps(false);
+        return $this->belongsToMany(FishingType::class, 'fishing_type_zone');
     }
 
     public function fish(): HasMany
