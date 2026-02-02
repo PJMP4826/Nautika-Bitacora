@@ -72,13 +72,26 @@ export interface FishCardProps {
     fish: FishType;
 }
 
-type SearchItem = {
-    id: string;
+// type SearchItem = {
+//     id: string;
+//     label: string;
+//     view: ViewType;
+// };
+// export interface SearchAutocompleteProps {
+//     items: SearchItem[];
+//     onSelect: (view: ViewType) => void;
+//     isScrolled: boolean;
+// }
+
+export interface SearchResult  {
+    type: string;
+    id: number;
     label: string;
-    view: ViewType;
-};
-export interface SearchAutocompleteProps {
-    items: SearchItem[];
-    onSelect: (view: ViewType) => void;
+    subtitle?: string;
+    description: string;
+    route: string;
+}
+
+export interface SearchAutocompleteProps  {
     isScrolled: boolean;
 }

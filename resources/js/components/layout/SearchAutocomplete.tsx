@@ -1,15 +1,16 @@
+import { router } from '@inertiajs/react';
 import { Search } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
-import type { SearchAutocompleteProps } from '@/types';
+import { useEffect, useRef, useState } from 'react';
+import type { SearchAutocompleteProps, SearchResult } from '@/types';
 
-export const SearchAutocomplete = ({ items, onSelect, isScrolled }: SearchAutocompleteProps) => {
+export const SearchAutocomplete = ({ isScrolled }: SearchAutocompleteProps) => {
     const [query, setQuery] = useState('');
+    const [results, setResults] = useState<SearchResult[]>([]);
     const [open, setOpen] = useState(false);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [loading, setLoading] = useState(false);
 
-    const results = items.filter(item =>
-        item.label.toLowerCase().includes(query.toLowerCase())
-    );
+    const containerRef = useRef<HTMLDivElement>(null);
+    const debounceRef = useRef<number | null>(null);
 
     useEffect(() => {
         const handler = (e: MouseEvent) => {
@@ -17,59 +18,63 @@ export const SearchAutocomplete = ({ items, onSelect, isScrolled }: SearchAutoco
                 setOpen(false);
             }
         };
+
         document.addEventListener('mousedown', handler);
         return () => document.removeEventListener('mousedown', handler);
     }, []);
 
+    useEffect(() => {
+        if (query.length < 2) {
+            setResults([]);
+            return;
+        }
+
+        if (debounceRef.current) {
+            clearTimeout(debounceRef.current);
+        }
+
+        debounceRef.current = window.setTimeout(async () => {
+            setLoading(true);
+
+            const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
+            const data = await response.json();
+
+            setResults(data);
+            setOpen(true);
+            setLoading(false);
+        }, 300);
+    }, [query]);
+
     return (
         <div ref={containerRef} className="relative w-64">
-            {isScrolled ? (
-                <div className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2">
-                    <Search className="w-4 h-4 text-white" />
-                    <input
-                        value={query}
-                        onChange={(e) => {
-                            setQuery(e.target.value);
-                            setOpen(true);
-                        }}
-                        placeholder="Buscar zonas, tipos..."
-                        className="bg-transparent text-sm text-white placeholder-slate-100 focus:outline-none w-full"
-                    />
-                </div>
-            ) : (
-                <div className="flex items-center gap-2 bg-white/90 rounded-full px-4 py-2">
-                    <Search className="w-4 h-4 text-gray-600" />
-                    <input
-                        value={query}
-                        onChange={(e) => {
-                            setQuery(e.target.value);
-                            setOpen(true);
-                        }}
-                        placeholder="Buscar zonas, tipos..."
-                        className="bg-transparent text-sm text-gray-600 placeholder-gray-600 focus:outline-none w-full"
-                    />
-                </div>
-            )}
+            <div className={`flex items-center gap-2 rounded-full px-4 py-2 ${isScrolled ? 'bg-white/20 text-white' : 'bg-white/90 text-gray-600'}`}>
+                <Search className="h-4 w-4" />
+                <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Buscar zonas, especies..."
+                    className="w-full bg-transparent text-sm focus:outline-none"
+                />
+            </div>
 
-            {open && query && (
-                <div className="absolute mt-2 w-full rounded-xl bg-slate-900 shadow-xl border border-slate-800 z-50">
-                    {results.length === 0 && (
-                        <div className="px-4 py-3 text-sm text-slate-400">
-                            Sin resultados
-                        </div>
-                    )}
+            {open && (
+                <div className="absolute z-50 mt-2 w-full rounded-xl border border-slate-800 bg-slate-900 shadow-xl">
+                    {loading && <div className="px-4 py-3 text-sm text-slate-400">Buscando…</div>}
 
-                    {results.map(item => (
+                    {!loading && results.length === 0 && query.length >= 2 && <div className="px-4 py-3 text-sm text-slate-400">Sin resultados</div>}
+
+                    {results.map((item) => (
                         <button
-                            key={item.id}
+                            key={`${item.type}-${item.id}`}
                             onClick={() => {
-                                onSelect(item.view);
+                                router.visit(item.route);
                                 setQuery('');
                                 setOpen(false);
                             }}
-                            className="w-full text-left px-4 py-3 text-sm hover:bg-white/5 text-slate-200"
+                            className="w-full px-4 py-3 text-left text-sm text-slate-200 hover:bg-white/5"
                         >
-                            {item.label}
+                            <div className="font-medium">{item.label}</div>
+                            {item.subtitle && <div className="text-xs text-slate-400">{item.subtitle}</div>}
                         </button>
                     ))}
                 </div>
