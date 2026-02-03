@@ -29,14 +29,6 @@ export const NavigationBar = ({ setCurrentView, currentView }: NavigationBarProp
         { id: 'home' as ViewType, label: 'Inicio' },
         { id: 'zones' as ViewType, label: 'Explorar Zonas' },
         { id: 'fish' as ViewType, label: 'Peces' },
-        { id: 'types' as ViewType, label: 'Tipos de Pesca' },
-        { id: 'guides' as ViewType, label: 'Bitácora' },
-    ];
-
-    const searchItems = [
-        { id: '1', label: 'Zonas de Pesca', view: 'zones' as ViewType },
-        { id: '2', label: 'Tipos de Pesca', view: 'types' as ViewType },
-        { id: '3', label: 'Bitácora', view: 'guides' as ViewType },
     ];
 
     {console.log('Current View: ', currentView)}
