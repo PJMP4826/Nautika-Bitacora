@@ -29,7 +29,7 @@ const PlaningResultView = ({ zones, experienceLevels, fishingTypes }: PlaningRes
                         <div>
                             <button
                                 onClick={handleBack}
-                                className="mb-4 flex items-center gap-1 pb-2 text-sm font-medium text-slate-500 hover:text-blue-600 cursor-pointer"
+                                className="mb-4 flex cursor-pointer items-center gap-1 pb-2 text-sm font-medium text-slate-500 hover:text-blue-600"
                             >
                                 <ChevronRight className="h-4 w-4 rotate-180" /> Volver al Inicio
                             </button>
@@ -45,11 +45,15 @@ const PlaningResultView = ({ zones, experienceLevels, fishingTypes }: PlaningRes
                     </div>
 
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        {zones.map((zone) => (
-                            <Link key={zone.id} href={`zones/${zone.slug}`}>
-                                <ZoneCard key={zone.id} zone={zone} experienceLevels={experienceLevels} fishingTypes={fishingTypes} />
-                            </Link>
-                        ))}
+                        {zones.length === 0 ? (
+                            <span className="max-w-2xl text-slate-600">No hay coincidencias</span>
+                        ) : (
+                            zones.map((zone) => (
+                                <Link key={zone.id} href={`zones/${zone.slug}`}>
+                                    <ZoneCard key={zone.id} zone={zone} experienceLevels={experienceLevels} fishingTypes={fishingTypes} />
+                                </Link>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
