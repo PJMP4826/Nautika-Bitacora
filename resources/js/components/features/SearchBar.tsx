@@ -1,3 +1,4 @@
+import { router } from '@inertiajs/react';
 import { Calendar, Compass, FishSymbol, Search } from 'lucide-react';
 import React, { useState } from 'react';
 
@@ -11,15 +12,29 @@ export const SearchBar = ({ onSearch, className = '', fishingTypes, experienceLe
         season: '',
     });
 
+    console.log("Fishing types select: ", fishingTypes)
+
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         if (formData.type && formData.experience && formData.season) {
-            onSearch(formData);
+
+            console.log({
+                fishingType: formData.type,
+                experience: formData.experience,
+                season: formData.season,
+            });
+            router.get('/planing', {
+                fishingType: formData.type,
+                experience: formData.experience,
+                season: formData.season,
+            });
+
+            if (onSearch) onSearch(formData);
         }
     };
 
     return (
-        <div className={`mx-auto max-w-8xl rounded-3xl bg-white p-2 shadow-2xl ${className}`}>
+        <div className={`max-w-8xl mx-auto rounded-3xl bg-white p-2 shadow-2xl ${className}`}>
             <form onSubmit={handleSearch} className="flex flex-col divide-y divide-slate-100 md:flex-row md:items-center md:divide-x md:divide-y-0">
                 {/* Style Selector */}
                 <div className="group relative flex-1 cursor-pointer rounded-2xl px-10 py-4 transition-colors hover:bg-slate-50 md:py-2">
