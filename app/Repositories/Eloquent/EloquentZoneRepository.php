@@ -26,6 +26,27 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
         return $zone ? $this->transform($zone) : [];
     }
 
+    public function searchZones(
+        string $fishingType,
+        string $experienceLevel,
+        string $season
+    ): array {
+        return Zone::query()
+            ->with(['fishingTypes', 'seasons', 'experienceLevel', 'fish'])
+            ->whereHas('fishingTypes', function ($q) use ($fishingType) {
+                $q->where('name', $fishingType);
+            })
+            ->whereHas('experienceLevel', function ($q) use ($experienceLevel) {
+                $q->where('name', $experienceLevel);
+            })
+            ->whereHas('seasons', function ($q) use ($season) {
+                $q->where('name', $season);
+            })
+            ->get()
+            ->map(fn (Zone $zone) => $this->transform($zone))
+            ->toArray();
+    }
+
     private function transform(Zone $zone): array
     {
         return [
