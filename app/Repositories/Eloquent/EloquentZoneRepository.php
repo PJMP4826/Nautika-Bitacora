@@ -34,13 +34,13 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
         return Zone::query()
             ->with(['fishingTypes', 'seasons', 'experienceLevel', 'fish'])
             ->whereHas('fishingTypes', function ($q) use ($fishingType) {
-                $q->where('name', $fishingType);
+                $q->where('id', $fishingType);
             })
             ->whereHas('experienceLevel', function ($q) use ($experienceLevel) {
-                $q->where('name', $experienceLevel);
+                $q->where('id', $experienceLevel);
             })
             ->whereHas('seasons', function ($q) use ($season) {
-                $q->where('name', $season);
+                $q->where('id', $season);
             })
             ->get()
             ->map(fn (Zone $zone) => $this->transform($zone))
