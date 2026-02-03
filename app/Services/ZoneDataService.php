@@ -14,8 +14,7 @@ class ZoneDataService
         private FishingDataRepositoryInterface $fishingDataRepository,
         private SeasonRepositoryInterface $seasonRepository,
         private ExperienceRepositoryInterface $experienceRepository,
-    ) {
-    }
+    ) {}
 
     public function findZoneBySlug(string $slug): array
     {
@@ -49,8 +48,20 @@ class ZoneDataService
         return $zone;
     }
 
+    public function searchZones(
+        string $fishingType,
+        string $experienceLevel,
+        string $season
+    ): array {
+        return $this->zoneRepository->searchZones(
+            $fishingType,
+            $experienceLevel,
+            $season
+        );
+    }
+
     /**
-     * @param array<int, array<string, mixed>> $items
+     * @param  array<int, array<string, mixed>>  $items
      * @return array<string, array<string, mixed>>
      */
     private function indexById(array $items): array
@@ -61,6 +72,7 @@ class ZoneDataService
                 $indexed[$item['id']] = $item;
             }
         }
+
         return $indexed;
     }
 }
