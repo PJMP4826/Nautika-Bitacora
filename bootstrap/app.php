@@ -24,24 +24,24 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
-
-            $status = $response->getStatusCode();
-
-            $errorPages = [
-                404 => 'errors/NotFound',
-                500 => 'errors/ServerError',
-                503 => 'errors/ServiceUnavailable',
-            ];
-
-            if (array_key_exists($status, $errorPages)) {
-                return Inertia::render($errorPages[$status], [
-                    'status' => $status,
-                ])
-                    ->toResponse($request)
-                    ->setStatusCode($status);
-            }
-
-            return $response;
-        });
+        //        $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
+        //
+        //            $status = $response->getStatusCode();
+        //
+        //            $errorPages = [
+        //                404 => 'errors/NotFound',
+        //                500 => 'errors/ServerError',
+        //                503 => 'errors/ServiceUnavailable',
+        //            ];
+        //
+        //            if (array_key_exists($status, $errorPages)) {
+        //                return Inertia::render($errorPages[$status], [
+        //                    'status' => $status,
+        //                ])
+        //                    ->toResponse($request)
+        //                    ->setStatusCode($status);
+        //            }
+        //
+        //            return $response;
+        //        });
     })->create();
