@@ -60,7 +60,7 @@ export default function Home({ fishingTypes, experienceLevels, seasons, zones, t
                 </div>
 
                 <main>
-                    {/* Featured Zones */}
+                    {/* Featured zones */}
                     <div className="bg-slate-50 py-20 pt-40">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <div className="mb-12 flex items-end justify-between">

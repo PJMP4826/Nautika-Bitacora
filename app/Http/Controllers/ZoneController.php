@@ -19,7 +19,7 @@ class ZoneController extends Controller
 
     public function index()
     {
-        return Inertia::render('Zones/ZonesView', [
+        return Inertia::render('zones/ZonesView', [
             'zones' => $this->homeDataService->getZones(),
             'fishingTypes' => $this->homeDataService->getFishingTypes(),
             'experienceLevels' => $this->homeDataService->getExperienceLevels(),
@@ -42,7 +42,7 @@ class ZoneController extends Controller
                 ->setStatusCode(404);
         }
 
-        return Inertia::render('Zones/ZoneDetailView', [
+        return Inertia::render('zones/ZoneDetailView', [
             'zone' => $zone,
             'breadcrumbs' => [
                 ['label' => 'Inicio', 'url' => route('home')],

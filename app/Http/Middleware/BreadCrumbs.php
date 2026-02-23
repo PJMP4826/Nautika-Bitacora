@@ -20,12 +20,12 @@ class BreadCrumbs
             return match ($request->route()->getName()) {
                 'zone' => [
                     ['label' => 'Inicio', 'url' => route('home')],
-                    ['label' => 'Zones', 'url' => null],
+                    ['label' => 'zones', 'url' => null],
                 ],
 
 //                'zone.show' => [
 //                    ['label' => 'Inicio', 'url' => route('home')],
-//                    ['label' => 'Zones', 'url' => route('zone')],
+//                    ['label' => 'zones', 'url' => route('zone')],
 //                    ['label' => $request->route('zone_name'), 'url' => null],
 //                ],
 

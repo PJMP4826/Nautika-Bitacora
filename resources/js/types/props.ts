@@ -1,5 +1,5 @@
 import type { ExperienceLevel, FishingType, FishType, Season, Testimonial, Zone, ZoneDetail } from '@/types/models';
-import ZoneDetailView from '@/pages/Zones/ZoneDetailView';
+import ZoneDetailView from '@/pages/landing/zones/ZoneDetailView';
 
 export type ViewType = 'home' | 'zones' | 'fish' | 'types' | 'guides' | 'contact' | 'results' | 'zone-detail' | 'fish-detail' | 'not-found' | 'server-error' | 'maintenance' | 'planing';
 
