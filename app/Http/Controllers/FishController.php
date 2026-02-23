@@ -14,7 +14,7 @@ class FishController extends Controller
 
     public function index()
     {
-        return Inertia::render('Fish/FishView', [
+        return Inertia::render('fish/FishView', [
             'fish' => $this->homeDataService->getFishTypes(),
             'breadcrumbs' => [
                 ['label' => 'Inicio', 'url' => route('home')],
@@ -34,7 +34,7 @@ class FishController extends Controller
                 ->setStatusCode(404);
         }
 
-        return Inertia::render('Fish/FishDetailView', [
+        return Inertia::render('fish/FishDetailView', [
             'fish' => $fish,
             'breadcrumbs' => [
                 ['label' => 'Inicio', 'url' => route('home')],
