@@ -9,6 +9,6 @@ class NotFound extends Controller
 {
     public function index()
     {
-        return Inertia::render('errors/NotFound');
+        return Inertia::render('landing/errors/NotFound');
     }
 }
