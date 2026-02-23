@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\FishController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\NotFound;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PlaningController;
-use App\Http\Controllers\ContactoController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ZoneController;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [SearchController::class, 'search'])->name('search');
@@ -20,4 +21,11 @@ Route::post('/contact', [ContactoController::class, 'store']);
 
 Route::get('/planing', [PlaningController::class, 'index']);
 
+Route::get('dashboard', function () {
+    return Inertia::render('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::fallback([NotFound::class, 'index']);
+
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
