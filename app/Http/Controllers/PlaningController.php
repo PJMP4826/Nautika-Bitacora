@@ -26,7 +26,7 @@ class PlaningController
             season: $request->query('season'),
         );
 
-        return Inertia::render('PlaningResultView', [
+        return Inertia::render('landing/planing/PlaningResultView', [
             'zones' => $zones,
             'experienceLevels' => array_map(fn ($expirence) => $expirence['difficulty'], $zones),
             'fishingTypes' => array_map(fn ($types) => $types['types'], $zones),
