@@ -14,7 +14,7 @@ class FishController extends Controller
 
     public function index()
     {
-        return Inertia::render('fish/FishView', [
+        return Inertia::render('landing/fish/FishView', [
             'fish' => $this->homeDataService->getFishTypes(),
             'breadcrumbs' => [
                 ['label' => 'Inicio', 'url' => route('home')],
@@ -27,14 +27,14 @@ class FishController extends Controller
     {
         $fish = $this->homeDataService->getFishBySlug($fish_slug);
         if (empty($fish)) {
-            return Inertia::render('errors/NotFound', [
+            return Inertia::render('landing/errors/NotFound', [
                 'not_found_param' => 'El pez '.StringFormater::kebabToTitle($fish_slug),
             ])
                 ->toResponse(request())
                 ->setStatusCode(404);
         }
 
-        return Inertia::render('fish/FishDetailView', [
+        return Inertia::render('landing/fish/FishDetailView', [
             'fish' => $fish,
             'breadcrumbs' => [
                 ['label' => 'Inicio', 'url' => route('home')],
