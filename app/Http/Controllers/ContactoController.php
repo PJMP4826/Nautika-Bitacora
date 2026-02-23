@@ -10,7 +10,7 @@ class ContactoController extends Controller
 {
     public function index()
     {
-        return Inertia::render('ContactoView');
+        return Inertia::render('landing/contact/ContactoView');
     }
 
     public function store(Request $request)
