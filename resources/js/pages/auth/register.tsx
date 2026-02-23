@@ -4,146 +4,131 @@ import { store } from '@/routes/register';
 
 export default function Register() {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-            <Head title="Register" />
+        <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+            <Head title="Crear Cuenta" />
 
-            <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
-                <h1 className="text-2xl font-semibold text-gray-900">
-                    Create an account
-                </h1>
-                <p className="mt-2 text-sm text-gray-600">
-                    Enter your details below to create your account
-                </p>
+            {/* IMAGEN DE FONDO (Con efecto borroso) */}
+            <div className="absolute inset-0">
+                <img
+                    src="./img/hero-img.jpg"
+                    alt="Ocean Background"
+                    className="h-full w-full object-cover blur-sm scale-105"
+                />
+                {/* Capa extra de oscuridad para mejor contraste si es necesario */}
+                <div className="absolute inset-0 bg-black/20"></div>
+            </div>
 
-                <Form
-                    {...store.form()}
-                    resetOnSuccess={['password', 'password_confirmation']}
-                    disableWhileProcessing
-                    className="mt-6 space-y-6"
-                >
-                    {({ processing, errors }) => (
-                        <>
-                            {/* Name */}
-                            <div>
-                                <label
-                                    htmlFor="name"
-                                    className="block text-sm font-medium text-gray-700"
+            {/* CONTENEDOR DE CONTENIDO (Layout de dos columnas) */}
+            <div className="relative z-10 w-full max-w-7xl px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-12">
+
+                {/* IZQUIERDA: Textos de Bienvenida */}
+                <div className="w-full lg:w-1/2 text-white text-center lg:text-left ml-7">
+                    <h2 className="mb-6 text-5xl leading-tight font-bold tracking-tight text-white md:text-7xl">
+                        Únete a nosotros
+                    </h2>
+                    <h3 className="mt-2 text-2xl font-light tracking-[0.2em] opacity-90">
+                        Nautika-Bitacora
+                    </h3>
+                    <div className="mt-6 h-1 w-20 bg-blue-400 mx-auto lg:mx-0"></div>
+                    <p className="mt-8 text-lg text-blue-50 max-w-lg leading-relaxed font-medium">
+                        Crea tu cuenta hoy mismo y comienza a optimizar la gestión de tus proyectos náuticos.
+                    </p>
+                </div>
+
+                {/* DERECHA: Card del Formulario */}
+                <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 md:p-10 mr-5">
+                    <div className="mb-8">
+                        <h1 className="text-3xl font-bold text-gray-900">Registrarse</h1>
+                        <p className="text-gray-500 mt-2 text-sm">Completa tus datos para crear una cuenta.</p>
+                    </div>
+
+                    <Form
+                        {...store.form()}
+                        resetOnSuccess={['password', 'password_confirmation']}
+                        className="space-y-4"
+                    >
+                        {({ processing, errors }) => (
+                            <>
+                                {/* Nombre */}
+                                <div>
+                                    <input
+                                        id="name"
+                                        type="text"
+                                        name="name"
+                                        required
+                                        autoFocus
+                                        placeholder="Nombre completo"
+                                        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
+                                    />
+                                    {errors.name && (
+                                        <p className="mt-1 text-xs text-red-600">{errors.name}</p>
+                                    )}
+                                </div>
+
+                                {/* Email */}
+                                <div>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        name="email"
+                                        required
+                                        placeholder="Correo electrónico"
+                                        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
+                                    />
+                                    {errors.email && (
+                                        <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+                                    )}
+                                </div>
+
+                                {/* Password */}
+                                <div>
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        name="password"
+                                        required
+                                        placeholder="Contraseña"
+                                        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
+                                    />
+                                    {errors.password && (
+                                        <p className="mt-1 text-xs text-red-600">{errors.password}</p>
+                                    )}
+                                </div>
+
+                                {/* Confirm Password */}
+                                <div>
+                                    <input
+                                        id="password_confirmation"
+                                        type="password"
+                                        name="password_confirmation"
+                                        required
+                                        placeholder="Confirmar contraseña"
+                                        className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
+                                    />
+                                    {errors.password_confirmation && (
+                                        <p className="mt-1 text-xs text-red-600">{errors.password_confirmation}</p>
+                                    )}
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="w-full rounded-xl bg-blue-600 py-4 mt-2 text-sm font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-700 active:scale-[0.98] transition-all disabled:opacity-50"
                                 >
-                                    Name
-                                </label>
-                                <input
-                                    id="name"
-                                    type="text"
-                                    name="name"
-                                    required
-                                    autoFocus
-                                    autoComplete="name"
-                                    placeholder="Full name"
-                                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
-                                />
-                                {errors.name && (
-                                    <p className="mt-1 text-sm text-red-600">
-                                        {errors.name}
-                                    </p>
-                                )}
-                            </div>
+                                    {processing ? 'Creando cuenta...' : 'Crear cuenta'}
+                                </button>
 
-                            {/* Email */}
-                            <div>
-                                <label
-                                    htmlFor="email"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Email address
-                                </label>
-                                <input
-                                    id="email"
-                                    type="email"
-                                    name="email"
-                                    required
-                                    autoComplete="email"
-                                    placeholder="email@example.com"
-                                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
-                                />
-                                {errors.email && (
-                                    <p className="mt-1 text-sm text-red-600">
-                                        {errors.email}
-                                    </p>
-                                )}
-                            </div>
-
-                            {/* Password */}
-                            <div>
-                                <label
-                                    htmlFor="password"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Password
-                                </label>
-                                <input
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    required
-                                    autoComplete="new-password"
-                                    placeholder="Password"
-                                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
-                                />
-                                {errors.password && (
-                                    <p className="mt-1 text-sm text-red-600">
-                                        {errors.password}
-                                    </p>
-                                )}
-                            </div>
-
-                            {/* Confirm Password */}
-                            <div>
-                                <label
-                                    htmlFor="password_confirmation"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    Confirm password
-                                </label>
-                                <input
-                                    id="password_confirmation"
-                                    type="password"
-                                    name="password_confirmation"
-                                    required
-                                    autoComplete="new-password"
-                                    placeholder="Confirm password"
-                                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
-                                />
-                                {errors.password_confirmation && (
-                                    <p className="mt-1 text-sm text-red-600">
-                                        {errors.password_confirmation}
-                                    </p>
-                                )}
-                            </div>
-
-                            {/* Submit */}
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                className="w-full rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                {processing
-                                    ? 'Creating account...'
-                                    : 'Create account'}
-                            </button>
-
-                            {/* Login link */}
-                            <div className="text-center text-sm text-gray-600">
-                                Already have an account?{' '}
-                                <Link
-                                    href={login()}
-                                    className="font-medium text-black hover:underline"
-                                >
-                                    Log in
-                                </Link>
-                            </div>
-                        </>
-                    )}
-                </Form>
+                                {/* Link a Login */}
+                                <p className="text-center text-sm text-gray-500 pt-4">
+                                    ¿Ya tienes una cuenta?{' '}
+                                    <Link href={login()} className="font-bold text-blue-600 hover:underline">
+                                        Inicia sesión
+                                    </Link>
+                                </p>
+                            </>
+                        )}
+                    </Form>
+                </div>
             </div>
         </div>
     );
