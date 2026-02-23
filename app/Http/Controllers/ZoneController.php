@@ -19,7 +19,7 @@ class ZoneController extends Controller
 
     public function index()
     {
-        return Inertia::render('zones/ZonesView', [
+        return Inertia::render('landing/zones/ZonesView', [
             'zones' => $this->homeDataService->getZones(),
             'fishingTypes' => $this->homeDataService->getFishingTypes(),
             'experienceLevels' => $this->homeDataService->getExperienceLevels(),
@@ -35,14 +35,14 @@ class ZoneController extends Controller
     {
         $zone = $this->zoneDataService->findZoneDetailBySlug($zone_name);
         if (empty($zone)) {
-            return Inertia::render('errors/NotFound', [
+            return Inertia::render('landing/errors/NotFound', [
                 'not_found_param' => 'La zona '.StringFormater::kebabToTitle($zone_name),
             ])
                 ->toResponse(request())
                 ->setStatusCode(404);
         }
 
-        return Inertia::render('zones/ZoneDetailView', [
+        return Inertia::render('landing/zones/ZoneDetailView', [
             'zone' => $zone,
             'breadcrumbs' => [
                 ['label' => 'Inicio', 'url' => route('home')],
