@@ -51,7 +51,7 @@ export default function NotFound404({not_found_param}: NotFoundProps) {
                     </p>
 
                     <Link
-                        href="/"
+                        href="/public"
                         className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-700 hover:shadow-blue-600/30"
                     >
                         <ChevronRight className="h-5 w-5 rotate-180" />

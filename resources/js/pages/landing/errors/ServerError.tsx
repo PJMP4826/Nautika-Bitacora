@@ -39,7 +39,7 @@ export default function ServerError() {
                     </p>
 
                     <Link
-                        href="/"
+                        href="/public"
                         className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-6 py-3 font-semibold text-white shadow-lg shadow-red-600/25 transition-all hover:bg-red-700 hover:shadow-red-600/30"
                     >
                         <ChevronRight className="h-5 w-5 rotate-180" />
