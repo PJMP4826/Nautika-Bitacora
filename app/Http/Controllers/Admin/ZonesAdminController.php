@@ -13,7 +13,7 @@ class ZonesAdminController
 
     public function index()
     {
-        return Inertia::render('admin/zones/ZonesList', [
+        return Inertia::render('admin/zones/AdminZonePage', [
             'zones' => $this->dataService->getZones(),
             'fishingTypes' => $this->dataService->getFishingTypes(),
             'experienceLevels' => $this->dataService->getExperienceLevels(),
