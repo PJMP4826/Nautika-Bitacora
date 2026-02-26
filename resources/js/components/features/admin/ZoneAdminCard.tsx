@@ -1,14 +1,10 @@
 import { MapPin, Pencil, Star, Trash2 } from 'lucide-react';
-import {Button} from '@/components/ui/button';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import type { ZoneCardProps } from '@/types';
+import { EditZoneDialog } from './EditZoneDialog';
 
-const handleEdit = ({ zone, experienceLevels, fishingTypes}: ZoneCardProps) => {
-    console.log("edit", {
-        zone,
-        experienceLevels,
-        fishingTypes
-    })
-}
+
 
 // const handleDelete = ({ zone }: ZoneCardProps) => {
 //     console.log("delete", {
@@ -16,78 +12,100 @@ const handleEdit = ({ zone, experienceLevels, fishingTypes}: ZoneCardProps) => {
 //     })
 // }
 
-export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes}: ZoneCardProps) => (
-    <div
-        className="group bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col h-full"
-    >
-        {/* Image Container */}
-        <div className="relative h-56 overflow-hidden">
-            <img
-                src={zone.image}
-                alt={zone.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-            <div className="absolute top-4 left-4">
-         <span className={`px-3 py-1 rounded-full text-xs font-bold shadow-lg backdrop-blur-md ${
-             zone.difficulty === 'beginner' ? 'bg-green-500/90 text-white' :
-                 zone.difficulty === 'intermediate' ? 'bg-blue-500/90 text-white' :
-                     'bg-slate-900/90 text-white'
-         }`}>
-           {experienceLevels.find(l => l.id === zone.difficulty)?.name}
-         </span>
-            </div>
-            <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg shadow-sm flex items-center gap-1">
-                <Star className="h-3 w-3 text-yellow-500 fill-current" />
-                <span className="text-xs font-bold text-slate-800">{zone.rating}</span>
-            </div>
-        </div>
+export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes }: ZoneCardProps) => {
+    const [selectedCard, setSelectedCard] = useState<ZoneCardProps | null>(null);
+    const [open, setOpen] = useState(false);
 
-        {/* Content */}
-        <div className="p-6 flex-1 flex flex-col">
-            <div className="flex items-start justify-between mb-2">
-                <div>
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{zone.name}</h3>
-                    <div className="flex items-center gap-1 text-slate-500 text-xs mt-1">
-                        <MapPin className="h-3 w-3" />
-                        {zone.region}
+    const handleEdit = ({ zone, experienceLevels, fishingTypes }: ZoneCardProps) => {
+        setOpen(true);
+        setSelectedCard({
+            zone,
+            experienceLevels,
+            fishingTypes,
+        });
+    };
+
+    return (
+        <>
+            <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-2xl">
+                {/* Image Container */}
+                <div className="relative h-56 overflow-hidden">
+                    <img
+                        src={zone.image}
+                        alt={zone.name}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute top-4 left-4">
+                        <span
+                            className={`rounded-full px-3 py-1 text-xs font-bold shadow-lg backdrop-blur-md ${
+                                zone.difficulty === 'beginner'
+                                    ? 'bg-green-500/90 text-white'
+                                    : zone.difficulty === 'intermediate'
+                                      ? 'bg-blue-500/90 text-white'
+                                      : 'bg-slate-900/90 text-white'
+                            }`}
+                        >
+                            {experienceLevels.find((l) => l.id === zone.difficulty)?.name}
+                        </span>
                     </div>
+                    <div className="absolute right-4 bottom-4 flex items-center gap-1 rounded-lg bg-white/90 px-2 py-1 shadow-sm backdrop-blur-sm">
+                        <Star className="h-3 w-3 fill-current text-yellow-500" />
+                        <span className="text-xs font-bold text-slate-800">{zone.rating}</span>
+                    </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-6">
+                    <div className="mb-2 flex items-start justify-between">
+                        <div>
+                            <h3 className="text-lg font-bold text-slate-900 transition-colors group-hover:text-blue-600">{zone.name}</h3>
+                            <div className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+                                <MapPin className="h-3 w-3" />
+                                {zone.region}
+                            </div>
+                        </div>
+                    </div>
+
+                    <p className="mt-2 mb-4 line-clamp-2 text-xs text-slate-600">{zone.description}</p>
+
+                    <div className="no-scrollbar mt-auto flex items-center gap-2 overflow-x-auto border-t border-slate-50 pt-4">
+                        {zone.types.map((t) => (
+                            <span key={t} className="rounded-md bg-slate-100 px-2 py-1 text-[10px] whitespace-nowrap text-slate-600">
+                                {fishingTypes.find((ft) => ft.id === t)?.name}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="flex flex-1 flex-row items-center gap-2 p-6">
+                    <Button
+                        size="sm"
+                        onClick={() =>
+                            handleEdit({
+                                zone,
+                                experienceLevels,
+                                fishingTypes,
+                            })
+                        }
+                        className="flex cursor-pointer items-center gap-1 bg-green-500"
+                    >
+                        <Pencil className="h-4 w-4" />
+                        Editar
+                    </Button>
+
+                    <Button
+                        variant="destructive"
+                        size="sm"
+                        //onClick={() => handleDelete({zone})}
+                        className="flex cursor-pointer items-center gap-1"
+                    >
+                        <Trash2 className="h-4 w-4" />
+                        Eliminar
+                    </Button>
                 </div>
             </div>
 
-            <p className="text-slate-600 text-xs line-clamp-2 mt-2 mb-4">{zone.description}</p>
-
-            <div className="mt-auto pt-4 border-t border-slate-50 flex items-center gap-2 overflow-x-auto no-scrollbar">
-                {zone.types.map(t => (
-                    <span key={t} className="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded-md whitespace-nowrap">
-            {fishingTypes.find(ft => ft.id === t)?.name}
-          </span>
-                ))}
-            </div>
-        </div>
-
-        <div className="flex items-center gap-2 p-6 flex-1 flex-row">
-            <Button
-                size="sm"
-                onClick={() => handleEdit({
-                    zone,
-                    experienceLevels,
-                    fishingTypes
-                })}
-                className="flex items-center gap-1 bg-green-500 cursor-pointer"
-            >
-                <Pencil className="h-4 w-4" />
-                Editar
-            </Button>
-
-            <Button
-                variant="destructive"
-                size="sm"
-                //onClick={() => handleDelete({zone})}
-                className="flex items-center gap-1 cursor-pointer"
-            >
-                <Trash2 className="h-4 w-4" />
-                Eliminar
-            </Button>
-        </div>
-    </div>
-);
+            <EditZoneDialog open={open} onOpenChange={setOpen} data={selectedCard} />
+        </>
+    );
+};
