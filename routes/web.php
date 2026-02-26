@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ZonesAdminController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\FishController;
 use App\Http\Controllers\HomeController;
@@ -22,12 +23,9 @@ Route::post('/contact', [ContactoController::class, 'store']);
 
 Route::get('/planing', [PlaningController::class, 'index']);
 
-Route::get('dashboard', function () {
-    return Inertia::render('admin/dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('zones', [ZonesAdminController::class, 'index'])->name('admin-zones');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::fallback([NotFound::class, 'index']);
