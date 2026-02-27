@@ -1,7 +1,7 @@
 import { MapPin, Pencil, Star, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import type { ZoneAdminCardProps, AutoFillSelectedZoneCardProps} from '@/types';
+import type { ZoneAdminCardProps } from '@/types';
 import { EditZoneDialog } from './EditZoneDialog';
 
 
