@@ -1,22 +1,22 @@
 import { MapPin, Pencil, Star, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import type { ZoneCardProps } from '@/types';
+import type { ZoneAdminCardProps, AutoFillSelectedZoneCardProps} from '@/types';
 import { EditZoneDialog } from './EditZoneDialog';
 
 
 
-// const handleDelete = ({ zone }: ZoneCardProps) => {
+// const handleDelete = ({ zone }: ZoneAdminCardProps) => {
 //     console.log("delete", {
 //         zone
 //     })
 // }
 
-export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes }: ZoneCardProps) => {
-    const [selectedCard, setSelectedCard] = useState<ZoneCardProps | null>(null);
+export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes }: ZoneAdminCardProps) => {
+    const [selectedCard, setSelectedCard] = useState<ZoneAdminCardProps | null>(null);
     const [open, setOpen] = useState(false);
 
-    const handleEdit = ({ zone, experienceLevels, fishingTypes }: ZoneCardProps) => {
+    const handleEdit = ({ zone, experienceLevels, fishingTypes }: ZoneAdminCardProps) => {
         setOpen(true);
         setSelectedCard({
             zone,
@@ -105,7 +105,10 @@ export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes }: ZoneCard
                 </div>
             </div>
 
-            <EditZoneDialog open={open} onOpenChange={setOpen} data={selectedCard} />
+            <EditZoneDialog open={open} onOpenChange={setOpen} data={selectedCard} autoFillSelectedZoneCardProps={{
+                fishingTypes,
+                experienceLevels
+            }}/>
         </>
     );
 };

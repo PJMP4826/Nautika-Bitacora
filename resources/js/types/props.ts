@@ -70,6 +70,16 @@ export interface ZoneCardProps {
     experienceLevels: ExperienceLevel[];
 }
 
+export interface AutoFillSelectedZoneCardProps {
+    fishingTypes: FishingType[];
+    experienceLevels: ExperienceLevel[];
+}
+export interface ZoneAdminCardProps {
+    zone: Zone,
+    fishingTypes: FishingType[];
+    experienceLevels: ExperienceLevel[];
+}
+
 export interface TestimonialsProps {
     testimonials: Testimonial[];
 }
