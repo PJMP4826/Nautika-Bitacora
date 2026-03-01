@@ -24,6 +24,7 @@ export interface Zone {
     name: string;
     slug: string;
     region: string;
+    water_type: string;
     image: string;
     types: string[];
     difficulty: string;
@@ -40,6 +41,7 @@ export interface ZoneDetail {
     name: string;
     slug: string;
     region: string;
+    water_type: string;
     image: string;
     types: FishingType[];
     difficulty: ExperienceLevel;

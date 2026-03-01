@@ -19,6 +19,7 @@ type ZoneFormData = {
     name: string;
     slug: string;
     region: string;
+    water_type: string;
     image: File | string | null;
     types: string[];
     difficulty: string;
@@ -33,6 +34,7 @@ const initialState: ZoneFormData = {
     name: '',
     slug: '',
     region: '',
+    water_type: 'mar',
     image: '',
     types: [],
     difficulty: '',
@@ -111,6 +113,7 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
                 slug: zoneForm.slug,
                 description: zoneForm.description,
                 region: zoneForm.region,
+                water_type: zoneForm.water_type,
                 rating: zoneForm.rating,
                 regulations: zoneForm.regulations,
                 experience_level_id: zoneForm.difficulty,
@@ -234,6 +237,23 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
                                         placeholder="e.g. California"
                                         className="bg-slate-50/50 focus-visible:bg-white"
                                     />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="water_type" className="text-xs font-bold tracking-wider text-slate-500 uppercase">
+                                        Tipo de Agua <span className="text-red-500">*</span>
+                                    </Label>
+                                    <select
+                                        id="water_type"
+                                        name="water_type"
+                                        required
+                                        value={zoneForm.water_type}
+                                        onChange={(e) => setZoneForm((prev) => ({ ...prev, water_type: e.target.value }))}
+                                        className="w-full rounded-md border border-input bg-slate-50/50 px-3 py-2 text-sm shadow-sm focus:ring-1 focus:ring-ring focus:outline-none"
+                                    >
+                                        <option value="mar">Mar</option>
+                                        <option value="rio">Río</option>
+                                        <option value="lago">Lago</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

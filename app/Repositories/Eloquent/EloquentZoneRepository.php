@@ -56,6 +56,7 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
             'name' => $zone->name,
             'slug' => $zone->slug,
             'region' => $zone->region,
+            'water_type' => $zone->water_type,
             'image' => $this->resolveImageUrl($zone->image),
             'types' => $zone->fishingTypes->pluck('id')->values()->toArray(),
             'difficulty' => $zone->experienceLevel?->id,
