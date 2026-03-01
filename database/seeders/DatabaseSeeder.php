@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call(
+            BaseDataSeeder::class
+        );
+        $this->call(
             ZoneSeeder::class
         );
     }
