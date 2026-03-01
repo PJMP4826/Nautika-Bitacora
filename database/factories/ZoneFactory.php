@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Enums\WaterType;
 use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 class ZoneFactory extends Factory
 {

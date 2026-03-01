@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\FishingDataService;
 use App\Services\HomeDataService;
 use Inertia\Inertia;
 

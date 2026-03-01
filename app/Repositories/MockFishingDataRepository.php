@@ -6,7 +6,6 @@ use App\Interfaces\Repositories\FishingDataRepositoryInterface;
 
 class MockFishingDataRepository implements FishingDataRepositoryInterface
 {
-
     public function getFishingTypes(): array
     {
         return [
@@ -47,8 +46,4 @@ class MockFishingDataRepository implements FishingDataRepositoryInterface
             ],
         ];
     }
-
-
-
-
 }

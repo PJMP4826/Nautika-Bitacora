@@ -10,5 +10,4 @@ interface FishingDataRepositoryInterface
      * @return array<int, array{id: string, name: string, icon: string, description: string, count: int}>
      */
     public function getFishingTypes(): array;
-
 }

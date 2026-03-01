@@ -142,5 +142,4 @@ class MockFishRepository implements FishRepositoryInterface
 
         return null;
     }
-
 }

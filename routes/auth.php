@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController;
+use Laravel\Fortify\Http\Controllers\EmailVerificationPromptController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
-use Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController;
-use Laravel\Fortify\Http\Controllers\EmailVerificationPromptController;
 use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 
 Route::middleware('guest')->group(function () {

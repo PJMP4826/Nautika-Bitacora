@@ -23,11 +23,11 @@ class BreadCrumbs
                     ['label' => 'zones', 'url' => null],
                 ],
 
-//                'zone.show' => [
-//                    ['label' => 'Inicio', 'url' => route('home')],
-//                    ['label' => 'zones', 'url' => route('zone')],
-//                    ['label' => $request->route('zone_name'), 'url' => null],
-//                ],
+                //                'zone.show' => [
+                //                    ['label' => 'Inicio', 'url' => route('home')],
+                //                    ['label' => 'zones', 'url' => route('zone')],
+                //                    ['label' => $request->route('zone_name'), 'url' => null],
+                //                ],
 
                 default => [],
             };
