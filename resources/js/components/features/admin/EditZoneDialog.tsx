@@ -1,23 +1,25 @@
+import { router } from '@inertiajs/react';
 import { CloudUpload, Save } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import type { ZoneAdminCardProps, AutoFillSelectedZoneCardProps } from '@/types';
+import { update } from '@/routes/admin/zones';
+import type { AutoFillSelectedZoneCardProps, ZoneAdminCardProps } from '@/types';
 
 type Props = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
     data: ZoneAdminCardProps | null;
-    autoFillSelectedZoneCardProps: AutoFillSelectedZoneCardProps
+    autoFillSelectedZoneCardProps: AutoFillSelectedZoneCardProps;
 };
 
 type ZoneFormData = {
     name: string;
     slug: string;
     region: string;
-    image: string;
+    image: File | string | null;
     types: string[];
     difficulty: string;
     best_season: string[];
@@ -43,7 +45,6 @@ const initialState: ZoneFormData = {
 
 export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneCardProps }: Props) {
     const [zoneForm, setZoneForm] = useState<ZoneFormData>(initialState);
-    const [speciesInput, setSpeciesInput] = useState('');
     const [dragOver, setDragOver] = useState(false);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -59,7 +60,6 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
     useEffect(() => {
         if (!open) {
             setZoneForm(initialState);
-            setSpeciesInput('');
             setPreviewUrl(null);
         }
     }, [open]);
@@ -80,20 +80,12 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
         setZoneForm((prev) => ({ ...prev, name, slug }));
     };
 
-    // Species tag management
-    const addSpecies = () => {
-        const trimmed = speciesInput.trim();
-        if (!trimmed || zoneForm.species.includes(trimmed)) return;
-        setZoneForm((prev) => ({ ...prev, species: [...prev.species, trimmed] }));
-        setSpeciesInput('');
-    };
-
     // Image upload / drag-and-drop
     const processFile = (file: File) => {
         if (!file.type.startsWith('image/')) return;
         const url = URL.createObjectURL(file);
         setPreviewUrl(url);
-        setZoneForm((prev) => ({ ...prev, image: file.name }));
+        setZoneForm((prev) => ({ ...prev, image: file }));
     };
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -111,8 +103,31 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!data?.zone) return;
-        console.log('Updated zone:', zoneForm);
-        onOpenChange(false);
+
+        router.post(
+            update.form(data.zone.id).action,
+            {
+                name: zoneForm.name,
+                slug: zoneForm.slug,
+                description: zoneForm.description,
+                region: zoneForm.region,
+                rating: zoneForm.rating,
+                regulations: zoneForm.regulations,
+                experience_level_id: zoneForm.difficulty,
+                fishing_type_ids: zoneForm.types,
+                season_ids: zoneForm.best_season,
+                ...(zoneForm.image instanceof File ? { image: zoneForm.image } : {})
+            },
+            {
+                forceFormData: true,
+                onSuccess: () => {
+                    onOpenChange(false);
+                },
+                onError: (errors) => {
+                    console.error(errors);
+                },
+            },
+        );
     };
 
     return (
@@ -127,7 +142,9 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
                             </div>
                             <div>
                                 <DialogTitle className="text-xl font-semibold">Editar</DialogTitle>
-                                <p className="mt-0.5 text-sm text-slate-500">Actualiza los detalles de la zona</p>
+                                <DialogDescription className="mt-0.5 text-sm text-slate-500">
+                                    Actualiza los detalles de la zona
+                                </DialogDescription>
                             </div>
                         </div>
                     </DialogHeader>

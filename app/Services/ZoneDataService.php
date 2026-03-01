@@ -2,18 +2,22 @@
 
 namespace App\Services;
 
+use App\Http\Requests\UpdateZoneRequest;
 use App\Interfaces\Repositories\ExperienceRepositoryInterface;
 use App\Interfaces\Repositories\FishingDataRepositoryInterface;
 use App\Interfaces\Repositories\SeasonRepositoryInterface;
 use App\Interfaces\Repositories\ZoneRepositoryInterface;
+use App\Models\Zone;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class ZoneDataService
 {
     public function __construct(
-        private ZoneRepositoryInterface $zoneRepository,
-        private FishingDataRepositoryInterface $fishingDataRepository,
-        private SeasonRepositoryInterface $seasonRepository,
-        private ExperienceRepositoryInterface $experienceRepository,
+        private readonly ZoneRepositoryInterface $zoneRepository,
+        private readonly FishingDataRepositoryInterface $fishingDataRepository,
+        private readonly SeasonRepositoryInterface $seasonRepository,
+        private readonly ExperienceRepositoryInterface $experienceRepository,
     ) {}
 
     public function findZoneBySlug(string $slug): array
@@ -74,5 +78,30 @@ class ZoneDataService
         }
 
         return $indexed;
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function update(Zone $zone, UpdateZoneRequest $request): Zone
+    {
+        return DB::transaction(function () use ($zone, $request) {
+            $data = $request->safe()->except(['image', 'types', 'difficulty', 'best_season', 'species']);
+
+            if ($request->hasFile('image')) {
+                $data['image'] = $this->zoneRepository->updateImage($zone, $request->file('image'));
+            }
+
+            // 'difficulty' en el form = experience_level_id en la DB
+            $data['experience_level_id'] = $request->input('difficulty');
+
+            $zone = $this->zoneRepository->update($zone, $data);
+
+            // usar los nombres que llegan del form
+            $this->zoneRepository->syncFishingTypes($zone, $request->input('types', []));
+            $this->zoneRepository->syncSeasons($zone, $request->input('best_season', []));
+
+            return $zone->load(['experienceLevel', 'seasons', 'fishingTypes']);
+        });
     }
 }
