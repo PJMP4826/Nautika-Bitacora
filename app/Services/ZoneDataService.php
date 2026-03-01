@@ -91,6 +91,8 @@ class ZoneDataService
 
             if ($request->hasFile('image')) {
                 $data['image'] = $request->file('image')->store('zones', 'public');
+            } elseif ($request->filled('image_url')) {
+                $data['image'] = $request->input('image_url');
             }
 
             $zone = $this->zoneRepository->store($data);
@@ -116,6 +118,8 @@ class ZoneDataService
 
             if ($request->hasFile('image')) {
                 $data['image'] = $this->zoneRepository->updateImage($zone, $request->file('image'));
+            } elseif ($request->filled('image_url')) {
+                $data['image'] = $request->input('image_url');
             }
 
             $zone = $this->zoneRepository->update($zone, $data);
