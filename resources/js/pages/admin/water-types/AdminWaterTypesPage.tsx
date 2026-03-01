@@ -1,10 +1,13 @@
 import { Head, router } from '@inertiajs/react';
 import React, { useState } from 'react';
-import { CatalogFormDialog, FieldConfig } from '@/components/features/admin/CatalogFormDialog';
+import type { FieldConfig } from '@/components/features/admin/CatalogFormDialog';
+import { CatalogFormDialog } from '@/components/features/admin/CatalogFormDialog';
 import { CatalogTable } from '@/components/features/admin/CatalogTable';
 import { DeleteConfirmDialog } from '@/components/features/admin/DeleteConfirmDialog';
 import { SuccessDialog } from '@/components/features/admin/SuccessDialog';
 import AppLayout from '@/layouts/app-layout';
+import * as adminWaterTypes from '@/routes/admin/water-types';
+import * as adminZones from '@/routes/admin/zones';
 import type { WaterType } from '@/types';
 
 type Props = {
@@ -27,8 +30,8 @@ export default function AdminWaterTypesPage({ waterTypes }: Props) {
     return (
         <AppLayout
             breadcrumbs={[
-                { title: 'Zonas', href: route('admin.zones.index') },
-                { title: 'Tipos de Agua', href: route('admin.water-types.index') },
+                { title: 'Zonas', href: adminZones.index().url },
+                { title: 'Tipos de Agua', href: adminWaterTypes.index().url },
             ]}
         >
             <SuccessDialog />
@@ -57,7 +60,7 @@ export default function AdminWaterTypesPage({ waterTypes }: Props) {
                 title="Nuevo Tipo de Agua"
                 description="Agrega un nuevo tipo de agua al sistema"
                 fields={fields}
-                submitUrl={route('admin.water-types.store')}
+                submitUrl={adminWaterTypes.store().url}
                 method="post"
             />
 
@@ -68,7 +71,7 @@ export default function AdminWaterTypesPage({ waterTypes }: Props) {
                 description="Modifica los datos del tipo de agua"
                 fields={editFields}
                 initialData={editItem}
-                submitUrl={editItem ? route('admin.water-types.update', { water_type: editItem.id }) : ''}
+                submitUrl={editItem ? adminWaterTypes.update(editItem.id).url : ''}
                 method="put"
             />
 
@@ -78,7 +81,7 @@ export default function AdminWaterTypesPage({ waterTypes }: Props) {
                 title={`¿Eliminar tipo de agua "${deleteItem?.name}"?`}
                 onConfirm={() => {
                     if (deleteItem) {
-                        router.delete(route('admin.water-types.destroy', { water_type: deleteItem.id }), {
+                        router.delete(adminWaterTypes.destroy(deleteItem.id).url, {
                             onSuccess: () => setDeleteItem(null),
                         });
                     }
