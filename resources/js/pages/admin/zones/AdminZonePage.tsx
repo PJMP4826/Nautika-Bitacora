@@ -1,21 +1,23 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Pencil } from 'lucide-react';
+import { SuccessDialog } from '@/components/features/admin/SuccessDialog';
 import { ZoneAdminCard } from '@/components/features/admin/ZoneAdminCard';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
-import { adminZones } from '@/routes';
+import * as adminZones from '@/routes/admin/zones';
 import type { BreadcrumbItem, ZoneViewProps } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Zonas',
-        href: adminZones().url,
+        href: adminZones.index().url,
     },
 ];
 
 const ZoneList = ({ zones, experienceLevels, fishingTypes }: ZoneViewProps) => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
+            <SuccessDialog />
             <Head title="Zonas" />
             <div className="min-h-screen bg-slate-900">
                 <div className="animate-fade-in mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 pb-20 sm:px-6 lg:px-8">

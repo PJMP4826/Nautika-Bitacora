@@ -12,18 +12,19 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, adminZones } from '@/routes';
+import { dashboard } from '@/routes/admin';
+import * as adminZones from '@/routes/admin/zones';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: dashboard(),
+        href: dashboard().url,
         icon: LayoutGrid,
     },
     {
         title: 'Zones',
-        href: adminZones(),
+        href: adminZones.index().url,
         icon: MountainSnow
     }
 ];

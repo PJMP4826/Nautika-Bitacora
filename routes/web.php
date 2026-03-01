@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\ZonesAdminController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ZonesAdminController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\FishController;
 use App\Http\Controllers\HomeController;
@@ -10,7 +10,6 @@ use App\Http\Controllers\PlaningController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ZoneController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [SearchController::class, 'search'])->name('search');
@@ -23,9 +22,13 @@ Route::post('/contact', [ContactoController::class, 'store']);
 
 Route::get('/planing', [PlaningController::class, 'index']);
 
-Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('zones', [ZonesAdminController::class, 'index'])->name('admin-zones');
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('zones')->name('zones.')->group(function () {
+        Route::get('/', [ZonesAdminController::class, 'index'])->name('index');
+        Route::put('/{zone}', [ZonesAdminController::class, 'update'])->name('update');
+    });
 });
 
 Route::fallback([NotFound::class, 'index']);
