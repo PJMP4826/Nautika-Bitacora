@@ -28,6 +28,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::prefix('zones')->name('zones.')->group(function () {
         Route::get('/', [ZonesAdminController::class, 'index'])->name('index');
         Route::put('/{zone}', [ZonesAdminController::class, 'update'])->name('update');
+        Route::delete('/{zone}', [ZonesAdminController::class, 'destroy'])->name('destroy');
     });
 });
 
