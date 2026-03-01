@@ -72,6 +72,11 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
         return Zone::with(['experienceLevel', 'seasons', 'fishingTypes', 'fish'])->findOrFail($id);
     }
 
+    public function store(array $data): Zone
+    {
+        return Zone::create($data);
+    }
+
     public function update(Zone $zone, array $data): Zone
     {
         $zone->update($data);

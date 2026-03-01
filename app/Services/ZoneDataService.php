@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\StoreZoneRequest;
 use App\Http\Requests\UpdateZoneRequest;
 use App\Interfaces\Repositories\ExperienceRepositoryInterface;
 use App\Interfaces\Repositories\FishingDataRepositoryInterface;
@@ -78,6 +79,31 @@ class ZoneDataService
         }
 
         return $indexed;
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function store(StoreZoneRequest $request): Zone
+    {
+        return DB::transaction(function () use ($request) {
+            $data = $request->safe()->except(['image', 'fishing_type_ids', 'season_ids']);
+
+            if ($request->hasFile('image')) {
+                $data['image'] = $request->file('image')->store('zones', 'public');
+            }
+
+            $zone = $this->zoneRepository->store($data);
+
+            if ($request->has('fishing_type_ids')) {
+                $this->zoneRepository->syncFishingTypes($zone, $request->input('fishing_type_ids'));
+            }
+            if ($request->has('season_ids')) {
+                $this->zoneRepository->syncSeasons($zone, $request->input('season_ids'));
+            }
+
+            return $zone->load(['experienceLevel', 'seasons', 'fishingTypes']);
+        });
     }
 
     /**

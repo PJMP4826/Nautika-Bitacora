@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StoreZoneRequest;
 use App\Http\Requests\UpdateZoneRequest;
 use App\Models\Zone;
 use App\Services\HomeDataService;
@@ -42,6 +43,14 @@ class ZonesAdminController
     public function destroy(Zone $zone)
     {
         $this->zoneDataService->delete($zone);
+
         return redirect()->back()->with('success', 'Zona eliminada correctamente');
+    }
+
+    public function store(StoreZoneRequest $request)
+    {
+        $this->zoneDataService->store($request);
+
+        return redirect()->back()->with('success', 'Zona creada correctamente');
     }
 }

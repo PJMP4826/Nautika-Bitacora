@@ -29,6 +29,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::get('/', [ZonesAdminController::class, 'index'])->name('index');
         Route::put('/{zone}', [ZonesAdminController::class, 'update'])->name('update');
         Route::delete('/{zone}', [ZonesAdminController::class, 'destroy'])->name('destroy');
+        Route::post('/', [ZonesAdminController::class, 'store'])->name('store');
     });
 });
 

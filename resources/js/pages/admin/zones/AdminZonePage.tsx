@@ -1,5 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { Pencil } from 'lucide-react';
+import { useState } from 'react';
+import { CreateZoneDialog } from '@/components/features/admin/CreateZoneDialog';
 import { SuccessDialog } from '@/components/features/admin/SuccessDialog';
 import { ZoneAdminCard } from '@/components/features/admin/ZoneAdminCard';
 import { Button } from '@/components/ui/button';
@@ -15,9 +17,18 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const ZoneList = ({ zones, experienceLevels, fishingTypes, seasons }: ZoneViewProps) => {
+    const [createOpen, setCreateOpen] = useState(false);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <SuccessDialog />
+            <CreateZoneDialog
+                open={createOpen}
+                onOpenChange={setCreateOpen}
+                experienceLevels={experienceLevels}
+                fishingTypes={fishingTypes}
+                seasons={seasons}
+            />
             <Head title="Zonas" />
             <div className="min-h-screen bg-slate-900">
                 <div className="animate-fade-in mx-auto min-h-screen max-w-7xl bg-slate-50 px-4 pb-20 sm:px-6 lg:px-8">
@@ -28,7 +39,7 @@ const ZoneList = ({ zones, experienceLevels, fishingTypes, seasons }: ZoneViewPr
                             </div>
 
                             <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-                                <Button className="bg-blue-600">
+                                <Button className="bg-blue-600" onClick={() => setCreateOpen(true)}>
                                     <Pencil className="h-4 w-4" />
                                     Crear una zona
                                 </Button>
@@ -40,7 +51,13 @@ const ZoneList = ({ zones, experienceLevels, fishingTypes, seasons }: ZoneViewPr
 
                         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
                             {zones.map((zone) => (
-                                <ZoneAdminCard key={zone.id} zone={zone} experienceLevels={experienceLevels} fishingTypes={fishingTypes} seasons={seasons} />
+                                <ZoneAdminCard
+                                    key={zone.id}
+                                    zone={zone}
+                                    experienceLevels={experienceLevels}
+                                    fishingTypes={fishingTypes}
+                                    seasons={seasons}
+                                />
                             ))}
                         </div>
                     </div>

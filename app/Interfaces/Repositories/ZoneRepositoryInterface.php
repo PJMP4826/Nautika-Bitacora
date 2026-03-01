@@ -5,7 +5,6 @@ namespace App\Interfaces\Repositories;
 use App\Models\Zone;
 use Illuminate\Http\UploadedFile;
 
-
 interface ZoneRepositoryInterface
 {
     public function getZones(): array;
@@ -17,6 +16,8 @@ interface ZoneRepositoryInterface
         string $experienceLevel,
         string $season
     ): array;
+
+    public function store(array $data): Zone;
 
     public function update(Zone $zone, array $data): Zone;
 
