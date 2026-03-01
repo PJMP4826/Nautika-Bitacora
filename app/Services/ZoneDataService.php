@@ -86,20 +86,16 @@ class ZoneDataService
     public function update(Zone $zone, UpdateZoneRequest $request): Zone
     {
         return DB::transaction(function () use ($zone, $request) {
-            $data = $request->safe()->except(['image', 'types', 'difficulty', 'best_season', 'species']);
+            $data = $request->safe()->except(['image', 'fishing_type_ids', 'season_ids']);
 
             if ($request->hasFile('image')) {
                 $data['image'] = $this->zoneRepository->updateImage($zone, $request->file('image'));
             }
 
-            // 'difficulty' en el form = experience_level_id en la DB
-            $data['experience_level_id'] = $request->input('difficulty');
-
             $zone = $this->zoneRepository->update($zone, $data);
 
-            // usar los nombres que llegan del form
-            $this->zoneRepository->syncFishingTypes($zone, $request->input('types', []));
-            $this->zoneRepository->syncSeasons($zone, $request->input('best_season', []));
+            $this->zoneRepository->syncFishingTypes($zone, $request->input('fishing_type_ids', []));
+            $this->zoneRepository->syncSeasons($zone, $request->input('season_ids', []));
 
             return $zone->load(['experienceLevel', 'seasons', 'fishingTypes']);
         });
