@@ -105,7 +105,7 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
         if (!data?.zone) return;
 
         router.post(
-            update.form(data.zone.id).action,
+            update(data.zone.id).url,
             {
                 name: zoneForm.name,
                 slug: zoneForm.slug,
@@ -116,6 +116,7 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
                 experience_level_id: zoneForm.difficulty,
                 fishing_type_ids: zoneForm.types,
                 season_ids: zoneForm.best_season,
+                _method: 'PUT',
                 ...(zoneForm.image instanceof File ? { image: zoneForm.image } : {})
             },
             {
