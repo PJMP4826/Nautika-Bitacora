@@ -23,6 +23,7 @@ type ZoneFormData = {
     region: string;
     water_type: string;
     image: File | null;
+    imageUrl: string;
     types: string[];
     difficulty: string;
     best_season: string[];
@@ -37,6 +38,7 @@ const initialState: ZoneFormData = {
     region: '',
     water_type: 'mar',
     image: null,
+    imageUrl: '',
     types: [],
     difficulty: '',
     best_season: [],
@@ -49,6 +51,7 @@ export function CreateZoneDialog({ open, onOpenChange, experienceLevels, fishing
     const [zoneForm, setZoneForm] = useState<ZoneFormData>(initialState);
     const [dragOver, setDragOver] = useState(false);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [imageMode, setImageMode] = useState<'upload' | 'url'>('upload');
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     // Reset cuando se cierra
@@ -118,7 +121,11 @@ export function CreateZoneDialog({ open, onOpenChange, experienceLevels, fishing
                 experience_level_id: zoneForm.difficulty,
                 fishing_type_ids:    zoneForm.types,
                 season_ids:          zoneForm.best_season,
-                ...(zoneForm.image ? { image: zoneForm.image } : {}),
+                ...(imageMode === 'upload' && zoneForm.image
+                    ? { image: zoneForm.image }
+                    : imageMode === 'url' && zoneForm.imageUrl
+                        ? { image_url: zoneForm.imageUrl }
+                        : {}),
             },
             {
                 forceFormData: true,
@@ -151,38 +158,94 @@ export function CreateZoneDialog({ open, onOpenChange, experienceLevels, fishing
                     <div className="space-y-6 p-6">
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                             {/* Dropzone */}
-                            <div
-                                role="button"
-                                tabIndex={0}
-                                onClick={() => fileInputRef.current?.click()}
-                                onKeyDown={(e) => e.key === 'Enter' && fileInputRef.current?.click()}
-                                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-                                onDragLeave={() => setDragOver(false)}
-                                onDrop={handleDrop}
-                                className={`relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed py-6 transition-colors ${
-                                    dragOver ? 'border-slate-400 bg-slate-100' : 'border-slate-200 bg-slate-50/50 hover:bg-slate-50'
-                                }`}
-                            >
-                                {previewUrl ? (
-                                    <>
-                                        <img
-                                            src={previewUrl}
-                                            alt="Zone preview"
-                                            className="absolute inset-0 h-full w-full rounded-xl object-cover opacity-80"
-                                        />
-                                        <div className="relative z-10 flex flex-col items-center rounded-lg bg-white/80 px-4 py-2 backdrop-blur-sm">
-                                            <CloudUpload className="mb-1 h-5 w-5 text-slate-600" />
-                                            <p className="text-xs font-medium text-slate-700">Click para cambiar imagen</p>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <CloudUpload className="mb-2 h-8 w-8 text-slate-400" />
-                                        <p className="text-sm font-medium text-slate-700">Selecciona o arrastra una imagen</p>
-                                        <p className="mt-1 text-xs text-slate-400">JPG o PNG, max 10 MB</p>
-                                    </>
+                            <div className="flex flex-col gap-3">
+                                {/* Toggle */}
+                                <div className="flex rounded-lg border border-slate-200 p-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => setImageMode('upload')}
+                                        className={`flex-1 rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                                            imageMode === 'upload'
+                                                ? 'bg-slate-900 text-white'
+                                                : 'text-slate-500 hover:text-slate-700'
+                                        }`}
+                                    >
+                                        Subir archivo
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setImageMode('url')}
+                                        className={`flex-1 rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                                            imageMode === 'url'
+                                                ? 'bg-slate-900 text-white'
+                                                : 'text-slate-500 hover:text-slate-700'
+                                        }`}
+                                    >
+                                        URL externa
+                                    </button>
+                                </div>
+
+                                {/* Upload mode */}
+                                {imageMode === 'upload' && (
+                                    <div
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={() => fileInputRef.current?.click()}
+                                        onKeyDown={(e) => e.key === 'Enter' && fileInputRef.current?.click()}
+                                        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                                        onDragLeave={() => setDragOver(false)}
+                                        onDrop={handleDrop}
+                                        className={`relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed py-6 transition-colors ${
+                                            dragOver ? 'border-slate-400 bg-slate-100' : 'border-slate-200 bg-slate-50/50 hover:bg-slate-50'
+                                        }`}
+                                    >
+                                        {previewUrl && zoneForm.image instanceof File ? (
+                                            <>
+                                                <img src={previewUrl} alt="preview" className="absolute inset-0 h-full w-full rounded-xl object-cover opacity-80" />
+                                                <div className="relative z-10 flex flex-col items-center rounded-lg bg-white/80 px-4 py-2 backdrop-blur-sm">
+                                                    <CloudUpload className="mb-1 h-5 w-5 text-slate-600" />
+                                                    <p className="text-xs font-medium text-slate-700">Click para cambiar imagen</p>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <CloudUpload className="mb-2 h-8 w-8 text-slate-400" />
+                                                <p className="text-sm font-medium text-slate-700">Selecciona o arrastra una imagen</p>
+                                                <p className="mt-1 text-xs text-slate-400">JPG o PNG, max 10 MB</p>
+                                            </>
+                                        )}
+                                        <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" className="hidden" onChange={handleFileSelect} />
+                                    </div>
                                 )}
-                                <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" className="hidden" onChange={handleFileSelect} />
+
+                                {/* URL mode */}
+                                {imageMode === 'url' && (
+                                    <div className="flex flex-col gap-3">
+                                        <Input
+                                            type="url"
+                                            placeholder="https://ejemplo.com/imagen.jpg"
+                                            value={zoneForm.imageUrl}
+                                            onChange={(e) => {
+                                                setZoneForm((prev) => ({ ...prev, imageUrl: e.target.value }));
+                                                setPreviewUrl(e.target.value || null);
+                                            }}
+                                            className="bg-slate-50/50 focus-visible:bg-white"
+                                        />
+                                        {/* Preview de la URL */}
+                                        {zoneForm.imageUrl && (
+                                            <div className="relative h-32 overflow-hidden rounded-xl border border-slate-200">
+                                                <img
+                                                    src={zoneForm.imageUrl}
+                                                    alt="preview"
+                                                    className="h-full w-full object-cover"
+                                                    onError={(e) => {
+                                                        (e.target as HTMLImageElement).style.display = 'none';
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
                             {/* Name + Slug + Region */}
