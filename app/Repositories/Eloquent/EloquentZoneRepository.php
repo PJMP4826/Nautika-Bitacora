@@ -111,4 +111,12 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
 
         return asset('storage/'.$image);
     }
+
+    public function delete(Zone $zone): void
+    {
+        if ($zone->image && ! str_starts_with($zone->image, 'http')) {
+            Storage::disk('public')->delete($zone->image);
+        }
+        $zone->delete();
+    }
 }

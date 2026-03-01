@@ -26,4 +26,5 @@ interface ZoneRepositoryInterface
 
     public function syncFishingTypes(Zone $zone, array $fishingTypeIds): void;
 
+    public function delete(Zone $zone): void;
 }
