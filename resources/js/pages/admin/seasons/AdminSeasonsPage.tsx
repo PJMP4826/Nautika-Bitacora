@@ -1,10 +1,13 @@
 import { Head, router } from '@inertiajs/react';
 import React, { useState } from 'react';
-import { CatalogFormDialog, FieldConfig } from '@/components/features/admin/CatalogFormDialog';
+import type { FieldConfig } from '@/components/features/admin/CatalogFormDialog';
+import { CatalogFormDialog } from '@/components/features/admin/CatalogFormDialog';
 import { CatalogTable } from '@/components/features/admin/CatalogTable';
 import { DeleteConfirmDialog } from '@/components/features/admin/DeleteConfirmDialog';
 import { SuccessDialog } from '@/components/features/admin/SuccessDialog';
 import AppLayout from '@/layouts/app-layout';
+import * as adminSeasons from '@/routes/admin/seasons';
+import * as adminZones from '@/routes/admin/zones';
 import type { Season } from '@/types';
 
 type Props = {
@@ -27,8 +30,8 @@ export default function AdminSeasonsPage({ seasons }: Props) {
     return (
         <AppLayout
             breadcrumbs={[
-                { title: 'Zonas', href: route('admin.zones.index') },
-                { title: 'Temporadas', href: route('admin.seasons.index') },
+                { title: 'Zonas', href: adminZones.index().url },
+                { title: 'Temporadas', href: adminSeasons.index().url },
             ]}
         >
             <SuccessDialog />
@@ -57,7 +60,7 @@ export default function AdminSeasonsPage({ seasons }: Props) {
                 title="Nueva Temporada"
                 description="Agrega una nueva temporada al sistema"
                 fields={fields}
-                submitUrl={route('admin.seasons.store')}
+                submitUrl={adminSeasons.store().url}
                 method="post"
             />
 
@@ -68,7 +71,7 @@ export default function AdminSeasonsPage({ seasons }: Props) {
                 description="Modifica los datos de la temporada"
                 fields={editFields}
                 initialData={editItem}
-                submitUrl={editItem ? route('admin.seasons.update', { season: editItem.id }) : ''}
+                submitUrl={editItem ? adminSeasons.update(editItem.id).url : ''}
                 method="put"
             />
 
@@ -78,7 +81,7 @@ export default function AdminSeasonsPage({ seasons }: Props) {
                 title={`¿Eliminar temporada "${deleteItem?.name}"?`}
                 onConfirm={() => {
                     if (deleteItem) {
-                        router.delete(route('admin.seasons.destroy', { season: deleteItem.id }), {
+                        router.delete(adminSeasons.destroy(deleteItem.id).url, {
                             onSuccess: () => setDeleteItem(null),
                         });
                     }
