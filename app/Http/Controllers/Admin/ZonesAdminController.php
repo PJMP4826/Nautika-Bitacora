@@ -19,7 +19,9 @@ class ZonesAdminController
 
     public function index()
     {
+        //dd($this->dataService->getZones());
         return Inertia::render('admin/zones/AdminZonePage', [
+
             'zones' => $this->dataService->getZones(),
             'fishingTypes' => $this->dataService->getFishingTypes(),
             'experienceLevels' => $this->dataService->getExperienceLevels(),

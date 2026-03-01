@@ -15,6 +15,7 @@ class StoreZoneRequest extends FormRequest
             'water_type' => 'required|string|in:mar,rio,lago',
             'region' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:10240',
+            'image_url' => 'nullable|url',
             'experience_level_id' => 'nullable|string|exists:experience_levels,id',
             'rating' => 'nullable|numeric|min:0|max:5',
             'regulations' => 'nullable|string',
