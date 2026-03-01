@@ -35,4 +35,13 @@ class ZonesAdminController
 
         return redirect()->back()->with('success', 'Zona actualizada correctamente');
     }
+
+    /**
+     * @throws Throwable
+     */
+    public function destroy(Zone $zone)
+    {
+        $this->zoneDataService->delete($zone);
+        return redirect()->back()->with('success', 'Zona eliminada correctamente');
+    }
 }

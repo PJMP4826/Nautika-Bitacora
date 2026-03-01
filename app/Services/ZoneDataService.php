@@ -100,4 +100,12 @@ class ZoneDataService
             return $zone->load(['experienceLevel', 'seasons', 'fishingTypes']);
         });
     }
+
+    /**
+     * @throws Throwable
+     */
+    public function delete(Zone $zone): void
+    {
+        DB::transaction(fn () => $this->zoneRepository->delete($zone));
+    }
 }
