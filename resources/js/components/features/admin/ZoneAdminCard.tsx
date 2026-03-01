@@ -1,19 +1,15 @@
+import { router } from '@inertiajs/react';
 import { MapPin, Pencil, Star, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { destroy } from '@/routes/admin/zones';
 import type { ZoneAdminCardProps } from '@/types';
+import { DeleteConfirmDialog } from './DeleteConfirmDialog';
 import { EditZoneDialog } from './EditZoneDialog';
-
-
-
-// const handleDelete = ({ zone }: ZoneAdminCardProps) => {
-//     console.log("delete", {
-//         zone
-//     })
-// }
 
 export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes, seasons }: ZoneAdminCardProps) => {
     const [selectedCard, setSelectedCard] = useState<ZoneAdminCardProps | null>(null);
+    const [deleteOpen, setDeleteOpen] = useState(false);
     const [open, setOpen] = useState(false);
 
     const handleEdit = ({ zone, experienceLevels, fishingTypes, seasons }: ZoneAdminCardProps) => {
@@ -23,6 +19,13 @@ export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes, seasons }:
             experienceLevels,
             fishingTypes,
             seasons,
+        });
+    };
+
+    const handleDelete = () => {
+        router.delete(destroy(zone.id).url, {
+            onSuccess: () => setDeleteOpen(false),
+            onError: (errors) => console.error(errors),
         });
     };
 
@@ -95,23 +98,31 @@ export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes, seasons }:
                         Editar
                     </Button>
 
-                    <Button
-                        variant="destructive"
-                        size="sm"
-                        //onClick={() => handleDelete({zone})}
-                        className="flex cursor-pointer items-center gap-1"
-                    >
+                    <Button variant="destructive" size="sm" onClick={() => setDeleteOpen(true)} className="flex cursor-pointer items-center gap-1">
                         <Trash2 className="h-4 w-4" />
                         Eliminar
                     </Button>
                 </div>
             </div>
 
-            <EditZoneDialog open={open} onOpenChange={setOpen} data={selectedCard} autoFillSelectedZoneCardProps={{
-                fishingTypes,
-                experienceLevels,
-                seasons
-            }}/>
+            <EditZoneDialog
+                open={open}
+                onOpenChange={setOpen}
+                data={selectedCard}
+                autoFillSelectedZoneCardProps={{
+                    fishingTypes,
+                    experienceLevels,
+                    seasons,
+                }}
+            />
+
+            <DeleteConfirmDialog
+                open={deleteOpen}
+                onOpenChange={setDeleteOpen}
+                title={`¿Eliminar "${zone.name}"?`}
+                description="Se eliminará la zona y su imagen permanentemente."
+                onConfirm={handleDelete}
+            />
         </>
     );
 };
