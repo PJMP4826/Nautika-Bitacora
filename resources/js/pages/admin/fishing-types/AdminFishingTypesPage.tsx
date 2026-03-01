@@ -1,11 +1,15 @@
 import { Head, router } from '@inertiajs/react';
 import React, { useState } from 'react';
-import { CatalogFormDialog, FieldConfig } from '@/components/features/admin/CatalogFormDialog';
+import type { FieldConfig } from '@/components/features/admin/CatalogFormDialog';
+import { CatalogFormDialog } from '@/components/features/admin/CatalogFormDialog';
 import { CatalogTable } from '@/components/features/admin/CatalogTable';
 import { DeleteConfirmDialog } from '@/components/features/admin/DeleteConfirmDialog';
 import { SuccessDialog } from '@/components/features/admin/SuccessDialog';
 import AppLayout from '@/layouts/app-layout';
+import * as adminFishingTypes from '@/routes/admin/fishing-types';
+import * as adminZones from '@/routes/admin/zones';
 import type { FishingType } from '@/types';
+
 
 type Props = {
     fishingTypes: FishingType[];
@@ -28,8 +32,8 @@ export default function AdminFishingTypesPage({ fishingTypes }: Props) {
     return (
         <AppLayout
             breadcrumbs={[
-                { title: 'Zonas', href: route('admin.zones.index') },
-                { title: 'Estilos de Pesca', href: route('admin.fishing-types.index') },
+                { title: 'Zonas', href: adminZones.index().url },
+                { title: 'Estilos de Pesca', href: adminFishingTypes.index().url },
             ]}
         >
             <SuccessDialog />
@@ -58,7 +62,7 @@ export default function AdminFishingTypesPage({ fishingTypes }: Props) {
                 title="Nuevo Estilo de Pesca"
                 description="Agrega un nuevo estilo de pesca al sistema"
                 fields={fields}
-                submitUrl={route('admin.fishing-types.store')}
+                submitUrl={adminFishingTypes.store().method}
                 method="post"
             />
 
@@ -69,7 +73,7 @@ export default function AdminFishingTypesPage({ fishingTypes }: Props) {
                 description="Modifica los datos del estilo de pesca"
                 fields={editFields}
                 initialData={editItem}
-                submitUrl={editItem ? route('admin.fishing-types.update', { fishing_type: editItem.id }) : ''}
+                submitUrl={editItem ? adminFishingTypes.update(editItem.id).url : ''}
                 method="put"
             />
 
@@ -79,7 +83,7 @@ export default function AdminFishingTypesPage({ fishingTypes }: Props) {
                 title={`¿Eliminar estilo "${deleteItem?.name}"?`}
                 onConfirm={() => {
                     if (deleteItem) {
-                        router.delete(route('admin.fishing-types.destroy', { fishing_type: deleteItem.id }), {
+                        router.delete(adminFishingTypes.destroy(deleteItem.id).url, {
                             onSuccess: () => setDeleteItem(null),
                         });
                     }
