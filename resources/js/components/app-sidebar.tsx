@@ -13,6 +13,10 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes/admin';
+import * as adminExperienceLevels from '@/routes/admin/experience-levels';
+import * as adminFishingTypes from '@/routes/admin/fishing-types';
+import * as adminSeasons from '@/routes/admin/seasons';
+import * as adminWaterTypes from '@/routes/admin/water-types';
 import * as adminZones from '@/routes/admin/zones';
 import type { NavItem } from '@/types';
 
@@ -29,22 +33,22 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Estilos de Pesca',
-        href: route('admin.fishing-types.index'),
+        href: adminFishingTypes.index().url,
         icon: Fish
     },
     {
         title: 'Temporadas',
-        href: route('admin.seasons.index'),
+        href: adminSeasons.index().url,
         icon: Calendar
     },
     {
         title: 'Niveles',
-        href: route('admin.experience-levels.index'),
+        href: adminExperienceLevels.index().url,
         icon: Trophy
     },
     {
         title: 'Tipos de Agua',
-        href: route('admin.water-types.index'),
+        href: adminWaterTypes.index().url,
         icon: Waves
     }
 ];
