@@ -12,16 +12,17 @@ import { EditZoneDialog } from './EditZoneDialog';
 //     })
 // }
 
-export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes }: ZoneAdminCardProps) => {
+export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes, seasons }: ZoneAdminCardProps) => {
     const [selectedCard, setSelectedCard] = useState<ZoneAdminCardProps | null>(null);
     const [open, setOpen] = useState(false);
 
-    const handleEdit = ({ zone, experienceLevels, fishingTypes }: ZoneAdminCardProps) => {
+    const handleEdit = ({ zone, experienceLevels, fishingTypes, seasons }: ZoneAdminCardProps) => {
         setOpen(true);
         setSelectedCard({
             zone,
             experienceLevels,
             fishingTypes,
+            seasons,
         });
     };
 
@@ -85,6 +86,7 @@ export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes }: ZoneAdmi
                                 zone,
                                 experienceLevels,
                                 fishingTypes,
+                                seasons,
                             })
                         }
                         className="flex cursor-pointer items-center gap-1 bg-green-500"
@@ -107,7 +109,8 @@ export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes }: ZoneAdmi
 
             <EditZoneDialog open={open} onOpenChange={setOpen} data={selectedCard} autoFillSelectedZoneCardProps={{
                 fishingTypes,
-                experienceLevels
+                experienceLevels,
+                seasons
             }}/>
         </>
     );

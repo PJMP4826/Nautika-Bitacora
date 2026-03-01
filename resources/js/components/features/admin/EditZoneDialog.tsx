@@ -301,27 +301,59 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
                             </div>
                         </div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="difficulty" className="text-xs font-bold tracking-wider text-slate-500 uppercase">
-                                Estilos de Pesca
-                            </Label>
-                            <select
-                                id="difficulty"
-                                name="difficulty"
-                                value={zoneForm.difficulty}
-                                onChange={(e) =>
-                                    setZoneForm((prev) => ({
-                                        ...prev,
-                                        difficulty: e.target.value,
-                                    }))
-                                }
-                                className="w-full rounded-md border border-input bg-slate-50/50 px-3 py-2 text-sm shadow-sm focus:ring-1 focus:ring-ring focus:outline-none"
-                            >
-                                <option value="">Select difficulty</option>
-                                {autoFillSelectedZoneCardProps.fishingTypes.map((f) => (
-                                    <option value={f.id}>{f.name}</option>
-                                ))}
-                            </select>
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                            <div className="space-y-2">
+                                <Label className="text-xs font-bold tracking-wider text-slate-500 uppercase">
+                                    Estilos de Pesca
+                                </Label>
+                                <div className="flex flex-wrap gap-2">
+                                    {autoFillSelectedZoneCardProps.fishingTypes.map((f) => (
+                                        <label key={f.id} className="flex items-center gap-1.5 rounded-md border border-slate-200 bg-slate-50/50 px-2.5 py-1.5 text-sm shadow-sm cursor-pointer hover:bg-slate-100">
+                                            <input
+                                                type="checkbox"
+                                                checked={zoneForm.types.includes(f.id)}
+                                                onChange={(e) => {
+                                                    const checked = e.target.checked;
+                                                    setZoneForm((prev) => ({
+                                                        ...prev,
+                                                        types: checked
+                                                            ? [...prev.types, f.id]
+                                                            : prev.types.filter((id) => id !== f.id),
+                                                    }));
+                                                }}
+                                                className="rounded border-slate-300 text-blue-600 focus:ring-blue-600"
+                                            />
+                                            {f.name}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label className="text-xs font-bold tracking-wider text-slate-500 uppercase">
+                                    Mejores Temporadas
+                                </Label>
+                                <div className="flex flex-wrap gap-2">
+                                    {autoFillSelectedZoneCardProps.seasons.map((s) => (
+                                        <label key={s.id} className="flex items-center gap-1.5 rounded-md border border-slate-200 bg-slate-50/50 px-2.5 py-1.5 text-sm shadow-sm cursor-pointer hover:bg-slate-100">
+                                            <input
+                                                type="checkbox"
+                                                checked={zoneForm.best_season.includes(s.id)}
+                                                onChange={(e) => {
+                                                    const checked = e.target.checked;
+                                                    setZoneForm((prev) => ({
+                                                        ...prev,
+                                                        best_season: checked
+                                                            ? [...prev.best_season, s.id]
+                                                            : prev.best_season.filter((id) => id !== s.id),
+                                                    }));
+                                                }}
+                                                className="rounded border-slate-300 text-blue-600 focus:ring-blue-600"
+                                            />
+                                            {s.name}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
 

@@ -14,7 +14,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const ZoneList = ({ zones, experienceLevels, fishingTypes }: ZoneViewProps) => {
+const ZoneList = ({ zones, experienceLevels, fishingTypes, seasons }: ZoneViewProps) => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <SuccessDialog />
@@ -40,7 +40,7 @@ const ZoneList = ({ zones, experienceLevels, fishingTypes }: ZoneViewProps) => {
 
                         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
                             {zones.map((zone) => (
-                                <ZoneAdminCard key={zone.id} zone={zone} experienceLevels={experienceLevels} fishingTypes={fishingTypes} />
+                                <ZoneAdminCard key={zone.id} zone={zone} experienceLevels={experienceLevels} fishingTypes={fishingTypes} seasons={seasons} />
                             ))}
                         </div>
                     </div>

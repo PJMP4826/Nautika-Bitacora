@@ -38,6 +38,7 @@ export interface ZoneViewProps {
     zones: Zone[];
     fishingTypes: FishingType[];
     experienceLevels: ExperienceLevel[];
+    seasons: Season[];
     onDetail: (zone: Zone) => void;
     onBack: () => void;
 }
@@ -73,11 +74,13 @@ export interface ZoneCardProps {
 export interface AutoFillSelectedZoneCardProps {
     fishingTypes: FishingType[];
     experienceLevels: ExperienceLevel[];
+    seasons: Season[];
 }
 export interface ZoneAdminCardProps {
     zone: Zone,
     fishingTypes: FishingType[];
     experienceLevels: ExperienceLevel[];
+    seasons: Season[];
 }
 
 export interface TestimonialsProps {

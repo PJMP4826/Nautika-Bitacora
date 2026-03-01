@@ -22,6 +22,7 @@ class ZonesAdminController
             'zones' => $this->dataService->getZones(),
             'fishingTypes' => $this->dataService->getFishingTypes(),
             'experienceLevels' => $this->dataService->getExperienceLevels(),
+            'seasons' => $this->dataService->getSeasons(),
         ]);
     }
 
