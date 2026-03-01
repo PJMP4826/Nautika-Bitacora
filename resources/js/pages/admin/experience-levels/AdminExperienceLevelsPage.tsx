@@ -1,10 +1,13 @@
 import { Head, router } from '@inertiajs/react';
 import React, { useState } from 'react';
-import { CatalogFormDialog, FieldConfig } from '@/components/features/admin/CatalogFormDialog';
+import type { FieldConfig } from '@/components/features/admin/CatalogFormDialog';
+import { CatalogFormDialog } from '@/components/features/admin/CatalogFormDialog';
 import { CatalogTable } from '@/components/features/admin/CatalogTable';
 import { DeleteConfirmDialog } from '@/components/features/admin/DeleteConfirmDialog';
 import { SuccessDialog } from '@/components/features/admin/SuccessDialog';
 import AppLayout from '@/layouts/app-layout';
+import * as adminExperienceLevels from '@/routes/admin/experience-levels';
+import * as adminZones from '@/routes/admin/zones';
 import type { ExperienceLevel } from '@/types';
 
 type Props = {
@@ -27,8 +30,8 @@ export default function AdminExperienceLevelsPage({ experienceLevels }: Props) {
     return (
         <AppLayout
             breadcrumbs={[
-                { title: 'Zonas', href: route('admin.zones.index') },
-                { title: 'Niveles de Experiencia', href: route('admin.experience-levels.index') },
+                { title: 'Zonas', href: adminZones.index().url },
+                { title: 'Niveles de Experiencia', href: adminExperienceLevels.index().url },
             ]}
         >
             <SuccessDialog />
@@ -57,7 +60,7 @@ export default function AdminExperienceLevelsPage({ experienceLevels }: Props) {
                 title="Nuevo Nivel de Experiencia"
                 description="Agrega un nuevo nivel de experiencia al sistema"
                 fields={fields}
-                submitUrl={route('admin.experience-levels.store')}
+                submitUrl={adminExperienceLevels.store().url}
                 method="post"
             />
 
@@ -68,7 +71,7 @@ export default function AdminExperienceLevelsPage({ experienceLevels }: Props) {
                 description="Modifica los datos del nivel de experiencia"
                 fields={editFields}
                 initialData={editItem}
-                submitUrl={editItem ? route('admin.experience-levels.update', { experienceLevel: editItem.id }) : ''}
+                submitUrl={editItem ? adminExperienceLevels.update(editItem.id).url : ''}
                 method="put"
             />
 
@@ -78,7 +81,7 @@ export default function AdminExperienceLevelsPage({ experienceLevels }: Props) {
                 title={`¿Eliminar nivel "${deleteItem?.name}"?`}
                 onConfirm={() => {
                     if (deleteItem) {
-                        router.delete(route('admin.experience-levels.destroy', { experienceLevel: deleteItem.id }), {
+                        router.delete(adminExperienceLevels.destroy(deleteItem.id).url, {
                             onSuccess: () => setDeleteItem(null),
                         });
                     }
