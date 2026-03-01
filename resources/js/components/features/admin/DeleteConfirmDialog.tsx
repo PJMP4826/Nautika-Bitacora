@@ -1,13 +1,7 @@
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+import { router } from '@inertiajs/react';
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 type Props = {
     open: boolean;
@@ -19,24 +13,23 @@ type Props = {
 
 export function DeleteConfirmDialog({ open, onOpenChange, title, description, onConfirm }: Props) {
     return (
-        <AlertDialog open={open} onOpenChange={onOpenChange}>
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>{title}</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        {description ?? 'Esta acción no se puede deshacer.'}
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                    <AlertDialogAction
-                        onClick={onConfirm}
-                        className="bg-red-600 hover:bg-red-700"
-                    >
-                        Sí, eliminar
-                    </AlertDialogAction>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
+        <Dialog open={open} onOpenChange={onOpenChange}>
+            <DialogContent className="max-w-md">
+                <DialogHeader>
+                    <DialogTitle>{title}</DialogTitle>
+                    <DialogDescription>
+                        {description || '¿Estás seguro de que deseas eliminar este elemento? Esta acción no se puede deshacer.'}
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className="mt-6">
+                    <Button variant="ghost" onClick={() => onOpenChange(false)}>
+                        Cancelar
+                    </Button>
+                    <Button variant="destructive" onClick={onConfirm}>
+                        Eliminar
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     );
 }

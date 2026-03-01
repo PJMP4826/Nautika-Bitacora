@@ -12,7 +12,7 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
     public function getZones(): array
     {
         return Zone::query()
-            ->with(['fishingTypes', 'seasons', 'experienceLevel', 'fish'])
+            ->with(['waterType', 'fishingTypes', 'seasons', 'experienceLevel', 'fish'])
             ->get()
             ->map(fn (Zone $zone) => $this->transform($zone))
             ->toArray();
@@ -21,7 +21,7 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
     public function getZoneBySlug(string $slug): array
     {
         $zone = Zone::query()
-            ->with(['fishingTypes', 'seasons', 'experienceLevel', 'fish'])
+            ->with(['waterType', 'fishingTypes', 'seasons', 'experienceLevel', 'fish'])
             ->where('slug', $slug)
             ->first();
 
@@ -34,7 +34,7 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
         string $season
     ): array {
         return Zone::query()
-            ->with(['fishingTypes', 'seasons', 'experienceLevel', 'fish'])
+            ->with(['waterType', 'fishingTypes', 'seasons', 'experienceLevel', 'fish'])
             ->whereHas('fishingTypes', function ($q) use ($fishingType) {
                 $q->where('id', $fishingType);
             })
@@ -56,7 +56,7 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
             'name' => $zone->name,
             'slug' => $zone->slug,
             'region' => $zone->region,
-            'water_type' => $zone->water_type,
+            'water_type_id' => $zone->water_type_id,
             'image' => $this->resolveImageUrl($zone->image),
             'types' => $zone->fishingTypes->pluck('id')->values()->toArray(),
             'difficulty' => $zone->experienceLevel?->id,
@@ -70,7 +70,7 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
 
     public function findById(int $id): Zone
     {
-        return Zone::with(['experienceLevel', 'seasons', 'fishingTypes', 'fish'])->findOrFail($id);
+        return Zone::with(['waterType', 'experienceLevel', 'seasons', 'fishingTypes', 'fish'])->findOrFail($id);
     }
 
     public function store(array $data): Zone

@@ -19,12 +19,18 @@ export interface ExperienceLevel {
     description: string;
 }
 
+export interface WaterType {
+    id: string;
+    name: string;
+    icon: string | null;
+}
+
 export interface Zone {
     id: number;
     name: string;
     slug: string;
     region: string;
-    water_type: string;
+    water_type_id: string;
     image: string;
     types: string[];
     difficulty: string;
@@ -41,7 +47,7 @@ export interface ZoneDetail {
     name: string;
     slug: string;
     region: string;
-    water_type: string;
+    water_type_id: string;
     image: string;
     types: FishingType[];
     difficulty: ExperienceLevel;

@@ -12,7 +12,7 @@ class StoreZoneRequest extends FormRequest
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:zones,slug',
             'description' => 'required|string',
-            'water_type' => 'required|string|in:mar,rio,lago',
+            'water_type_id' => 'required|string|exists:water_types,id',
             'region' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:10240',
             'image_url' => 'nullable|url',

@@ -18,7 +18,7 @@ class Zone extends Model
         'description',
         'region',
         'image',
-        'water_type',
+        'water_type_id',
         'active',
         'experience_level_id',
         'rating',
@@ -31,6 +31,11 @@ class Zone extends Model
             'active' => 'boolean',
             'rating' => 'decimal:1',
         ];
+    }
+
+    public function waterType(): BelongsTo
+    {
+        return $this->belongsTo(WaterType::class, 'water_type_id');
     }
 
     public function experienceLevel(): BelongsTo

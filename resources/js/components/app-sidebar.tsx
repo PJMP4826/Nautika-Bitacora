@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, MountainSnow} from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, MountainSnow, Fish, Calendar, Trophy, Waves } from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -23,9 +23,29 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Zones',
+        title: 'Zonas',
         href: adminZones.index().url,
         icon: MountainSnow
+    },
+    {
+        title: 'Estilos de Pesca',
+        href: route('admin.fishing-types.index'),
+        icon: Fish
+    },
+    {
+        title: 'Temporadas',
+        href: route('admin.seasons.index'),
+        icon: Calendar
+    },
+    {
+        title: 'Niveles',
+        href: route('admin.experience-levels.index'),
+        icon: Trophy
+    },
+    {
+        title: 'Tipos de Agua',
+        href: route('admin.water-types.index'),
+        icon: Waves
     }
 ];
 

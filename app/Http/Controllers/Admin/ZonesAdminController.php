@@ -19,7 +19,7 @@ class ZonesAdminController
 
     public function index()
     {
-        //dd($this->dataService->getZones());
+        // dd($this->dataService->getZones());
         return Inertia::render('admin/zones/AdminZonePage', [
 
             'zones' => $this->dataService->getZones(),
