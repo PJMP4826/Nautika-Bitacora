@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FishRequest;
 use App\Models\Fish;
+use App\Services\HomeDataService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -12,6 +13,8 @@ use Inertia\Response;
 
 class FishAdminController extends Controller
 {
+    public function __construct(private readonly HomeDataService $dataService) {}
+
     public function index(): Response
     {
         $fish = Fish::query()
@@ -24,6 +27,7 @@ class FishAdminController extends Controller
 
         return Inertia::render('admin/fish/AdminFishPage', [
             'fish' => $fish,
+            'zones' => $this->dataService->getZones(),
         ]);
     }
 
@@ -87,7 +91,7 @@ class FishAdminController extends Controller
             'description' => $zone->description,
             'species' => $zone->fish->pluck('name')->values()->all(),
             'regulations' => $zone->regulations,
-        ] : [];
+        ] : null;
 
         return [
             'name' => $fish->name,

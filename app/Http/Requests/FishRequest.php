@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Fish;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class FishRequest extends FormRequest
 {
@@ -13,13 +15,22 @@ class FishRequest extends FormRequest
 
     public function rules(): array
     {
+        /** @var Fish|null $fish */
+        $fish = $this->route('fish');
+
         return [
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:fish,slug,'.$this->fish?->id],
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('fish')->ignore($fish),
+            ],
             'scientific_name' => ['nullable', 'string', 'max:255'],
-            'zone_id' => ['required', 'exists:zones,id'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-            'image_url' => ['nullable', 'url', 'max:500'],
+            'zone_id' => ['required', 'integer', 'exists:zones,id'],
+            'image' => ['nullable', 'image', 'max:10240'], // max 10MB
+            'image_url' => ['nullable', 'url', 'required_without:image'],
         ];
+
     }
 }
