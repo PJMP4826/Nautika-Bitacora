@@ -49,6 +49,7 @@ class FishAdminController extends Controller
     public function update(FishRequest $request, Fish $fish): RedirectResponse
     {
         $data = $request->validated();
+        unset($data['image_url']);
 
         if ($request->hasFile('image')) {
             if ($fish->image && ! filter_var($fish->image, FILTER_VALIDATE_URL)) {
@@ -94,10 +95,12 @@ class FishAdminController extends Controller
         ] : null;
 
         return [
+            'id' => $fish->id,
             'name' => $fish->name,
             'slug' => $fish->slug,
             'image' => $fish->image,
             'scientific_name' => $fish->scientific_name,
+            'zone_id' => $fish->zone_id,
             'zone' => $zoneArray,
         ];
     }

@@ -67,9 +67,11 @@ export interface Testimonial {
 }
 
 export interface FishType {
+    id: number;
     name: string;
     slug: string;
     image: string;
     scientific_name: string;
     zone: Zone;
+    zone_id: number;
 }

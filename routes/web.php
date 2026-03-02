@@ -39,8 +39,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
 
     Route::prefix('fish')->name('fish.')->group(function () {
         Route::get('/', [FishAdminController::class, 'index'])->name('index');
-        Route::put('/{zone}', [FishAdminController::class, 'update'])->name('update');
-        Route::delete('/{zone}', [FishAdminController::class, 'destroy'])->name('destroy');
+        Route::put('/{fish}', [FishAdminController::class, 'update'])->name('update');
+        Route::delete('/{fish}', [FishAdminController::class, 'destroy'])->name('destroy');
         Route::post('/', [FishAdminController::class, 'store'])->name('store');
     });
 

@@ -1,32 +1,78 @@
-import { MapPin } from 'lucide-react';
-import type { FishCardProps } from '@/types';
+import { MapPin, Pencil, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import type { FishAdminCardProps } from '@/types';
+import {EditFishDialog} from './EditFishDialog';
 
-export const FishAdminCard = ({ fish }: FishCardProps) => (
-    <div
-        className="group bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden border border-slate-100 flex flex-col h-full"
-    >
-        {/* Image Container */}
-        <div className="relative h-56 overflow-hidden">
-            <img
-                src={fish.image}
-                alt={fish.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-        </div>
+export const FishAdminCard = ({ fish, zone, zones }: FishAdminCardProps) => {
+    console.log('zones:', zones);
+    const [selectedCard, setSelectedCard] = useState<FishAdminCardProps | null>(null);
+    const [deleteOpen, setDeleteOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
-        {/* Content */}
-        <div className="p-6 flex-1 flex flex-col">
-            <div className="flex items-start justify-between mb-2">
-                <div>
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{fish.name}</h3>
-                    <div className="flex items-center gap-1 text-slate-500 text-xs mt-1">
-                        <MapPin className="h-3 w-3" />
-                        {fish.zone?.region}
+    const handleEdit = ({ fish, zone }: FishAdminCardProps) => {
+        setOpen(true);
+        setSelectedCard({
+            fish,
+            zone,
+        });
+    };
+
+    return (
+        <>
+            <div className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-2xl">
+                {/* Image Container */}
+                <div className="relative h-56 overflow-hidden">
+                    <img
+                        src={fish.image}
+                        alt={fish.name}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col p-6">
+                    <div className="mb-2 flex items-start justify-between">
+                        <div>
+                            <h3 className="text-lg font-bold text-slate-900 transition-colors group-hover:text-blue-600">{fish.name}</h3>
+                            <div className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+                                <MapPin className="h-3 w-3" />
+                                {fish.zone?.region}
+                            </div>
+                        </div>
+                    </div>
+
+                    <p className="mt-2 mb-4 line-clamp-2 text-xs text-slate-600">{fish.scientific_name}</p>
+
+                    <div className="flex flex-1 flex-row items-center gap-2 p-6">
+                        <Button
+                            size="sm"
+                            onClick={() =>
+                                handleEdit({
+                                    fish,
+                                    zone,
+                                })
+                            }
+                            className="flex cursor-pointer items-center gap-1 bg-green-500"
+                        >
+                            <Pencil className="h-4 w-4" />
+                            Editar
+                        </Button>
+
+                        <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => setDeleteOpen(true)}
+                            className="flex cursor-pointer items-center gap-1"
+                        >
+                            <Trash2 className="h-4 w-4" />
+                            Eliminar
+                        </Button>
                     </div>
                 </div>
             </div>
 
-            <p className="text-slate-600 text-xs line-clamp-2 mt-2 mb-4">{fish.scientific_name}</p>
-        </div>
-    </div>
-);
+            <EditFishDialog open={open} onOpenChange={setOpen} data={selectedCard} autoFillSelectedFishCardProps={{ zones: zones ?? [] }}/>
+        </>
+    );
+};

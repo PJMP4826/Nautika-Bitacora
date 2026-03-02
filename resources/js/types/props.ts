@@ -103,6 +103,12 @@ export interface FishCardProps {
     fish: FishType;
 }
 
+export interface FishAdminCardProps {
+    fish: FishType;
+    zone: Zone;
+    zones?: Zone[];
+}
+
 // type SearchItem = {
 //     id: string;
 //     label: string;

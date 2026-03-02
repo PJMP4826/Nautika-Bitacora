@@ -17,6 +17,8 @@ class FishRequest extends FormRequest
     {
         /** @var Fish|null $fish */
         $fish = $this->route('fish');
+        $fishId = $this->route('fish')?->id;
+        $isUpdate = $this->isMethod('put') || $this->isMethod('patch');
 
         return [
             'name' => ['required', 'string', 'max:255'],
@@ -24,12 +26,12 @@ class FishRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('fish')->ignore($fish),
+                Rule::unique('fish')->ignore($fishId),
             ],
             'scientific_name' => ['nullable', 'string', 'max:255'],
             'zone_id' => ['required', 'integer', 'exists:zones,id'],
             'image' => ['nullable', 'image', 'max:10240'], // max 10MB
-            'image_url' => ['nullable', 'url', 'required_without:image'],
+            'image_url' => [$isUpdate ? 'nullable' : 'required_without:image', 'url'],
         ];
 
     }

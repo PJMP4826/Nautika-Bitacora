@@ -54,7 +54,7 @@ const AdminFishPage = ({ fish, zones }: Props) => {
 
                         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
                             {fish.map((fish) => (
-                                <FishAdminCard fish={fish} />
+                                <FishAdminCard key={fish.id} fish={fish} zone={fish.zone} zones={zones} />
                             ))}
                         </div>
                     </div>
