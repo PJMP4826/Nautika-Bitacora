@@ -21,11 +21,11 @@ import * as adminZones from '@/routes/admin/zones';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard().url,
-        icon: LayoutGrid,
-    },
+    // {
+    //     title: 'Dashboard',
+    //     href: dashboard().url,
+    //     icon: LayoutGrid,
+    // },
     {
         title: 'Zonas',
         href: adminZones.index().url,
@@ -78,26 +78,27 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
-                                <div className="flex items-center gap-3 cursor-pointer group bg-slate-400 px-3 py-1 rounded-xl">
-                                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-slate-600 border border-slate-700 group-hover:bg-slate-700 transition-colors">
-                                        <img
-                                            src="/anchor.png"
-                                            alt="Nautika logo"
-                                            className="w-6 h-6 object-contain opacity-90"
-                                        />
-                                    </div>
-
-                                    <div className="leading-tight">
-                                        <h1 className="text-lg font-bold tracking-wider text-slate-100">
-                                            NAUTIKA
-                                        </h1>
-                                        <p className="text-[10px] tracking-[0.25em] font-medium text-slate-100">
-                                            BITÁCORA
-                                        </p>
-                                    </div>
+                            {/*<Link href={dashboard()} prefetch>*/}
+                            {/*    */}
+                            {/*</Link>*/}
+                            <div className="flex items-center gap-3 cursor-pointer group bg-slate-400 px-3 py-1 rounded-xl">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-slate-600 border border-slate-700 group-hover:bg-slate-700 transition-colors">
+                                    <img
+                                        src="/anchor.png"
+                                        alt="Nautika logo"
+                                        className="w-6 h-6 object-contain opacity-90"
+                                    />
                                 </div>
-                            </Link>
+
+                                <div className="leading-tight">
+                                    <h1 className="text-lg font-bold tracking-wider text-slate-100">
+                                        NAUTIKA
+                                    </h1>
+                                    <p className="text-[10px] tracking-[0.25em] font-medium text-slate-100">
+                                        BITÁCORA
+                                    </p>
+                                </div>
+                            </div>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
