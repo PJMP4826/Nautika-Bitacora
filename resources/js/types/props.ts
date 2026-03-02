@@ -1,4 +1,4 @@
-import type { ExperienceLevel, FishingType, FishType, Season, Testimonial, Zone, ZoneDetail } from '@/types/models';
+import type { ExperienceLevel, FishingType, FishType, Season, Testimonial, WaterType, Zone, ZoneDetail } from '@/types/models';
 import ZoneDetailView from '@/pages/landing/zones/ZoneDetailView';
 
 export type ViewType = 'home' | 'zones' | 'fish' | 'types' | 'guides' | 'contact' | 'results' | 'zone-detail' | 'fish-detail' | 'not-found' | 'server-error' | 'maintenance' | 'planing';
@@ -43,6 +43,16 @@ export interface ZoneViewProps {
     onBack: () => void;
 }
 
+export interface ZoneAdminViewProps {
+    zones: Zone[];
+    fishingTypes: FishingType[];
+    experienceLevels: ExperienceLevel[];
+    seasons: Season[];
+    waterTypes: WaterType[];
+    onDetail: (zone: Zone) => void;
+    onBack: () => void;
+}
+
 export interface PlaningResultViewProps {
     zones: Zone[];
     fishingTypes: FishingType[];
@@ -75,12 +85,14 @@ export interface AutoFillSelectedZoneCardProps {
     fishingTypes: FishingType[];
     experienceLevels: ExperienceLevel[];
     seasons: Season[];
+    waterTypes: WaterType[];
 }
 export interface ZoneAdminCardProps {
     zone: Zone,
     fishingTypes: FishingType[];
     experienceLevels: ExperienceLevel[];
     seasons: Season[];
+    waterTypes: WaterType[];
 }
 
 export interface TestimonialsProps {

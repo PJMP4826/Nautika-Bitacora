@@ -7,7 +7,7 @@ import { ZoneAdminCard } from '@/components/features/admin/ZoneAdminCard';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import * as adminZones from '@/routes/admin/zones';
-import type { BreadcrumbItem, ZoneViewProps } from '@/types';
+import type { BreadcrumbItem, ZoneAdminViewProps } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -16,7 +16,8 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const ZoneList = ({ zones, experienceLevels, fishingTypes, seasons }: ZoneViewProps) => {
+const ZoneList = ({ zones, experienceLevels, fishingTypes, seasons, waterTypes }: ZoneAdminViewProps) => {
+    console.log(waterTypes);
     const [createOpen, setCreateOpen] = useState(false);
 
     return (
@@ -57,6 +58,7 @@ const ZoneList = ({ zones, experienceLevels, fishingTypes, seasons }: ZoneViewPr
                                     experienceLevels={experienceLevels}
                                     fishingTypes={fishingTypes}
                                     seasons={seasons}
+                                    waterTypes={waterTypes}
                                 />
                             ))}
                         </div>
