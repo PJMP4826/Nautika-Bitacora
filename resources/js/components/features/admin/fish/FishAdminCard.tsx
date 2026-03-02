@@ -1,6 +1,9 @@
+import { router } from '@inertiajs/react';
 import { MapPin, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
+import { DeleteConfirmDialog } from '@/components/features/admin/DeleteConfirmDialog';
 import { Button } from '@/components/ui/button';
+import { destroy } from '@/routes/admin/fish';
 import type { FishAdminCardProps } from '@/types';
 import {EditFishDialog} from './EditFishDialog';
 
@@ -15,6 +18,13 @@ export const FishAdminCard = ({ fish, zone, zones }: FishAdminCardProps) => {
         setSelectedCard({
             fish,
             zone,
+        });
+    };
+
+    const handleDelete = () => {
+        router.delete(destroy(fish.id).url, {
+            onSuccess: () => setDeleteOpen(false),
+            onError: (errors) => console.error(errors),
         });
     };
 
@@ -73,6 +83,14 @@ export const FishAdminCard = ({ fish, zone, zones }: FishAdminCardProps) => {
             </div>
 
             <EditFishDialog open={open} onOpenChange={setOpen} data={selectedCard} autoFillSelectedFishCardProps={{ zones: zones ?? [] }}/>
+
+            <DeleteConfirmDialog
+                open={deleteOpen}
+                onOpenChange={setDeleteOpen}
+                title={`¿Eliminar "${fish.name}"?`}
+                description="Se eliminará el pez y su imagen permanentemente."
+                onConfirm={handleDelete}
+            />
         </>
     );
 };
