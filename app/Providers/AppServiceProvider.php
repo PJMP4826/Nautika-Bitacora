@@ -6,8 +6,10 @@ use App\Interfaces\Repositories\ExperienceRepositoryInterface;
 use App\Interfaces\Repositories\FishRepositoryInterface;
 use App\Interfaces\Repositories\SeasonRepositoryInterface;
 use App\Interfaces\Repositories\TestimonialsRepositoryInterface;
+use App\Interfaces\Repositories\WaterTypeRepositoryInterface;
 use App\Interfaces\Repositories\ZoneRepositoryInterface;
 use App\Repositories\Eloquent\EloquentFishRepository;
+use App\Repositories\Eloquent\EloquentWaterTypeRepository;
 use App\Repositories\Eloquent\EloquentZoneRepository;
 use App\Repositories\MockExperienceRepository;
 use App\Repositories\MockSeasonsRepository;
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ExperienceRepositoryInterface::class, MockExperienceRepository::class);
         $this->app->bind(FishRepositoryInterface::class, EloquentFishRepository::class);
         $this->app->bind(TestimonialsRepositoryInterface::class, MockTestimonialsRepository::class);
+        $this->app->bind(WaterTypeRepositoryInterface::class, EloquentWaterTypeRepository::class);
     }
 
     /**

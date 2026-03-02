@@ -7,6 +7,7 @@ use App\Interfaces\Repositories\FishingDataRepositoryInterface;
 use App\Interfaces\Repositories\FishRepositoryInterface;
 use App\Interfaces\Repositories\SeasonRepositoryInterface;
 use App\Interfaces\Repositories\TestimonialsRepositoryInterface;
+use App\Interfaces\Repositories\WaterTypeRepositoryInterface;
 use App\Interfaces\Repositories\ZoneRepositoryInterface;
 
 class HomeDataService
@@ -23,6 +24,8 @@ class HomeDataService
 
     private ZoneRepositoryInterface $zoneRepository;
 
+    private WaterTypeRepositoryInterface $waterTypeRepository;
+
     public function __construct(
         ExperienceRepositoryInterface $experienceRepository,
         FishingDataRepositoryInterface $fishingDataRepository,
@@ -30,6 +33,7 @@ class HomeDataService
         SeasonRepositoryInterface $seasonRepository,
         TestimonialsRepositoryInterface $testimonialsRepository,
         ZoneRepositoryInterface $zoneRepository,
+        WaterTypeRepositoryInterface $waterTypeRepository
     ) {
         $this->experienceRepository = $experienceRepository;
         $this->fishingDataRepository = $fishingDataRepository;
@@ -37,6 +41,7 @@ class HomeDataService
         $this->seasonRepository = $seasonRepository;
         $this->testimonialsRepository = $testimonialsRepository;
         $this->zoneRepository = $zoneRepository;
+        $this->waterTypeRepository = $waterTypeRepository;
     }
 
     /**
@@ -84,5 +89,10 @@ class HomeDataService
     public function getFishBySlug(string $slug): ?array
     {
         return $this->fishRepository->getFishBySlug($slug);
+    }
+
+    public function getWaterTypes(): array
+    {
+        return $this->waterTypeRepository->getWaterTypes();
     }
 }
