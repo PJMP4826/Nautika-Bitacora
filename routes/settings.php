@@ -19,7 +19,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('settings/password', [PasswordController::class, 'edit'])->name('user-password.edit');
 
     Route::get('settings/appearance', function () {
-        return Inertia::render('settings/appearance');
+        return Inertia::render('admin/settings/appearance');
     })->name('appearance.edit');
 
     Route::get('settings/two-factor', [TwoFactorAuthenticationController::class, 'show'])
