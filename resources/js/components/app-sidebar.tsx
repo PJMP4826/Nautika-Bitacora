@@ -1,6 +1,5 @@
 import { Link } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, MountainSnow, Fish, Calendar, Trophy, Waves } from 'lucide-react';
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -53,18 +52,18 @@ const mainNavItems: NavItem[] = [
     }
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
-];
+// const footerNavItems: NavItem[] = [
+//     {
+//         title: 'Repository',
+//         href: 'https://github.com/laravel/react-starter-kit',
+//         icon: Folder,
+//     },
+//     {
+//         title: 'Documentation',
+//         href: 'https://laravel.com/docs/starter-kits#react',
+//         icon: BookOpen,
+//     },
+// ];
 
 export function AppSidebar() {
     return (
@@ -74,7 +73,24 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href={dashboard()} prefetch>
+                                <div className="flex items-center gap-3 cursor-pointer group bg-slate-400 px-3 py-1 rounded-xl">
+                                    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-slate-600 border border-slate-700 group-hover:bg-slate-700 transition-colors">
+                                        <img
+                                            src="/anchor.png"
+                                            alt="Nautika logo"
+                                            className="w-6 h-6 object-contain opacity-90"
+                                        />
+                                    </div>
 
+                                    <div className="leading-tight">
+                                        <h1 className="text-lg font-bold tracking-wider text-slate-100">
+                                            NAUTIKA
+                                        </h1>
+                                        <p className="text-[10px] tracking-[0.25em] font-medium text-slate-100">
+                                            BITÁCORA
+                                        </p>
+                                    </div>
+                                </div>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
