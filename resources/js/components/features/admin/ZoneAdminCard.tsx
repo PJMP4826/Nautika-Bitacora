@@ -7,7 +7,7 @@ import type { ZoneAdminCardProps } from '@/types';
 import { DeleteConfirmDialog } from './DeleteConfirmDialog';
 import { EditZoneDialog } from './EditZoneDialog';
 
-export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes, seasons }: ZoneAdminCardProps) => {
+export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes, seasons, waterTypes }: ZoneAdminCardProps) => {
     const [selectedCard, setSelectedCard] = useState<ZoneAdminCardProps | null>(null);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [open, setOpen] = useState(false);
@@ -19,6 +19,7 @@ export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes, seasons }:
             experienceLevels,
             fishingTypes,
             seasons,
+            waterTypes
         });
     };
 
@@ -90,6 +91,7 @@ export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes, seasons }:
                                 experienceLevels,
                                 fishingTypes,
                                 seasons,
+                                waterTypes
                             })
                         }
                         className="flex cursor-pointer items-center gap-1 bg-green-500"
@@ -113,6 +115,7 @@ export const ZoneAdminCard = ({ zone, experienceLevels, fishingTypes, seasons }:
                     fishingTypes,
                     experienceLevels,
                     seasons,
+                    waterTypes
                 }}
             />
 

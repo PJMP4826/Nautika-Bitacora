@@ -16,10 +16,11 @@ type Props = {
 };
 
 type ZoneFormData = {
+    id: number,
     name: string;
     slug: string;
     region: string;
-    water_type: string;
+    water_type_id: string,
     image: File | string | null;
     types: string[];
     difficulty: string;
@@ -31,10 +32,11 @@ type ZoneFormData = {
 };
 
 const initialState: ZoneFormData = {
+    id: 0,
     name: '',
     slug: '',
     region: '',
-    water_type: 'mar',
+    water_type_id: '',
     image: '',
     types: [],
     difficulty: '',
@@ -46,6 +48,7 @@ const initialState: ZoneFormData = {
 };
 
 export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneCardProps }: Props) {
+    console.log(autoFillSelectedZoneCardProps);
     const [zoneForm, setZoneForm] = useState<ZoneFormData>(initialState);
     const [dragOver, setDragOver] = useState(false);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -113,7 +116,7 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
                 slug: zoneForm.slug,
                 description: zoneForm.description,
                 region: zoneForm.region,
-                water_type: zoneForm.water_type,
+                water_type_id: zoneForm.water_type_id,
                 rating: zoneForm.rating,
                 regulations: zoneForm.regulations,
                 experience_level_id: zoneForm.difficulty,
@@ -246,13 +249,13 @@ export function EditZoneDialog({ open, onOpenChange, data, autoFillSelectedZoneC
                                         id="water_type"
                                         name="water_type"
                                         required
-                                        value={zoneForm.water_type}
+                                        value={zoneForm.water_type_id}
                                         onChange={(e) => setZoneForm((prev) => ({ ...prev, water_type: e.target.value }))}
                                         className="w-full rounded-md border border-input bg-slate-50/50 px-3 py-2 text-sm shadow-sm focus:ring-1 focus:ring-ring focus:outline-none"
                                     >
-                                        <option value="mar">Mar</option>
-                                        <option value="rio">Río</option>
-                                        <option value="lago">Lago</option>
+                                        {autoFillSelectedZoneCardProps.waterTypes.map((w) => (
+                                            <option value={w.id}>{w.name}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
