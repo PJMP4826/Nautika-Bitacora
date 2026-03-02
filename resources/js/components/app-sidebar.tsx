@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, MountainSnow, Fish, Calendar, Trophy, Waves } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, MountainSnow, Fish, FishIcon, Calendar, Trophy, Waves } from 'lucide-react';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes/admin';
 import * as adminExperienceLevels from '@/routes/admin/experience-levels';
+import * as adminFish from '@/routes/admin/fish';
 import * as adminFishingTypes from '@/routes/admin/fishing-types';
 import * as adminSeasons from '@/routes/admin/seasons';
 import * as adminWaterTypes from '@/routes/admin/water-types';
@@ -29,6 +30,11 @@ const mainNavItems: NavItem[] = [
         title: 'Zonas',
         href: adminZones.index().url,
         icon: MountainSnow
+    },
+    {
+        title: 'Peces',
+        href: adminFish.index().url,
+        icon: FishIcon
     },
     {
         title: 'Estilos de Pesca',
