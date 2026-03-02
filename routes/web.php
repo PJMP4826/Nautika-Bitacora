@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\FishingTypesAdminController;
 use App\Http\Controllers\Admin\SeasonsAdminController;
 use App\Http\Controllers\Admin\WaterTypesAdminController;
 use App\Http\Controllers\Admin\ZonesAdminController;
+use App\Http\Controllers\Admin\FishAdminController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\FishController;
 use App\Http\Controllers\HomeController;
@@ -34,6 +35,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::put('/{zone}', [ZonesAdminController::class, 'update'])->name('update');
         Route::delete('/{zone}', [ZonesAdminController::class, 'destroy'])->name('destroy');
         Route::post('/', [ZonesAdminController::class, 'store'])->name('store');
+    });
+
+    Route::prefix('fish')->name('fish.')->group(function () {
+        Route::get('/', [FishAdminController::class, 'index'])->name('index');
+        Route::put('/{zone}', [FishAdminController::class, 'update'])->name('update');
+        Route::delete('/{zone}', [FishAdminController::class, 'destroy'])->name('destroy');
+        Route::post('/', [FishAdminController::class, 'store'])->name('store');
     });
 
     Route::prefix('fishing-types')->name('fishing-types.')->group(function () {
