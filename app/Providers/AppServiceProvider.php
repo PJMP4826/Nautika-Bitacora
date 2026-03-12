@@ -8,6 +8,7 @@ use App\Interfaces\Repositories\SeasonRepositoryInterface;
 use App\Interfaces\Repositories\TestimonialsRepositoryInterface;
 use App\Interfaces\Repositories\WaterTypeRepositoryInterface;
 use App\Interfaces\Repositories\ZoneRepositoryInterface;
+use App\Mail\VerifyEmailMailable;
 use App\Repositories\Eloquent\EloquentFishRepository;
 use App\Repositories\Eloquent\EloquentWaterTypeRepository;
 use App\Repositories\Eloquent\EloquentZoneRepository;
@@ -15,6 +16,7 @@ use App\Repositories\MockExperienceRepository;
 use App\Repositories\MockSeasonsRepository;
 use App\Repositories\MockTestimonialsRepository;
 use Carbon\CarbonImmutable;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -41,6 +43,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+            return (new VerifyEmailMailable($url))
+                ->to($notifiable->email);
+        });
     }
 
     protected function configureDefaults(): void
