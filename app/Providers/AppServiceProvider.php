@@ -8,6 +8,7 @@ use App\Interfaces\Repositories\SeasonRepositoryInterface;
 use App\Interfaces\Repositories\TestimonialsRepositoryInterface;
 use App\Interfaces\Repositories\WaterTypeRepositoryInterface;
 use App\Interfaces\Repositories\ZoneRepositoryInterface;
+use App\Mail\ResetPasswordMailable;
 use App\Mail\VerifyEmailMailable;
 use App\Repositories\Eloquent\EloquentFishRepository;
 use App\Repositories\Eloquent\EloquentWaterTypeRepository;
@@ -16,6 +17,7 @@ use App\Repositories\MockExperienceRepository;
 use App\Repositories\MockSeasonsRepository;
 use App\Repositories\MockTestimonialsRepository;
 use Carbon\CarbonImmutable;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +48,16 @@ class AppServiceProvider extends ServiceProvider
 
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new VerifyEmailMailable($url))
+                ->to($notifiable->email);
+        });
+
+        ResetPassword::toMailUsing(function (object $notifiable, string $token) {
+            $url = url(route('password.reset', [
+                'token' => $token,
+                'email' => $notifiable->getEmailForPasswordReset(),
+            ], false));
+
+            return (new ResetPasswordMailable($url))
                 ->to($notifiable->email);
         });
     }
