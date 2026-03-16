@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Laravel\Fortify\Contracts\LogoutResponse;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FishRepositoryInterface::class, EloquentFishRepository::class);
         $this->app->bind(TestimonialsRepositoryInterface::class, MockTestimonialsRepository::class);
         $this->app->bind(WaterTypeRepositoryInterface::class, EloquentWaterTypeRepository::class);
+
+        $this->app->singleton(LogoutResponse::class, function () {
+            return new class implements LogoutResponse
+            {
+                public function toResponse($request): \Illuminate\Http\RedirectResponse
+                {
+                    return to_route('login');
+                }
+            };
+        });
     }
 
     /**
