@@ -2,6 +2,7 @@ import { Form, Head, Link } from '@inertiajs/react';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+import { useState } from 'react';
 
 type Props = {
     status?: string;
@@ -14,6 +15,12 @@ export default function Login({
                                   canResetPassword,
                                   canRegister,
                               }: Props) {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
             <Head title="Iniciar Sesión" />
@@ -84,7 +91,7 @@ export default function Login({
                                 <div className="relative">
                                     <input
                                         id="password"
-                                        type="password"
+                                        type={showPassword ? 'text' : 'password'}
                                         name="password"
                                         required
                                         placeholder="Contraseña"
@@ -92,9 +99,10 @@ export default function Login({
                                     />
                                     <button
                                         type="button"
+                                        onClick={togglePasswordVisibility}
                                         className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black text-blue-600 uppercase tracking-widest"
                                     >
-                                        Mostrar
+                                        {showPassword ? 'Ocultar' : 'Mostrar'}
                                     </button>
                                     {errors.password && (
                                         <p className="mt-1 text-xs text-red-600">{errors.password}</p>
