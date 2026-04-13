@@ -35,4 +35,10 @@ class UsersAdminController extends Controller
         $user->syncRoles([$request->role]);
         return redirect()->back()->with('success', 'Rol actualizado correctamente.');
     }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->back()->with('success', 'Usuario eliminado correctamente.');
+    }
 }
