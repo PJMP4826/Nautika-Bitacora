@@ -33,6 +33,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::middleware('role:admin')->group(function () {
         Route::get('users', [\App\Http\Controllers\Admin\UsersAdminController::class, 'index'])->name('users.index');
         Route::post('users/{user}/role', [\App\Http\Controllers\Admin\UsersAdminController::class, 'updateRole'])->name('users.updateRole');
+        Route::delete('users/{user}', [\App\Http\Controllers\Admin\UsersAdminController::class, 'destroy'])->name('users.destroy');
     });
 
     // Dashboard — any authenticated + verified user with any admin role
