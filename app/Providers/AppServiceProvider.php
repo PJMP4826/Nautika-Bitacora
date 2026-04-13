@@ -25,6 +25,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Contracts\LoginResponse;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -52,6 +54,9 @@ class AppServiceProvider extends ServiceProvider
 
         // Redirección personalizada después de login Fortify
         $this->app->singleton(\Laravel\Fortify\Contracts\LoginResponse::class, \App\Actions\Fortify\CustomLoginResponse::class);
+
+        // Redirección personalizada después de verificar email
+        $this->app->singleton(\Laravel\Fortify\Contracts\VerifyEmailResponse::class, \App\Http\Responses\CustomVerifyEmailResponse::class);
     }
 
     /**
@@ -75,6 +80,20 @@ class AppServiceProvider extends ServiceProvider
             return (new ResetPasswordMailable($url))
                 ->to($notifiable->email);
         });
+
+        Inertia::share([
+            'auth' => function () {
+                $user = Auth::user();
+                return $user ? [
+                    'user' => [
+                        'name' => $user->name,
+                        'email' => $user->email,
+                    ],
+                    'permissions' => $user->getAllPermissions()->pluck('name'),
+                    'roles' => $user->getRoleNames(),
+                ] : null;
+            },
+        ]);
     }
 
     protected function configureDefaults(): void
@@ -85,14 +104,15 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
-            ? Password::min(12)
+        Password::defaults(
+            fn(): ?Password => app()->isProduction()
+                ? Password::min(12)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
                 ->symbols()
                 ->uncompromised()
-            : null
+                : null
         );
     }
 }
