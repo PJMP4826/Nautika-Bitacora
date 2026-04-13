@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Head, router, usePage } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
+import { DeleteConfirmDialog } from '@/components/features/admin/DeleteConfirmDialog';
 import { SuccessDialog } from '@/components/features/admin/SuccessDialog';
+import AppLayout from '@/layouts/app-layout';
+import { Head, router, usePage } from '@inertiajs/react';
+import { Trash2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface User {
     id: number;
@@ -45,12 +47,21 @@ export default function AdminUsersPage() {
         });
     };
 
+    const [deleteUser, setDeleteUser] = useState<User | null>(null);
+    const handleDelete = (user: User) => {
+        setDeleteUser(user);
+    };
+
+    const confirmDelete = () => {
+        if (deleteUser) {
+            router.delete(`/admin/users/${deleteUser.id}`, {
+                onSuccess: () => setDeleteUser(null),
+            });
+        }
+    };
+
     return (
-        <AppLayout
-            breadcrumbs={[
-                { title: 'Usuarios', href: '/admin/users' },
-            ]}
-        >
+        <AppLayout breadcrumbs={[{ title: 'Usuarios', href: '/admin/users' }]}>
             <SuccessDialog />
             <Head title="Usuarios" />
 
@@ -89,14 +100,28 @@ export default function AdminUsersPage() {
                                                     ))}
                                                 </select>
                                             </td>
-                                            <td className="px-6 py-4 text-right">
+                                            <td className="flex justify-end gap-2 px-6 py-4 text-right">
                                                 <button
                                                     className="rounded bg-blue-600 px-4 py-1 text-white hover:bg-blue-700"
                                                     onClick={() => handleSave(user.id)}
                                                 >
                                                     Guardar
                                                 </button>
+                                                <button
+                                                    className="flex items-center rounded bg-red-600 px-2 py-1 text-white hover:bg-red-700"
+                                                    title="Eliminar usuario"
+                                                    onClick={() => handleDelete(user)}
+                                                >
+                                                    <Trash2 className="mr-1 inline-block" />
+                                                </button>
                                             </td>
+                                            <DeleteConfirmDialog
+                                                open={!!deleteUser}
+                                                onOpenChange={(o) => !o && setDeleteUser(null)}
+                                                title={deleteUser ? `¿Eliminar usuario "${deleteUser.name}"?` : ''}
+                                                description="Esta acción eliminará el usuario de forma permanente."
+                                                onConfirm={confirmDelete}
+                                            />
                                         </tr>
                                     ))}
                                 </tbody>
