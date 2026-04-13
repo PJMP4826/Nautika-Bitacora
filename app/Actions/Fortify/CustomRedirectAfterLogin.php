@@ -13,7 +13,7 @@ class CustomRedirectAfterLogin
             return '/';
         }
         // Si usas Spatie o similar
-        if (method_exists($user, 'hasRole') && $user->hasRole('admin')) {
+        if (method_exists($user, 'hasRole') && ($user->hasRole('admin') || $user->hasRole('moderator'))) {
             return '/admin/zones';
         }
         // Si tienes un campo tipo o role

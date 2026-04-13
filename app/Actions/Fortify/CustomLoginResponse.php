@@ -9,7 +9,7 @@ class CustomLoginResponse implements LoginResponseContract
     public function toResponse($request)
     {
         $user = $request->user();
-        if ($user && method_exists($user, 'hasRole') && $user->hasRole('admin')) {
+        if ($user && method_exists($user, 'hasRole') && ($user->hasRole('admin') || $user->hasRole('moderator'))) {
             $redirect = '/admin/zones';
         } else {
             $redirect = '/';
