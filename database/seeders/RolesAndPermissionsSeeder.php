@@ -30,8 +30,8 @@ class RolesAndPermissionsSeeder extends Seeder
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
 
         Role::create(['name' => 'moderator'])->givePermissionTo([
-            'fish.view', 'fish.create', 'fish.edit',
-            'zone.view',
+            'fish.view', 'fish.create', 'fish.edit', 'fish.delete',
+            'zone.view', 'zone.create', 'zone.edit', 'zone.delete',
         ]);
 
         Role::create(['name' => 'fisher'])->givePermissionTo([
