@@ -14,6 +14,8 @@ class ZoneRequest extends FormRequest
             'region' => ['nullable', 'string'],
             'water_type' => ['required', 'string'],
             'active' => ['required', 'boolean'],
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
         ];
     }
 
