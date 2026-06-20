@@ -7,6 +7,7 @@ use App\Http\Resources\ZoneResource;
 use App\Models\Zone;
 use App\Services\HomeDataService;
 use App\Services\ZoneDataService;
+use App\Services\WeatherService;
 use App\Utils\StringFormater;
 use Inertia\Inertia;
 
@@ -14,7 +15,8 @@ class ZoneController extends Controller
 {
     public function __construct(
         private HomeDataService $homeDataService,
-        private ZoneDataService $zoneDataService
+        private ZoneDataService $zoneDataService,
+        private WeatherService $weatherService
     ) {}
 
     public function index()
@@ -36,14 +38,21 @@ class ZoneController extends Controller
         $zone = $this->zoneDataService->findZoneDetailBySlug($zone_name);
         if (empty($zone)) {
             return Inertia::render('landing/errors/NotFound', [
-                'not_found_param' => 'La zona '.StringFormater::kebabToTitle($zone_name),
+                'not_found_param' => 'La zona ' . StringFormater::kebabToTitle($zone_name),
             ])
                 ->toResponse(request())
                 ->setStatusCode(404);
         }
 
+        $weather = ($zone['latitude'] && $zone['longitude'])
+            ? $this->weatherService->getZoneWeather($zone['latitude'], $zone['longitude'])
+            : null;
+        
+        // dd($weather);
+
         return Inertia::render('landing/zones/ZoneDetailView', [
             'zone' => $zone,
+            'weather' => $weather,
             'breadcrumbs' => [
                 ['label' => 'Inicio', 'url' => route('home')],
                 ['label' => 'Zonas', 'url' => route('zone')],
@@ -61,7 +70,7 @@ class ZoneController extends Controller
 
     public function destroy(Zone $zone)
     {
-        $zone->delete();
+        $this->zoneDataService->delete($zone);
 
         return response()->json();
     }
