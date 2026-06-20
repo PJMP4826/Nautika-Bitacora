@@ -1,4 +1,4 @@
-import type { ExperienceLevel, FishingType, FishType, Season, Testimonial, WaterType, Zone, ZoneDetail } from '@/types/models';
+import type { ExperienceLevel, FishingType, FishType, Season, Testimonial, WaterType, Zone, ZoneDetail, ZoneWeather } from '@/types/models';
 import ZoneDetailView from '@/pages/landing/zones/ZoneDetailView';
 
 export type ViewType = 'home' | 'zones' | 'fish' | 'types' | 'guides' | 'contact' | 'results' | 'zone-detail' | 'fish-detail' | 'not-found' | 'server-error' | 'maintenance' | 'planing';
@@ -71,6 +71,7 @@ export interface FishDetailViewProps {
 
 export interface ZoneDetailViewProps {
     zone: ZoneDetail;
+    weather: ZoneWeather;
     onBack?: () => void;
     breadcrumbs?: { label: string; url?: string | null | undefined }[]
 }

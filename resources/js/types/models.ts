@@ -41,7 +41,35 @@ export interface Zone {
     regulations: string;
 }
 
-/** Zone with types, difficulty and best_season resolved to full objects (from backend). */
+export interface WeatherCurrent {
+    temperature: number | null;
+    windSpeed: number | null;
+    windDirection: number | null;
+    precipitation: number | null;
+    cloudCover: number | null;
+    weatherCode: number | null;
+    waveHeight: number | null;
+    waveDirection: number | null;
+    wavePeriod: number | null;
+    seaSurfaceTemperature: number | null;
+}
+
+export interface WeatherDay {
+    date: string;
+    weatherCode: number | null;
+    tempMax: number | null;
+    tempMin: number | null;
+    precipitationSum: number | null;
+    windSpeedMax: number | null;
+    waveHeightMax: number | null;
+    wavePeriodMax: number | null;
+}
+
+export interface ZoneWeather {
+    current: WeatherCurrent;
+    daily: WeatherDay[];
+    fetchedAt: string;
+}
 export interface ZoneDetail {
     id: number;
     name: string;
