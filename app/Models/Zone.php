@@ -17,6 +17,8 @@ class Zone extends Model
         'slug',
         'description',
         'region',
+        'latitude',
+        'longitude',
         'image',
         'water_type_id',
         'active',
@@ -30,6 +32,8 @@ class Zone extends Model
         return [
             'active' => 'boolean',
             'rating' => 'decimal:1',
+            'latitude' => 'decimal:7',
+            'longitude' => 'decimal:7',
         ];
     }
 

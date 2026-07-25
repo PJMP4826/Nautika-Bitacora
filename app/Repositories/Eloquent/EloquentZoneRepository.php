@@ -65,6 +65,8 @@ class EloquentZoneRepository implements ZoneRepositoryInterface
             'description' => $zone->description,
             'species' => $zone->fish->pluck('name')->values()->toArray(),
             'regulations' => $zone->regulations,
+            'latitude' => $zone->latitude,
+            'longitude' => $zone->longitude,
         ];
     }
 

@@ -18,6 +18,8 @@ class ZoneResource extends JsonResource
             'region' => $this->region,
             'water_type' => $this->water_type,
             'active' => $this->active,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

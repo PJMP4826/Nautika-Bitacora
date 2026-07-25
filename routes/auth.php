@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController;
 use Laravel\Fortify\Http\Controllers\EmailVerificationPromptController;
 use Laravel\Fortify\Http\Controllers\NewPasswordController;

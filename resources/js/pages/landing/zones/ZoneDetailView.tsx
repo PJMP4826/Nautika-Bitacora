@@ -1,11 +1,12 @@
-import { router } from '@inertiajs/react';
-import { BookOpen, ChevronRight, Fish, LifeBuoy, Map, Star } from 'lucide-react';
-import { useState } from 'react';
 import { NavigationBar } from '@/components/layout/Navbar';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import type { ViewType, ZoneDetailViewProps } from '@/types';
+import { router } from '@inertiajs/react';
+import { BookOpen, ChevronRight, Fish, LifeBuoy, Star } from 'lucide-react';
+import { useState } from 'react';
+import WeatherPanel from './WeatherPanel';
 
-const ZoneDetailView = ({ zone, onBack, breadcrumbs }: ZoneDetailViewProps) => {
+const ZoneDetailView = ({ zone, weather, onBack, breadcrumbs }: ZoneDetailViewProps) => {
     if (!zone) return null;
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [currentView, setCurrentView] = useState<ViewType>('zone-detail');
@@ -24,7 +25,7 @@ const ZoneDetailView = ({ zone, onBack, breadcrumbs }: ZoneDetailViewProps) => {
             {/* Immersive Header */}
             <div className="relative h-[70vh] w-full">
                 <img src={zone.image} alt={zone.name} className="h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent opacity-80" />
                 <button
                     onClick={handleBack}
                     className="absolute top-30 left-4 z-20 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all hover:bg-white/20 md:left-8"
@@ -38,7 +39,7 @@ const ZoneDetailView = ({ zone, onBack, breadcrumbs }: ZoneDetailViewProps) => {
                         </span>
                         <h1 className="mb-4 text-4xl font-bold shadow-sm md:text-6xl">{zone.name}</h1>
                         <Breadcrumbs items={breadcrumbs ?? []} />
-                        <div className="flex items-center gap-6 text-sm font-medium pt-3">
+                        <div className="flex items-center gap-6 pt-3 text-sm font-medium">
                             <span className="flex items-center gap-2">
                                 <Star className="h-4 w-4 fill-current text-yellow-400" /> {zone.rating} Puntuación
                             </span>
@@ -108,9 +109,9 @@ const ZoneDetailView = ({ zone, onBack, breadcrumbs }: ZoneDetailViewProps) => {
                             </div>
                         </div>
 
-                        <button className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 py-4 font-bold text-white transition-all hover:bg-slate-800">
-                            <Map className="h-5 w-5" /> Ver en Mapa
-                        </button>
+                        <div className="mb-8">
+                            <WeatherPanel weather={weather} />
+                        </div>
                     </div>
                 </div>
             </div>

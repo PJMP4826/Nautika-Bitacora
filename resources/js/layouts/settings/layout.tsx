@@ -13,25 +13,25 @@ import { edit as editPassword } from '@/routes/user-password';
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Profile',
+        title: 'Perfil',
         href: edit(),
         icon: null,
     },
     {
-        title: 'Password',
+        title: 'Contraseña',
         href: editPassword(),
         icon: null,
     },
-    {
-        title: 'Two-Factor Auth',
-        href: show(),
-        icon: null,
-    },
-    {
-        title: 'Appearance',
-        href: editAppearance(),
-        icon: null,
-    },
+    // {
+    //     title: 'Two-Factor Auth',
+    //     href: show(),
+    //     icon: null,
+    // },
+    // {
+    //     title: 'Appearance',
+    //     href: editAppearance(),
+    //     icon: null,
+    // },
 ];
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
@@ -45,8 +45,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     return (
         <div className="px-4 py-6">
             <Heading
-                title="Settings"
-                description="Manage your profile and account settings"
+                title="Configuración"
+                description="Administra tu perfil y configuración de tu cuenta"
             />
 
             <div className="flex flex-col lg:flex-row lg:space-x-12">

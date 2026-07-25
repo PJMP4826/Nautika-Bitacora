@@ -28,48 +28,87 @@ Route::post('/contact', [ContactoController::class, 'store']);
 Route::get('/planing', [PlaningController::class, 'index']);
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Administración de usuarios (solo admin)
+    Route::middleware('role:admin')->group(function () {
+        Route::get('users', [\App\Http\Controllers\Admin\UsersAdminController::class, 'index'])->name('users.index');
+        Route::post('users/{user}/role', [\App\Http\Controllers\Admin\UsersAdminController::class, 'updateRole'])->name('users.updateRole');
+        Route::delete('users/{user}', [\App\Http\Controllers\Admin\UsersAdminController::class, 'destroy'])->name('users.destroy');
+    });
+
+    // Dashboard — any authenticated + verified user with any admin role
+    Route::get('dashboard', [DashboardController::class, 'index'])
+        ->middleware('role:admin|moderator')
+        ->name('dashboard');
+
+    // Zones
     Route::prefix('zones')->name('zones.')->group(function () {
-        Route::get('/', [ZonesAdminController::class, 'index'])->name('index');
-        Route::put('/{zone}', [ZonesAdminController::class, 'update'])->name('update');
-        Route::delete('/{zone}', [ZonesAdminController::class, 'destroy'])->name('destroy');
-        Route::post('/', [ZonesAdminController::class, 'store'])->name('store');
+        Route::get('/', [ZonesAdminController::class, 'index'])
+            ->middleware('permission:zone.view')
+            ->name('index');
+
+        Route::post('/', [ZonesAdminController::class, 'store'])
+            ->middleware('permission:zone.create')
+            ->name('store');
+
+        Route::put('/{zone}', [ZonesAdminController::class, 'update'])
+            ->middleware('permission:zone.edit')
+            ->name('update');
+
+        Route::delete('/{zone}', [ZonesAdminController::class, 'destroy'])
+            ->middleware('permission:zone.delete')
+            ->name('destroy');
     });
 
+    // Fish
     Route::prefix('fish')->name('fish.')->group(function () {
-        Route::get('/', [FishAdminController::class, 'index'])->name('index');
-        Route::put('/{fish}', [FishAdminController::class, 'update'])->name('update');
-        Route::delete('/{fish}', [FishAdminController::class, 'destroy'])->name('destroy');
-        Route::post('/', [FishAdminController::class, 'store'])->name('store');
+        Route::get('/', [FishAdminController::class, 'index'])
+            ->middleware('permission:fish.view')
+            ->name('index');
+
+        Route::post('/', [FishAdminController::class, 'store'])
+            ->middleware('permission:fish.create')
+            ->name('store');
+
+        Route::put('/{fish}', [FishAdminController::class, 'update'])
+            ->middleware('permission:fish.edit')
+            ->name('update');
+
+        Route::delete('/{fish}', [FishAdminController::class, 'destroy'])
+            ->middleware('permission:fish.delete')
+            ->name('destroy');
     });
 
-    Route::prefix('fishing-types')->name('fishing-types.')->group(function () {
-        Route::get('/', [FishingTypesAdminController::class, 'index'])->name('index');
-        Route::post('/', [FishingTypesAdminController::class, 'store'])->name('store');
-        Route::put('/{fishingType}', [FishingTypesAdminController::class, 'update'])->name('update');
-        Route::delete('/{fishingType}', [FishingTypesAdminController::class, 'destroy'])->name('destroy');
-    });
+    // Catalog resources — admin only (fishing-types, seasons, experience-levels, water-types)
+    Route::middleware('role:admin')->group(function () {
 
-    Route::prefix('seasons')->name('seasons.')->group(function () {
-        Route::get('/', [SeasonsAdminController::class, 'index'])->name('index');
-        Route::post('/', [SeasonsAdminController::class, 'store'])->name('store');
-        Route::put('/{season}', [SeasonsAdminController::class, 'update'])->name('update');
-        Route::delete('/{season}', [SeasonsAdminController::class, 'destroy'])->name('destroy');
-    });
+        Route::prefix('fishing-types')->name('fishing-types.')->group(function () {
+            Route::get('/', [FishingTypesAdminController::class, 'index'])->name('index');
+            Route::post('/', [FishingTypesAdminController::class, 'store'])->name('store');
+            Route::put('/{fishingType}', [FishingTypesAdminController::class, 'update'])->name('update');
+            Route::delete('/{fishingType}', [FishingTypesAdminController::class, 'destroy'])->name('destroy');
+        });
 
-    Route::prefix('experience-levels')->name('experience-levels.')->group(function () {
-        Route::get('/', [ExperienceLevelsAdminController::class, 'index'])->name('index');
-        Route::post('/', [ExperienceLevelsAdminController::class, 'store'])->name('store');
-        Route::put('/{experienceLevel}', [ExperienceLevelsAdminController::class, 'update'])->name('update');
-        Route::delete('/{experienceLevel}', [ExperienceLevelsAdminController::class, 'destroy'])->name('destroy');
-    });
+        Route::prefix('seasons')->name('seasons.')->group(function () {
+            Route::get('/', [SeasonsAdminController::class, 'index'])->name('index');
+            Route::post('/', [SeasonsAdminController::class, 'store'])->name('store');
+            Route::put('/{season}', [SeasonsAdminController::class, 'update'])->name('update');
+            Route::delete('/{season}', [SeasonsAdminController::class, 'destroy'])->name('destroy');
+        });
 
-    Route::prefix('water-types')->name('water-types.')->group(function () {
-        Route::get('/', [WaterTypesAdminController::class, 'index'])->name('index');
-        Route::post('/', [WaterTypesAdminController::class, 'store'])->name('store');
-        Route::put('/{waterType}', [WaterTypesAdminController::class, 'update'])->name('update');
-        Route::delete('/{waterType}', [WaterTypesAdminController::class, 'destroy'])->name('destroy');
+        Route::prefix('experience-levels')->name('experience-levels.')->group(function () {
+            Route::get('/', [ExperienceLevelsAdminController::class, 'index'])->name('index');
+            Route::post('/', [ExperienceLevelsAdminController::class, 'store'])->name('store');
+            Route::put('/{experienceLevel}', [ExperienceLevelsAdminController::class, 'update'])->name('update');
+            Route::delete('/{experienceLevel}', [ExperienceLevelsAdminController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('water-types')->name('water-types.')->group(function () {
+            Route::get('/', [WaterTypesAdminController::class, 'index'])->name('index');
+            Route::post('/', [WaterTypesAdminController::class, 'store'])->name('store');
+            Route::put('/{waterType}', [WaterTypesAdminController::class, 'update'])->name('update');
+            Route::delete('/{waterType}', [WaterTypesAdminController::class, 'destroy'])->name('destroy');
+        });
     });
 });
 

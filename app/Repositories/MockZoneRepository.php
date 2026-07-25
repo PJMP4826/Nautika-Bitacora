@@ -3,6 +3,9 @@
 namespace App\Repositories;
 
 use App\Interfaces\Repositories\ZoneRepositoryInterface;
+use App\Models\Zone;
+use Illuminate\Http\UploadedFile;
+use Override;
 
 class MockZoneRepository implements ZoneRepositoryInterface
 {
@@ -92,5 +95,47 @@ class MockZoneRepository implements ZoneRepositoryInterface
         }
 
         return [];
+    }
+
+    #[Override]
+    public function searchZones(string $fishingType, string $experienceLevel, string $season): array
+    {
+        throw new \Exception('Not implemented');
+    }
+
+    #[Override]
+    public function store(array $data): Zone
+    {
+        throw new \Exception('Not implemented');
+    }
+
+    #[Override]
+    public function update(Zone $zone, array $data): Zone
+    {
+        throw new \Exception('Not implemented');
+    }
+
+    #[Override]
+    public function updateImage(Zone $zone, UploadedFile $file): string
+    {
+        throw new \Exception('Not implemented');
+    }
+
+    #[Override]
+    public function syncSeasons(Zone $zone, array $seasonIds): void
+    {
+        throw new \Exception('Not implemented');
+    }
+
+    #[Override]
+    public function syncFishingTypes(Zone $zone, array $fishingTypeIds): void
+    {
+        throw new \Exception('Not implemented');
+    }
+
+    #[Override]
+    public function delete(Zone $zone): void
+    {
+        throw new \Exception('Not implemented');
     }
 }

@@ -15,11 +15,21 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        // Roles y permisos deben existir antes de poder asignarlos a nadie.
+        $this->call(
+            RolesAndPermissionsSeeder::class
+        );
         $this->call(
             BaseDataSeeder::class
         );
         $this->call(
             ZoneSeeder::class
+        );
+
+        // Defensivo: si el usuario con ese email ya se registró, le da admin.
+        // Si no, solo imprime un warning y sigue (no rompe el seed completo).
+        $this->call(
+            AssignAdminRoleSeeder::class
         );
     }
 }

@@ -1,5 +1,5 @@
-import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, MountainSnow, Fish, FishIcon, Calendar, Trophy, Waves } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { BookOpen, Folder, LayoutGrid, MountainSnow, Fish, FishIcon, Calendar, Trophy, Waves, Users } from 'lucide-react';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -18,9 +18,11 @@ import * as adminFishingTypes from '@/routes/admin/fishing-types';
 import * as adminSeasons from '@/routes/admin/seasons';
 import * as adminWaterTypes from '@/routes/admin/water-types';
 import * as adminZones from '@/routes/admin/zones';
+import * as adminUsers from '@/routes/admin/users';
 import type { NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
+// Define los permisos requeridos para cada sección
+const navItemsWithPermissions: (NavItem & { permission?: string, role?: string })[] = [
     // {
     //     title: 'Dashboard',
     //     href: dashboard().url,
@@ -29,32 +31,44 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Zonas',
         href: adminZones.index().url,
-        icon: MountainSnow
+        icon: MountainSnow,
+        permission: 'zone.view',
     },
     {
         title: 'Peces',
         href: adminFish.index().url,
-        icon: FishIcon
+        icon: FishIcon,
+        permission: 'fish.view',
     },
     {
         title: 'Estilos de Pesca',
         href: adminFishingTypes.index().url,
-        icon: Fish
+        icon: Fish,
+        role: 'admin',
     },
     {
         title: 'Temporadas',
         href: adminSeasons.index().url,
-        icon: Calendar
+        icon: Calendar,
+        role: 'admin',
     },
     {
         title: 'Niveles',
         href: adminExperienceLevels.index().url,
-        icon: Trophy
+        icon: Trophy,
+        role: 'admin',
     },
     {
         title: 'Tipos de Agua',
         href: adminWaterTypes.index().url,
-        icon: Waves
+        icon: Waves,
+        role: 'admin',
+    },
+    {
+        title: 'Usuarios',
+        href: adminUsers.index().url,
+        icon: Users,
+        role: 'admin',
     }
 ];
 
@@ -72,15 +86,30 @@ const mainNavItems: NavItem[] = [
 // ];
 
 export function AppSidebar() {
+    const { auth } = usePage().props as {
+        auth?: {
+            permissions?: string[],
+            roles?: string[],
+        }
+    };
+
+    // Filtra los items según permisos o roles
+    const filteredNavItems = navItemsWithPermissions.filter(item => {
+        if (item.permission && !(auth?.permissions?.includes(item.permission))) {
+            return false;
+        }
+        if (item.role && !(auth?.roles?.includes(item.role))) {
+            return false;
+        }
+        return true;
+    });
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            {/*<Link href={dashboard()} prefetch>*/}
-                            {/*    */}
-                            {/*</Link>*/}
                             <div className="flex items-center gap-3 cursor-pointer group bg-slate-400 px-3 py-1 rounded-xl">
                                 <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-slate-600 border border-slate-700 group-hover:bg-slate-700 transition-colors">
                                     <img
@@ -89,7 +118,6 @@ export function AppSidebar() {
                                         className="w-6 h-6 object-contain opacity-90"
                                     />
                                 </div>
-
                                 <div className="leading-tight">
                                     <h1 className="text-lg font-bold tracking-wider text-slate-100">
                                         NAUTIKA
@@ -105,7 +133,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={filteredNavItems} />
             </SidebarContent>
 
             <SidebarFooter>
