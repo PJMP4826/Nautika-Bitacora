@@ -1,0 +1,63 @@
+# VCS / editors
+.git
+.gitignore
+.github
+.vscode
+.idea
+.fleet
+.nova
+.zed
+
+# Dependencies (installed fresh inside the image)
+node_modules
+vendor
+
+# Build output / generated frontend code (built inside the image)
+public/build
+public/hot
+public/storage
+resources/js/actions
+resources/js/routes
+resources/js/wayfinder
+bootstrap/ssr
+
+# Laravel runtime/cache artifacts
+storage/*.key
+storage/app/*
+!storage/app/.gitignore
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+storage/logs/*
+storage/pail
+bootstrap/cache/*.php
+!bootstrap/cache/.gitignore
+
+# Secrets / environment
+.env
+.env.*
+!.env.example
+
+# Tests / caches
+.phpunit.cache
+.phpunit.result.cache
+.phpactor.json
+tests
+
+# Docs
+docs
+*.md
+!README.md
+
+# Docker itself (no need to ship it inside the image)
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Misc / deploy configs not used by Docker
+nixpacks.toml
+npm-debug.log
+yarn-error.log
+.DS_Store
+Thumbs.db
