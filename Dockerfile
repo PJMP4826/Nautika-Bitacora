@@ -56,6 +56,14 @@ RUN apk add --no-cache \
         bash \
         curl \
         postgresql-client \
+        libpng \
+        libjpeg-turbo \
+        freetype \
+        icu-libs \
+        icu-data-full \
+        libzip \
+        oniguruma \
+        libxml2 \
     && apk add --no-cache --virtual .build-deps \
         postgresql-dev \
         libzip-dev \
