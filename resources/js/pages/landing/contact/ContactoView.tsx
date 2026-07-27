@@ -52,6 +52,7 @@ const ContactView = () => {
                                     <input
                                         type="text"
                                         value={data.first_name}
+                                        id='name'
                                         onChange={e => setData('first_name', e.target.value)}
                                         placeholder="Bonnie"
                                         className={`w-full bg-gray-50 border ${errors.first_name ? 'border-red-500' : 'border-gray-300'} rounded-lg p-3 text-gray-900 focus:ring-2 focus:ring-blue-600 outline-none transition shadow-sm`}
@@ -63,6 +64,7 @@ const ContactView = () => {
                                     <label className="block text-sm font-semibold mb-2 text-gray-700">Apellido</label>
                                     <input
                                         type="text"
+                                        id='last-name'
                                         value={data.last_name}
                                         onChange={e => setData('last_name', e.target.value)}
                                         placeholder="Green"
@@ -76,6 +78,7 @@ const ContactView = () => {
                                     <input
                                         type="email"
                                         value={data.email}
+                                        id='email'
                                         onChange={e => setData('email', e.target.value)}
                                         placeholder="nombre@flowbite.com"
                                         className={`w-full bg-gray-50 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg p-3 text-gray-900 focus:ring-2 focus:ring-blue-600 outline-none transition shadow-sm`}
@@ -88,6 +91,7 @@ const ContactView = () => {
                                     <input
                                         type="text"
                                         value={data.phone}
+                                        id='phone-number'
                                         onChange={e => setData('phone', e.target.value)}
                                         placeholder="+52 993..."
                                         className={`w-full bg-gray-50 border ${errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-lg p-3 text-gray-900 focus:ring-2 focus:ring-blue-600 outline-none transition shadow-sm`}
@@ -100,6 +104,7 @@ const ContactView = () => {
                                     <textarea
                                         rows={6}
                                         value={data.message}
+                                        id='your-message'
                                         onChange={e => setData('message', e.target.value)}
                                         placeholder="Deja un comentario..."
                                         className={`w-full bg-gray-50 border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg p-3 text-gray-900 focus:ring-2 focus:ring-blue-600 outline-none transition resize-none shadow-sm`}
@@ -115,6 +120,7 @@ const ContactView = () => {
                                 <div className="md:col-span-2">
                                     <button
                                         type="submit"
+                                        id='submit-button'
                                         disabled={processing}
                                         className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold py-3 px-8 rounded-lg transition duration-300 shadow-lg shadow-blue-200"
                                     >
