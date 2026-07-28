@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ZoneRequest;
 use App\Http\Resources\ZoneResource;
 use App\Models\Zone;
 use App\Services\HomeDataService;
-use App\Services\ZoneDataService;
 use App\Services\WeatherService;
+use App\Services\ZoneDataService;
 use App\Utils\StringFormater;
 use Inertia\Inertia;
 
