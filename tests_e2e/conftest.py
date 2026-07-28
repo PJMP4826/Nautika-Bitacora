@@ -11,6 +11,7 @@ def base_url():
 def driver():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
+    driver.maximize_window()
     driver.implicitly_wait(5)
     yield driver
     driver.quit()
