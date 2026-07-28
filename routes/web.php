@@ -13,7 +13,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotFound;
 use App\Http\Controllers\PlaningController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\Web\ZoneController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
