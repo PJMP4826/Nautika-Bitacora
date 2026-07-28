@@ -3,24 +3,24 @@ from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 
 
-class ZonePage(BasePage):
+class FishPage(BasePage):
 
-    _ZONES_LINKS = (By.CSS_SELECTOR, "div.grid a")
+    _FISH_LINKS = (By.CSS_SELECTOR, "div.grid a")
 
     def __init__(self, driver, base_url: str):
         super().__init__(driver)
         self.url = base_url
 
-    def click_random_zone(self, expected_url_part=None):
+    def click_random_fish(self, expected_url_part=None):
         # Encontramos todos los enlaces que coinciden con el selector
-        elements = self.driver.find_elements(*self._ZONES_LINKS)
+        elements = self.driver.find_elements(*self._FISH_LINKS)
 
         if not elements:
-            raise Exception("No se encontraron enlaces de zonas en la página.")
+            raise Exception("No se encontraron enlaces de fish en la página.")
 
         # Seleccionamos uno al azar
         random_element = random.choice(elements)
-        random_element.click()
+        self.click_js(random_element)
 
         if expected_url_part:
             self.wait_for_url_change(expected_url_part)

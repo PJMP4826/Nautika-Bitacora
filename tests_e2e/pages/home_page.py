@@ -25,6 +25,4 @@ class HomePage(BasePage):
         self.click(self._FISH_BUTTON)
         self.wait_for_url_change("/fish")
 
-    def explore_page(self):
-        # Baja 3000px suavemente
-        self.scroll_smooth(pixels=3000, delay=0.05)
+    

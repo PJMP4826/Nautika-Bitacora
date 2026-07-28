@@ -30,3 +30,7 @@ class BasePage:
 
     def wait_for_url_change(self, expected_url_part, timeout=10):
         self.wait.until(EC.url_contains(expected_url_part))
+
+    def click_js(self, element):
+        """Hace clic usando JavaScript para evitar ElementClickInterceptedException."""
+        self.driver.execute_script("arguments[0].click();", element)
