@@ -1,5 +1,7 @@
 import uuid
 
+import time
+
 from pages.home_page import HomePage
 from pages.contacto_page import ContactoPage
 
@@ -31,7 +33,9 @@ def test_user_journey_contact_form(driver, base_url):
     mensaje_exito = contacto_page.get_success_modal_text()
 
     assert "¡Mensaje enviado!" in mensaje_exito
-    print("Envio de formulario correcto")
+    print("\nEnvio de formulario correcto")
+
+    time.sleep(0.8)
 
 
 def test_form_validation_required_fields(driver, base_url):
@@ -55,4 +59,6 @@ def test_form_validation_required_fields(driver, base_url):
     error_text = contacto_page.get_validation_error_by_text()
 
     assert error_text == "validation.required"
-    print("Validacion de formulario correcta")
+    print("\nValidacion de formulario correcta")
+
+    time.sleep(0.8)
