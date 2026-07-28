@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\WaterTypesAdminController;
 use App\Http\Controllers\Admin\ZonesAdminController;
 use App\Http\Controllers\Admin\FishAdminController;
 use App\Http\Controllers\ContactoController;
-use App\Http\Controllers\FishController;
+use App\Http\Controllers\Web\FishController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotFound;
 use App\Http\Controllers\PlaningController;
