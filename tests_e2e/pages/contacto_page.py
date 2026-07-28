@@ -12,6 +12,9 @@ class ContactoPage(BasePage):
     _SUBMIT_BUTTON = (By.ID, "submit-button")
 
     _SUCCESS_MODAL_TITLE = (By.XPATH, "//h3[text()='¡Mensaje enviado!']")
+
+    _VALIDATION_ERROR_DIV = (By.XPATH, f"//div[text()='validation.required']")
+
     def __init__(self, driver, base_url: str):
         super().__init__(driver)
         self.url = f"{base_url}/contact"
@@ -35,3 +38,6 @@ class ContactoPage(BasePage):
 
     def get_success_modal_text(self) -> str:
         return self.get_text(self._SUCCESS_MODAL_TITLE)
+
+    def get_validation_error_by_text(self):
+        return self.get_text(self._VALIDATION_ERROR_DIV)
