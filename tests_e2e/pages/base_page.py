@@ -16,3 +16,12 @@ class BasePage:
 
     def get_text(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator)).text
+
+    def scroll_smooth(self, pixels=500, delay=0.1):
+        """Hace scroll hacia abajo de forma suave."""
+        import time
+        current_scroll = 0
+        while current_scroll < pixels:
+            self.driver.execute_script(f"window.scrollBy(0, 50);")
+            current_scroll += 50
+            time.sleep(delay)

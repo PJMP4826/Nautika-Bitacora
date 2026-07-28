@@ -14,3 +14,7 @@ class HomePage(BasePage):
 
     def go_to_contact(self):
         self.click(self._CONTACT_BUTTON)
+
+    def explore_page(self):
+        # Baja 3000px suavemente
+        self.scroll_smooth(pixels=3000, delay=0.05)
